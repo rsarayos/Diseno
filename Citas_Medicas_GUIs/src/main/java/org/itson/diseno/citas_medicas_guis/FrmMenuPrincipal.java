@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package org.itson.diseno.citas_medicas;
+package org.itson.diseno.citas_medicas_guis;
 
 /**
  *
  * @author alex_
  */
-public class Opciones extends javax.swing.JFrame {
+public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     /**
-     * Creates new form Opciones
+     * Creates new form MenuPrincipal
      */
-    public Opciones() {
+    public FrmMenuPrincipal() {
         initComponents();
     }
 
@@ -27,27 +27,16 @@ public class Opciones extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        AgendarCitaBtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        AgendarCitaBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Citas");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        AgendarCitaBtn.setBackground(new java.awt.Color(204, 204, 204));
-        AgendarCitaBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        AgendarCitaBtn.setText("Agendar Cita");
-        AgendarCitaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgendarCitaBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(AgendarCitaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 177, 58));
 
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -57,7 +46,19 @@ public class Opciones extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 177, 58));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 177, 58));
+
+        AgendarCitaBtn.setBackground(new java.awt.Color(204, 204, 204));
+        AgendarCitaBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        AgendarCitaBtn.setText("Agendar Cita");
+        AgendarCitaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgendarCitaBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(AgendarCitaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 177, 58));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 800, 350));
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -68,16 +69,15 @@ public class Opciones extends javax.swing.JFrame {
         jLabel2.setText("MENU");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 50));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 520));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void AgendarCitaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendarCitaBtnActionPerformed
-        Citas citas = new Citas(this,true);
+        this.setVisible(false);
+        FrmCitas citas = new FrmCitas(this, true, this);
         citas.setVisible(true);
     }//GEN-LAST:event_AgendarCitaBtnActionPerformed
 
