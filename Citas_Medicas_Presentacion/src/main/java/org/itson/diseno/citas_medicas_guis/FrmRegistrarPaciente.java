@@ -1,12 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package org.itson.diseno.citas_medicas_guis;
 
 import consultarPacientes.ConsultarPaciente;
-import consultarPacientes.IConsultarPaciente;
 import dtos.PacienteDTO;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import registrarPaciente.IRegistrarPaciente;
 import registrarPaciente.RegistrarPaciente;
@@ -17,19 +15,17 @@ import registrarPaciente.RegistrarPaciente;
  */
 public class FrmRegistrarPaciente extends javax.swing.JDialog {
 
+    private IRegistrarPaciente registro;
     private FrmCitas frmCitas;
-    private IConsultarPaciente conPacientes;
-    private IRegistrarPaciente regPacientes;
     
     /**
      * Creates new form RegistrarPaciente
      */
-    public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, FrmCitas frmCitas, ConsultarPaciente conPacientes) {
+    public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, FrmCitas frmCitas) {
         super(parent, modal);
         initComponents();
+        this.registro = new RegistrarPaciente();
         this.frmCitas = frmCitas;
-        this.conPacientes = conPacientes;
-        this.regPacientes = new RegistrarPaciente(conPacientes.getPacientes());
         
     }
 
@@ -59,6 +55,8 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         txtApellidoMaterno = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
+        dpFechaNacimiento = new com.github.lgooddatepicker.components.DatePicker();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -68,7 +66,7 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, 50));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 130, 50));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -89,7 +87,7 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 90, 30));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, 90, 30));
 
         btnConfirmar.setBackground(new java.awt.Color(204, 204, 204));
         btnConfirmar.setText("Confirmar");
@@ -98,29 +96,57 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
                 btnConfirmarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 90, 30));
+        jPanel1.add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 90, 30));
 
-        jLabel1.setText("Correo");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 100, 20));
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 370, -1));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Fecha de nacimiento");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 150, 20));
 
+        txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 340, -1));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Nombres");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 110, 20));
-        jPanel1.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 370, -1));
 
+        txtNombres.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 340, -1));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Apellido Paterno");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 100, 20));
-        jPanel1.add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 370, -1));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 120, 20));
 
+        txtApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 340, -1));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Apellido Materno");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 20));
-        jPanel1.add(txtApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 370, 20));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 110, 20));
 
+        txtApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 340, -1));
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Telefono");
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 20));
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 370, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 570, 420));
+        txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 340, -1));
+
+        dpFechaNacimiento.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jPanel1.add(dpFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, -1, -1));
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("Correo");
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 100, 20));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 570, 460));
 
         pack();
         setLocationRelativeTo(null);
@@ -128,37 +154,43 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
-        this.frmCitas.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        
-        String nombre = this.txtNombres.getText();
-        String aPaterno = this.txtApellidoPaterno.getText();
-        String aMaterno = this.txtApellidoMaterno.getText();
-        String telefono = this.txtTelefono.getText();
-        String correo = this.txtCorreo.getText();
-        
-        PacienteDTO paciente = new PacienteDTO(
-                nombre, 
-                aPaterno, 
-                aMaterno, 
-                telefono, 
-                correo);
-        
-        
-        this.regPacientes.registrarPaciente(paciente);
-        JOptionPane.showMessageDialog(this, "Paciente registrado.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
-        this.frmCitas.obtenerPacientesCbx();
-        this.frmCitas.setVisible(true);
-        
+        if (!txtNombres.getText().isEmpty() && !txtApellidoPaterno.getText().isEmpty() && !txtApellidoMaterno.getText().isEmpty()
+                && !txtTelefono.getText().isEmpty() && !txtCorreo.getText().isEmpty() && dpFechaNacimiento.getDate() != null) {
+
+            String nombre = this.txtNombres.getText();
+            String aPaterno = this.txtApellidoPaterno.getText();
+            String aMaterno = this.txtApellidoMaterno.getText();
+            LocalDate fechaIngresada = dpFechaNacimiento.getDate();
+            Calendar fechaNacimiento = new GregorianCalendar(fechaIngresada.getYear(), fechaIngresada.getMonthValue() - 1, fechaIngresada.getDayOfMonth()); 
+            String telefono = this.txtTelefono.getText();
+            String correo = this.txtCorreo.getText();
+
+            PacienteDTO paciente = new PacienteDTO(
+                    nombre,
+                    aPaterno,
+                    aMaterno, 
+                    fechaNacimiento,
+                    telefono,
+                    correo);
+
+            this.registro.registrarPaciente(paciente);
+            JOptionPane.showMessageDialog(this, "Paciente registrado.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            this.frmCitas.obtenerPacientesCbx();
+        } else {
+            JOptionPane.showMessageDialog(this, "Se tienen que llenar todos los campos",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
         
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
+    private com.github.lgooddatepicker.components.DatePicker dpFechaNacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -167,6 +199,7 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtApellidoMaterno;

@@ -84,5 +84,16 @@ public class PacienteDTO {
     public boolean esValido() throws ValidacionException{
         return true;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("").append(nombres);
+        sb.append(" ").append(apellidoPaterno);
+        sb.append(" ").append(apellidoMaterno);
+        return sb.toString();
+    }
+    
+    
     
 }

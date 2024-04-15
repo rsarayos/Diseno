@@ -6,11 +6,10 @@ package org.itson.diseno.citas_medicas_guis;
 
 import agendarCita.AgendarCita;
 import agendarCita.IAgendarCita;
-import consultarCitas.ConsultarCita;
-import consultarCitas.IConsultarCita;
 import consultarPacientes.ConsultarPaciente;
 import consultarPacientes.IConsultarPaciente;
 import dtos.CitaDTO;
+import dtos.MedicoDTO;
 import dtos.PacienteDTO;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
@@ -21,29 +20,28 @@ import javax.swing.JOptionPane;
  */
 public class FrmCitas extends javax.swing.JDialog {
     
-    private IConsultarPaciente pacientes;
+    private IConsultarPaciente regPaciente;
+    private IAgendarCita regCita;
     private FrmMenuPrincipal menu;
+    private MedicoDTO medico;
     private boolean fechaValida;
-    private IConsultarCita consultarCita;
-    private IAgendarCita agendarCita;
 
     /**
      * Creates new form Citas
      */
-    public FrmCitas(java.awt.Frame parent, boolean modal, FrmMenuPrincipal menu) {
+    public FrmCitas(java.awt.Frame parent, boolean modal, MedicoDTO medico) {
         super(parent, modal);
         initComponents();
-        this.menu = menu;
-        this.pacientes = new ConsultarPaciente();
-        this.consultarCita = new ConsultarCita();
-        this.agendarCita = new AgendarCita();
+        this.regPaciente = new ConsultarPaciente();
+        this.regCita = new AgendarCita();
         this.fechaValida = false;
+        this.medico = medico;
         this.obtenerPacientesCbx();
         
     }
     
     protected void obtenerPacientesCbx(){
-        for (PacienteDTO paciente: pacientes.consultarPacientes()) {
+        for (PacienteDTO paciente: regPaciente.consultarPacientes()) {
             this.cbxPacientes.addItem(paciente);
         }
     }
@@ -163,32 +161,46 @@ public class FrmCitas extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
-        this.menu.setVisible(true);
+        this.getParent().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if (fechaValida) {
             GregorianCalendar fecha = new GregorianCalendar(dtpFechaHora.getDateTimePermissive().getYear(), dtpFechaHora.getDateTimePermissive().getMonthValue() - 1, dtpFechaHora.getDateTimePermissive().getDayOfMonth(), dtpFechaHora.getDateTimePermissive().getHour(), dtpFechaHora.getDateTimePermissive().getMinute());
-            CitaDTO citaNueva = new CitaDTO(fecha, cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()), jTextArea1.getText());
+            CitaDTO citaNueva = new CitaDTO(
+                    fecha,
+                    this.medico,
+                    cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()),
+                    jTextArea1.getText(),
+                    Boolean.TRUE);
 
-            if (agendarCita.registrarCita(citaNueva)) {
-                JOptionPane.showMessageDialog(this, "cita registrada.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-                this.menu.setVisible(true);
+            CitaDTO citaReg = regCita.registrarCita(citaNueva);
+
+            if (citaReg != null) {
+                JOptionPane.showMessageDialog(this, "Cita registrada de forma exitosa",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                this.getParent().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar la cita",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Se tienen que validar la fecha de la cita",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnAddPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPacienteActionPerformed
-        this.setVisible(false);
-        FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, this, (ConsultarPaciente) pacientes);
+        FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, this);
         regPaciente.setVisible(true);
     }//GEN-LAST:event_btnAddPacienteActionPerformed
 
     private void btnVerificaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificaCitaActionPerformed
         if (dtpFechaHora.getDateTimePermissive() != null) {
             GregorianCalendar fecha = new GregorianCalendar(dtpFechaHora.getDateTimePermissive().getYear(), dtpFechaHora.getDateTimePermissive().getMonthValue() - 1, dtpFechaHora.getDateTimePermissive().getDayOfMonth(), dtpFechaHora.getDateTimePermissive().getHour(), dtpFechaHora.getDateTimePermissive().getMinute());
-            if (!consultarCita.consultarFechaCita(fecha)) {
+            CitaDTO cita = regCita.consultarDisponibilidadCita(new CitaDTO(fecha, this.medico));
+            if (cita == null) {
                 this.fechaValida = true;
                 dtpFechaHora.setEnabled(false);
                 JOptionPane.showMessageDialog(this, "Fecha disponible.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);

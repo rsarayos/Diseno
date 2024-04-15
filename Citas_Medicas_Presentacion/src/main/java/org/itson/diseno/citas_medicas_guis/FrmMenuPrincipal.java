@@ -1,20 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package org.itson.diseno.citas_medicas_guis;
+
+import dtos.MedicoDTO;
 
 /**
  *
  * @author alex_
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
+    
+    private MedicoDTO medicoActivo;
 
     /**
      * Creates new form MenuPrincipal
      */
-    public FrmMenuPrincipal() {
+    public FrmMenuPrincipal(MedicoDTO medico) {
         initComponents();
+        this.medicoActivo = medico;
     }
 
     /**
@@ -77,7 +78,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void AgendarCitaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendarCitaBtnActionPerformed
         this.setVisible(false);
-        FrmCitas citas = new FrmCitas(this, true, this);
+        FrmCitas citas = new FrmCitas(this, true, medicoActivo);
         citas.setVisible(true);
     }//GEN-LAST:event_AgendarCitaBtnActionPerformed
 

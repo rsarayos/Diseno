@@ -35,30 +35,34 @@ public class ConvertidorMedico {
     }
     
     public MedicoDTO convertidorEntidadaADTO(Medico m) {
-        
-        ConvertidorCita convCita = new ConvertidorCita();
-        
-        List<CitaDTO> citas = new LinkedList<>();
-        if (m.getCitas() != null) {
-            for (Cita c : m.getCitas()) {
-                citas.add(convCita.convertidorEntidadaADTO(c));
+        if (m != null) {
+
+            ConvertidorCita convCita = new ConvertidorCita();
+
+            List<CitaDTO> citas = new LinkedList<>();
+
+            if (m.getCitas() != null) {
+                for (Cita c : m.getCitas()) {
+                    citas.add(convCita.convertidorEntidadaADTO(c));
+                }
             }
+
+            return new MedicoDTO(
+                    m.getCedulaProfesional(),
+                    m.getNombre(),
+                    m.getApellidoPaterno(),
+                    m.getApellidoMaterno(),
+                    m.getFechaNacimiento(),
+                    m.getEspecialidad(),
+                    m.getRfc(),
+                    m.getTelefono(),
+                    m.getCorreo(),
+                    m.getContrasenia(),
+                    citas
+            );
+        } else {
+            return null;
         }
-        
-        return new MedicoDTO(
-                m.getCedulaProfesional(),
-                m.getNombre(),
-                m.getApellidoPaterno(),
-                m.getApellidoMaterno(),
-                m.getFechaNacimiento(),
-                m.getEspecialidad(),
-                m.getRfc(),
-                m.getTelefono(),
-                m.getCorreo(),
-                m.getContrasenia(),
-                citas
-        );
-        
     }
     
 }

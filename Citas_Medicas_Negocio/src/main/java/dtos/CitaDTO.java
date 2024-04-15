@@ -23,6 +23,11 @@ public class CitaDTO {
         this.estado = estado;
     }
 
+    public CitaDTO(Calendar fechaHora, MedicoDTO medico) {
+        this.fechaHora = fechaHora;
+        this.medico = medico;
+    }
+
     public Calendar getFechaHora() {
         return fechaHora;
     }
