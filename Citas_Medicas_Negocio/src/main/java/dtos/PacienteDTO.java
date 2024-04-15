@@ -20,8 +20,11 @@ public class PacienteDTO {
     private String correo;
     private List<CitaDTO> citas;
 
-    public PacienteDTO(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String correo) {
+    public PacienteDTO(Long id) {
         this.id = id;
+    }
+
+    public PacienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String correo) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;

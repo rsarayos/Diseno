@@ -12,11 +12,8 @@ import java.util.List;
  * @author alex_
  */
 public class ConvertidorPaciente {
-    
-    private ConvertidorCita convCita;
 
     public ConvertidorPaciente() {
-        this.convCita = new ConvertidorCita();
         
     }
 
@@ -33,21 +30,9 @@ public class ConvertidorPaciente {
         
     }
     
-    public PacienteDTO convertidorEntidadaADTOSinCitas(Paciente p) {
+    public PacienteDTO convertidorEntidadaADTO(Paciente p) {
         
-        return new PacienteDTO(
-                p.getId(),
-                p.getNombre(),
-                p.getApellidoPaterno(),
-                p.getApellidoMaterno(),
-                p.getFechaNacimiento(),
-                p.getTelefono(),
-                p.getCorreo()
-        );
-        
-    }
-    
-    public PacienteDTO convertidorEntidadaADTOConCitas(Paciente p) {
+        ConvertidorCita convCita = new ConvertidorCita();
         
         List<CitaDTO> citas = new LinkedList<>();
         if (p.getCitas() != null) {

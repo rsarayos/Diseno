@@ -26,7 +26,7 @@ public class AgendarCita implements IAgendarCita {
         CitaDTO cita = null;
 
         try {
-            cita = citaBO.agendarCita(cita);
+            cita = citaBO.agendarCita(nuevaCita);
         } catch (NegocioException ex) {
             logger.log(Level.SEVERE, "Error al registrar la cita");
         }
@@ -40,7 +40,7 @@ public class AgendarCita implements IAgendarCita {
         CitaDTO cita = null;
 
         try {
-            cita = citaBO.consultarDisponibilidad(cita);
+            cita = citaBO.consultarDisponibilidad(nuevaCita);
         } catch (NegocioException ex) {
             logger.log(Level.SEVERE, "Error al registrar la cita");
         }

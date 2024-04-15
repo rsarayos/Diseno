@@ -12,11 +12,8 @@ import java.util.List;
  * @author alex_
  */
 public class ConvertidorMedico {
-    
-    private ConvertidorCita convCita;
 
     public ConvertidorMedico() {
-        this.convCita = new ConvertidorCita();
         
     }
     
@@ -37,24 +34,9 @@ public class ConvertidorMedico {
         
     }
     
-    public MedicoDTO convertidorEntidadaADTOSinCitas(Medico m) {
+    public MedicoDTO convertidorEntidadaADTO(Medico m) {
         
-        return new MedicoDTO(
-                m.getCedulaProfesional(),
-                m.getNombre(),
-                m.getApellidoPaterno(),
-                m.getApellidoMaterno(),
-                m.getFechaNacimiento(),
-                m.getEspecialidad(),
-                m.getRfc(),
-                m.getTelefono(),
-                m.getCorreo(),
-                m.getContrasenia()
-        );
-        
-    }
-    
-    public MedicoDTO convertidorEntidadaADTOConCitas(Medico m) {
+        ConvertidorCita convCita = new ConvertidorCita();
         
         List<CitaDTO> citas = new LinkedList<>();
         if (m.getCitas() != null) {

@@ -22,6 +22,10 @@ public class MedicoDTO {
     private String contrasenia;
     private List<CitaDTO> citas;
 
+    public MedicoDTO(String cedulaProfesional) {
+        this.cedulaProfesional = cedulaProfesional;
+    }
+
     public MedicoDTO(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String especialidad, String rfc, String telefono, String correo, String contrasenia) {
         this.cedulaProfesional = cedulaProfesional;
         this.nombre = nombre;

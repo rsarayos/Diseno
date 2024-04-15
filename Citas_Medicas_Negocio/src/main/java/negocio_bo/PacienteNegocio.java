@@ -46,7 +46,7 @@ public class PacienteNegocio implements IPacienteNegocio {
         } catch (ValidacionException ex) {
             logger.log(Level.SEVERE, "Excepcion en validacion");
         }
-        return convPaciente.convertidorEntidadaADTOSinCitas(pacientePersistencia);
+        return convPaciente.convertidorEntidadaADTO(pacientePersistencia);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class PacienteNegocio implements IPacienteNegocio {
         }
         if (pacientesPersistencia != null) {
             for (Paciente paciente : pacientesPersistencia) {
-                pacientes.add(convPaciente.convertidorEntidadaADTOConCitas(paciente));
+                pacientes.add(convPaciente.convertidorEntidadaADTO(paciente));
             }
         }
         
