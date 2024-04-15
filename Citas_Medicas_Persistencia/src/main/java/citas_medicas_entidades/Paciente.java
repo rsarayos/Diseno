@@ -73,6 +73,17 @@ public class Paciente implements Serializable {
         this.edad = edad;
     }
 
+    public Paciente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, int edad, String telefono, String correo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.edad = edad;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
+
     public Long getId() {
         return id;
     }

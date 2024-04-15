@@ -1,10 +1,13 @@
 package consultarPacientes;
 
-import Entidades.Paciente;
-import Persistencia.PacientesDAO;
 import dtos.PacienteDTO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import negocio_bo.IPacienteNegocio;
+import negocio_bo.PacienteNegocio;
+import negocio_excepciones.NegocioException;
 
 /**
  *
@@ -12,10 +15,11 @@ import java.util.List;
  */
 public class ConsultarPaciente implements IConsultarPaciente{
     
-    private PacientesDAO pacientes;
+    private final IPacienteNegocio pacienteBO;
+    static final Logger logger = Logger.getLogger(ConsultarPaciente.class.getName());
 
     public ConsultarPaciente() {
-        this.pacientes = new PacientesDAO();
+        pacienteBO = new PacienteNegocio();
     }
 
     @Override
@@ -23,21 +27,13 @@ public class ConsultarPaciente implements IConsultarPaciente{
         
         List<PacienteDTO> listaPacientes = new ArrayList<>();
         
-        for (Paciente pa : this.pacientes.getPacientes()) {
-            listaPacientes.add(new PacienteDTO(
-                    pa.getNombres(), 
-                    pa.getApellidoPaterno(), 
-                    pa.getApellidoMaterno(), 
-                    pa.getTelefono(), 
-                    pa.getCorreo()));
+        try {
+            listaPacientes = pacienteBO.obtenerPacientes();
+        } catch (NegocioException ex) {
+            logger.log(Level.SEVERE, "Error en negocio al obtener los pacientes");
         }
         
         return listaPacientes;
-        
-    }
-
-    public PacientesDAO getPacientes() {
-        return pacientes;
     }
     
 }

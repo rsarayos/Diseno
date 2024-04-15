@@ -8,6 +8,6 @@ import dtos.PacienteDTO;
  */
 public interface IRegistrarPaciente {
     
-    public boolean registrarPaciente(PacienteDTO pacienteNuevo);
+    public PacienteDTO registrarPaciente(PacienteDTO pacienteNuevo);
     
 }

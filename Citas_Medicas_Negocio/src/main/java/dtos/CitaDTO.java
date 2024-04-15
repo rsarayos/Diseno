@@ -1,6 +1,7 @@
 package dtos;
 
 import java.util.Calendar;
+import negocio_excepciones.ValidacionException;
 
 /**
  *
@@ -8,18 +9,26 @@ import java.util.Calendar;
  */
 public class CitaDTO {
     
-    private Calendar fecha;
+    private Calendar fechaHora;
+    private MedicoDTO medico;
     private PacienteDTO paciente;
     private String observaciones;
+    private Boolean estado;
 
-    public CitaDTO(Calendar fecha, PacienteDTO paciente, String observaciones) {
-        this.fecha = fecha;
+    public CitaDTO(Calendar fechaHora, MedicoDTO medico, PacienteDTO paciente, String observaciones, Boolean estado) {
+        this.fechaHora = fechaHora;
+        this.medico = medico;
         this.paciente = paciente;
         this.observaciones = observaciones;
+        this.estado = estado;
     }
 
-    public Calendar getFecha() {
-        return fecha;
+    public Calendar getFechaHora() {
+        return fechaHora;
+    }
+
+    public MedicoDTO getMedico() {
+        return medico;
     }
 
     public PacienteDTO getPaciente() {
@@ -28,6 +37,14 @@ public class CitaDTO {
 
     public String getObservaciones() {
         return observaciones;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public boolean esValido() throws ValidacionException{
+        return true;
     }
     
 }

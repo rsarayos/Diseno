@@ -1,8 +1,11 @@
 package registrarPaciente;
 
-import Entidades.Paciente;
-import Persistencia.PacientesDAO;
 import dtos.PacienteDTO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import negocio_bo.IPacienteNegocio;
+import negocio_bo.PacienteNegocio;
+import negocio_excepciones.NegocioException;
 
 /**
  *
@@ -10,22 +13,23 @@ import dtos.PacienteDTO;
  */
 public class RegistrarPaciente implements IRegistrarPaciente{
     
-    private PacientesDAO pacientes;
+    private final IPacienteNegocio pacienteBO;
+    static final Logger logger = Logger.getLogger(RegistrarPaciente.class.getName());
 
-    public RegistrarPaciente(PacientesDAO pacientes) {
-        this.pacientes = pacientes;
+    public RegistrarPaciente() {
+        pacienteBO = new PacienteNegocio();
     }
 
     @Override
-    public boolean registrarPaciente(PacienteDTO pacienteNuevo) {
-        Paciente paciente = new Paciente(
-                pacienteNuevo.getNombres(), 
-                pacienteNuevo.getApellidoPaterno(), 
-                pacienteNuevo.getApellidoMaterno(), 
-                pacienteNuevo.getTelefono(), 
-                pacienteNuevo.getCorreo());
-        
-        return this.pacientes.agregarPaciente(paciente);
+    public PacienteDTO registrarPaciente(PacienteDTO pacienteNuevo) {
+        PacienteDTO paciente = null;
+        try {
+            paciente = pacienteBO.registrarPaciente(pacienteNuevo);
+        } catch (NegocioException ex) {
+            logger.log(Level.SEVERE, "Error en negocio al registrar al paciente");
+        }
+
+        return paciente;
     }
     
 }

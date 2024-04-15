@@ -1,35 +1,51 @@
 package agendarCita;
 
-import Entidades.Cita;
-import Entidades.Paciente;
-import Persistencia.CitasDAO;
 import dtos.CitaDTO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import negocio_bo.CitaNegocio;
+import negocio_bo.ICitaNegocio;
+import negocio_excepciones.NegocioException;
 
 /**
  *
  * @author alex_
  */
-public class AgendarCita implements IAgendarCita{
+public class AgendarCita implements IAgendarCita {
 
-    private CitasDAO citas;
+    private final ICitaNegocio citaBO;
+    static final Logger logger = Logger.getLogger(AgendarCita.class.getName());
 
     public AgendarCita() {
-        citas = new CitasDAO();
+        citaBO = new CitaNegocio();
     }
-    
+
     @Override
-    public boolean registrarCita(CitaDTO nuevaCita) {
-        
-        Paciente paciente = new Paciente(
-                nuevaCita.getPaciente().getNombres(), 
-                nuevaCita.getPaciente().getApellidoPaterno(), 
-                nuevaCita.getPaciente().getApellidoMaterno(), 
-                nuevaCita.getPaciente().getTelefono(), 
-                nuevaCita.getPaciente().getCorreo());
-        
-        Cita cita = new Cita(nuevaCita.getFecha(), paciente, nuevaCita.getObservaciones());
-        
-        return citas.agregarCita(cita);
+    public CitaDTO registrarCita(CitaDTO nuevaCita) {
+
+        CitaDTO cita = null;
+
+        try {
+            cita = citaBO.agendarCita(cita);
+        } catch (NegocioException ex) {
+            logger.log(Level.SEVERE, "Error al registrar la cita");
+        }
+
+        return cita;
     }
-    
+
+    @Override
+    public CitaDTO consultarDisponibilidadCita(CitaDTO nuevaCita) {
+        
+        CitaDTO cita = null;
+
+        try {
+            cita = citaBO.consultarDisponibilidad(cita);
+        } catch (NegocioException ex) {
+            logger.log(Level.SEVERE, "Error al registrar la cita");
+        }
+
+        return cita;
+    }
+
 }

@@ -12,4 +12,11 @@
         <exec.mainClass>org.itson.diseno.citas_medicas_nivel1.Citas_Medicas_Nivel1</exec.mainClass>
     </properties>
     <name>Citas_Medicas_Negocio</name>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Citas_Medicas_Persistencia</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

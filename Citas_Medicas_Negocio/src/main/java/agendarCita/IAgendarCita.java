@@ -8,6 +8,7 @@ import dtos.CitaDTO;
  */
 public interface IAgendarCita {
     
-    public boolean registrarCita(CitaDTO nuevaCita);
+    public CitaDTO registrarCita(CitaDTO nuevaCita);
+    public CitaDTO consultarDisponibilidadCita(CitaDTO nuevaCita);
     
 }

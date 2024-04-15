@@ -25,16 +25,16 @@ public class PruebasPersistenciaMedico {
         IMedicoDAO medicoDAO = new MedicoDAO(conexion);
         
         try {
-            medicoDAO.agregarMedicos();
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(PruebasPersistenciaMedico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//
-//            Medico medico = medicoDAO.obtenerMedicoCedula("12345678");
-//            System.out.println(medico.toString());
+//            medicoDAO.agregarMedicos();
 //        } catch (PersistenciaException ex) {
 //            Logger.getLogger(PruebasPersistenciaMedico.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+//
+            Medico medico = medicoDAO.obtenerMedicoCedula("12345678");
+            System.out.println(medico.toString());
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PruebasPersistenciaMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
