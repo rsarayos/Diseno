@@ -37,13 +37,17 @@ public class FrmCitas extends javax.swing.JDialog {
         this.fechaValida = false;
         this.medico = medico;
         this.obtenerPacientesCbx();
-        
+        this.btnModificarFecha.setEnabled(false);
     }
     
     protected void obtenerPacientesCbx(){
         for (PacienteDTO paciente: regPaciente.consultarPacientes()) {
             this.cbxPacientes.addItem(paciente);
         }
+    }
+    
+    protected void vaciarPacientesCbx(){
+        this.cbxPacientes.removeAllItems();
     }
 
     /**
@@ -71,6 +75,7 @@ public class FrmCitas extends javax.swing.JDialog {
         cbxPacientes = new javax.swing.JComboBox<>();
         btnAddPaciente = new javax.swing.JButton();
         dtpFechaHora = new com.github.lgooddatepicker.components.DateTimePicker();
+        btnModificarFecha = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,13 +87,13 @@ public class FrmCitas extends javax.swing.JDialog {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, 50));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("AGENDAR CITA");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 50));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 50));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("DATOS DE LA CITA");
@@ -98,9 +103,9 @@ public class FrmCitas extends javax.swing.JDialog {
         jLabel10.setText("SELECCIONAR AL PACIENTE");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 260, -1));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("Observaciones");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 170, -1));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 170, -1));
 
         btnVerificaCita.setText("Verificar");
         btnVerificaCita.setBackground(new java.awt.Color(204, 204, 204));
@@ -109,36 +114,41 @@ public class FrmCitas extends javax.swing.JDialog {
                 btnVerificaCitaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVerificaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, -1, -1));
+        jPanel1.add(btnVerificaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setText("Fecha y hora de la cita");
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 150, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 500, 70));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 500, 70));
 
-        btnCancelar.setBackground(new java.awt.Color(204, 204, 204));
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBackground(new java.awt.Color(204, 204, 204));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 90, 30));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, 90, 30));
 
-        btnConfirmar.setBackground(new java.awt.Color(204, 204, 204));
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.setBackground(new java.awt.Color(204, 204, 204));
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 90, 30));
+        jPanel1.add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, 90, 30));
 
+        cbxPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxPacientesActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbxPacientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 230, -1));
 
         btnAddPaciente.setText("Añadir paciente");
@@ -153,7 +163,16 @@ public class FrmCitas extends javax.swing.JDialog {
         dtpFechaHora.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jPanel1.add(dtpFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 250, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 580, 420));
+        btnModificarFecha.setBackground(new java.awt.Color(204, 204, 204));
+        btnModificarFecha.setText("Modificar");
+        btnModificarFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarFechaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificarFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 570, 430));
 
         pack();
         setLocationRelativeTo(null);
@@ -203,17 +222,31 @@ public class FrmCitas extends javax.swing.JDialog {
             if (cita == null) {
                 this.fechaValida = true;
                 dtpFechaHora.setEnabled(false);
+                this.btnVerificaCita.setEnabled(false);
+                this.btnModificarFecha.setEnabled(true);
                 JOptionPane.showMessageDialog(this, "Fecha disponible.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Fecha no disponible.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnVerificaCitaActionPerformed
+
+    private void btnModificarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFechaActionPerformed
+        this.fechaValida = false;
+        this.dtpFechaHora.setEnabled(true);
+        this.btnVerificaCita.setEnabled(true);
+        this.btnModificarFecha.setEnabled(false);
+    }//GEN-LAST:event_btnModificarFechaActionPerformed
+
+    private void cbxPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPacientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxPacientesActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddPaciente;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnModificarFecha;
     private javax.swing.JButton btnVerificaCita;
     private javax.swing.JComboBox<PacienteDTO> cbxPacientes;
     private com.github.lgooddatepicker.components.DateTimePicker dtpFechaHora;

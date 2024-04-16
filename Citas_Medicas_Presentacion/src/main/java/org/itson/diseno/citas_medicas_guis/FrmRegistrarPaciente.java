@@ -1,5 +1,6 @@
 package org.itson.diseno.citas_medicas_guis;
 
+import auxiliares.Validadores;
 import consultarPacientes.ConsultarPaciente;
 import dtos.PacienteDTO;
 import java.time.LocalDate;
@@ -27,6 +28,37 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         this.registro = new RegistrarPaciente();
         this.frmCitas = frmCitas;
         
+    }
+    
+    private boolean validarCampos() {
+        Validadores validador = new Validadores();
+        if (!validador.validaNombre(txtNombres.getText())){
+            JOptionPane.showMessageDialog(this, "Campo nombre invalido, favor de corregirlo",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }    
+        if (!validador.validaApellidos(txtApellidoPaterno.getText())) {
+            JOptionPane.showMessageDialog(this, "Campo apellido paterno invalido, favor de corregirlo",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            return false;    
+        }
+        if (!validador.validaApellidos(txtApellidoMaterno.getText())) {
+            JOptionPane.showMessageDialog(this, "Campo apellido materno invalido, favor de corregirlo",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            return false; 
+        }
+        if (!validador.validaTelefono(txtTelefono.getText())) {
+            JOptionPane.showMessageDialog(this, "Campo telefono invalido, favor de corregirlo",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            return false; 
+        }
+        if (!validador.validaEmail(txtCorreo.getText())) {
+            JOptionPane.showMessageDialog(this, "Campo correo invalido, favor de corregirlo",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            return false; 
+        }
+        
+        return true;
     }
 
     /**
@@ -160,31 +192,39 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         if (!txtNombres.getText().isEmpty() && !txtApellidoPaterno.getText().isEmpty() && !txtApellidoMaterno.getText().isEmpty()
                 && !txtTelefono.getText().isEmpty() && !txtCorreo.getText().isEmpty() && dpFechaNacimiento.getDate() != null) {
 
-            String nombre = this.txtNombres.getText();
-            String aPaterno = this.txtApellidoPaterno.getText();
-            String aMaterno = this.txtApellidoMaterno.getText();
-            LocalDate fechaIngresada = dpFechaNacimiento.getDate();
-            Calendar fechaNacimiento = new GregorianCalendar(fechaIngresada.getYear(), fechaIngresada.getMonthValue() - 1, fechaIngresada.getDayOfMonth()); 
-            String telefono = this.txtTelefono.getText();
-            String correo = this.txtCorreo.getText();
+            
+            if (this.validarCampos()) {
+                String nombre = this.txtNombres.getText();
+                String aPaterno = this.txtApellidoPaterno.getText();
+                String aMaterno = this.txtApellidoMaterno.getText();
+                LocalDate fechaIngresada = dpFechaNacimiento.getDate();
+                Calendar fechaNacimiento = new GregorianCalendar(fechaIngresada.getYear(), fechaIngresada.getMonthValue() - 1, fechaIngresada.getDayOfMonth());
+                String telefono = this.txtTelefono.getText();
+                String correo = this.txtCorreo.getText();
 
-            PacienteDTO paciente = new PacienteDTO(
-                    nombre,
-                    aPaterno,
-                    aMaterno, 
-                    fechaNacimiento,
-                    telefono,
-                    correo);
+                PacienteDTO paciente = new PacienteDTO(
+                        nombre,
+                        aPaterno,
+                        aMaterno,
+                        fechaNacimiento,
+                        telefono,
+                        correo);
 
-            this.registro.registrarPaciente(paciente);
-            JOptionPane.showMessageDialog(this, "Paciente registrado.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-            this.frmCitas.obtenerPacientesCbx();
+                PacienteDTO pacienteRegistrado = this.registro.registrarPaciente(paciente);
+                if (pacienteRegistrado != null) {
+                    JOptionPane.showMessageDialog(this, "Paciente registrado.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                    this.frmCitas.vaciarPacientesCbx();
+                    this.frmCitas.obtenerPacientesCbx();
+                } else {
+                    JOptionPane.showMessageDialog(this, "El paciente ya se encuentra registrado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } 
         } else {
             JOptionPane.showMessageDialog(this, "Se tienen que llenar todos los campos",
                     "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

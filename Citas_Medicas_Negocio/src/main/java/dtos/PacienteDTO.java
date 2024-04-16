@@ -1,5 +1,6 @@
 package dtos;
 
+import auxiliares.Validadores;
 import java.util.Calendar;
 import java.util.List;
 import negocio_excepciones.ValidacionException;
@@ -9,7 +10,7 @@ import negocio_excepciones.ValidacionException;
  * @author alex_
  */
 public class PacienteDTO {
- 
+    
     private Long id;
     private String nombres;
     private String apellidoPaterno;
@@ -81,7 +82,23 @@ public class PacienteDTO {
         return citas;
     }    
     
-    public boolean esValido() throws ValidacionException{
+    public boolean esValido() throws ValidacionException {
+        Validadores validador = new Validadores();
+        if (!validador.validaNombre(nombres)) {
+            return false;
+        }
+        if (!validador.validaApellidos(apellidoPaterno)) {
+            return false;
+        }
+        if (!validador.validaApellidos(apellidoMaterno)) {
+            return false;
+        }
+        if (!validador.validaTelefono(telefono)) {
+            return false;
+        }
+        if (!validador.validaEmail(correo)) {
+            return false;
+        }
         return true;
     }
 

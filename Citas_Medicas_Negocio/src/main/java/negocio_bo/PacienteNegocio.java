@@ -37,14 +37,30 @@ public class PacienteNegocio implements IPacienteNegocio {
         Paciente pacientePersistencia = null;
         try {
             if (paciente.esValido()) {
-                try {
-                    pacientePersistencia = pacienteDAO.agregarPaciente(convPaciente.convertidorDTOAEntidad(paciente));
-                } catch (PersistenciaException ex) {
-                    logger.log(Level.SEVERE, "Excepcion en persistencia");
+                Paciente pasNuevo = convPaciente.convertidorDTOAEntidad(paciente);
+                Paciente pasEncontrado = null;
+                List<Paciente> pacientesRegistrados = pacienteDAO.obtenerPacientes();
+
+                for (Paciente p : pacientesRegistrados) {
+                    if (p.getTelefono().equals(pasNuevo.getTelefono())) {
+                        pasEncontrado = p;
+                    }
                 }
+
+                if (pasEncontrado == null) {
+                    try {
+                        pacientePersistencia = pacienteDAO.agregarPaciente(convPaciente.convertidorDTOAEntidad(paciente));
+                    } catch (PersistenciaException ex) {
+                        logger.log(Level.SEVERE, "Excepcion en persistencia");
+                    }
+                }
+            } else {
+                return null;
             }
         } catch (ValidacionException ex) {
             logger.log(Level.SEVERE, "Excepcion en validacion");
+        } catch (PersistenciaException ex) {
+            logger.log(Level.SEVERE, "Excepcion en persistencia");
         }
         return convPaciente.convertidorEntidadaADTO(pacientePersistencia);
     }

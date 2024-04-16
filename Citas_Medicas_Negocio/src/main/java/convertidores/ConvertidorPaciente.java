@@ -31,28 +31,31 @@ public class ConvertidorPaciente {
     }
     
     public PacienteDTO convertidorEntidadaADTO(Paciente p) {
-        
-        ConvertidorCita convCita = new ConvertidorCita();
-        
-        List<CitaDTO> citas = new LinkedList<>();
-        if (p.getCitas() != null) {
-            for (Cita c : p.getCitas()) {
-                citas.add(convCita.convertidorEntidadaADTO(c));
+        if (p != null) {
+            ConvertidorCita convCita = new ConvertidorCita();
+
+            List<CitaDTO> citas = new LinkedList<>();
+            if (p.getCitas() != null) {
+                for (Cita c : p.getCitas()) {
+                    citas.add(convCita.convertidorEntidadaADTO(c));
+                }
             }
+
+            return new PacienteDTO(
+                    p.getId(),
+                    p.getNombre(),
+                    p.getApellidoPaterno(),
+                    p.getApellidoMaterno(),
+                    p.getFechaNacimiento(),
+                    p.getEdad(),
+                    p.getTelefono(),
+                    p.getCorreo(),
+                    citas
+            );
+        } else {
+            return null;
         }
-        
-        return new PacienteDTO(
-                p.getId(),
-                p.getNombre(),
-                p.getApellidoPaterno(),
-                p.getApellidoMaterno(),
-                p.getFechaNacimiento(),
-                p.getEdad(),
-                p.getTelefono(),
-                p.getCorreo(),
-                citas
-        );
-        
+
     }
 
 }
