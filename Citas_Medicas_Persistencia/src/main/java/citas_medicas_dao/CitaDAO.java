@@ -11,14 +11,32 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 /**
- *
- * @author alex_
+ * Clase que implementa la interfaz ICitaDAO para el acceso a datos de citas médicas.
+ * 
+ * Esta clase proporciona implementaciones para agregar una nueva cita médica
+ * y para consultar una cita con una fecha específica asociada a un médico.
+ * 
+ * Se utiliza un objeto de tipo IConexion para obtener una instancia de EntityManager
+ * y así interactuar con la base de datos.
+ * 
  */
 public class CitaDAO implements ICitaDAO {
 
+    /**
+     * Objeto para manejar la conexión a la base de datos.
+     */
     private final IConexion conexion;
+    
+    /**
+     * Logger para registrar información y errores.
+     */
     static final Logger logger = Logger.getLogger(CitaDAO.class.getName());
 
+    /**
+     * Constructor que inicializa la conexión a la base de datos.
+     * 
+     * @param conexion Objeto para manejar la conexión a la base de datos.
+     */
     public CitaDAO(IConexion conexion) {
         this.conexion = conexion;
     }

@@ -8,14 +8,32 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 /**
- *
- * @author alex_
+ * Clase que implementa la interfaz IMedicoDAO para el acceso a datos de médicos.
+ * 
+ * Esta clase proporciona implementaciones para agregar médicos a la base de datos
+ * y para obtener un médico por su número de cédula.
+ * 
+ * Se utiliza un objeto de tipo IConexion para obtener una instancia de EntityManager
+ * y así interactuar con la base de datos.
+ * 
  */
 public class MedicoDAO implements IMedicoDAO {
     
+    /**
+     * Objeto para manejar la conexión a la base de datos.
+     */
     private final IConexion conexion;
+    
+    /**
+     * Logger para registrar información y errores.
+     */
     static final Logger logger = Logger.getLogger(MedicoDAO.class.getName());
 
+    /**
+     * Constructor que inicializa la conexión a la base de datos.
+     * 
+     * @param conexion Objeto para manejar la conexión a la base de datos.
+     */
     public MedicoDAO(IConexion conexion) {
         this.conexion = conexion;
     }

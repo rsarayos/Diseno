@@ -5,8 +5,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- *
- * @author alex_
+ * Clase que implementa la interfaz IConexion para crear conexiones a la base de datos.
+ * 
+ * Esta clase proporciona una implementación del método crearConexion para obtener
+ * una instancia de EntityManager y así interactuar con la base de datos.
+ * 
+ * Se asume que existe una unidad de persistencia llamada "citasMedicasPU" configurada
+ * en el archivo persistence.xml.
+ * 
  */
 public class Conexion implements IConexion {
 

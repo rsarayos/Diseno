@@ -9,14 +9,32 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 /**
- *
- * @author alex_
+ * Clase que implementa la interfaz IPacienteDAO para el acceso a datos de pacientes.
+ * 
+ * Esta clase proporciona implementaciones para agregar pacientes a la base de datos,
+ * obtener la lista de pacientes y obtener un paciente por su ID.
+ * 
+ * Se utiliza un objeto de tipo IConexion para obtener una instancia de EntityManager
+ * y así interactuar con la base de datos.
+ * 
  */
 public class PacienteDAO implements IPacienteDAO{
     
+    /**
+     * Objeto para manejar la conexión a la base de datos.
+     */
     private final IConexion conexion;
+    
+    /**
+     * Logger para registrar información y errores.
+     */
     static final Logger logger = Logger.getLogger(PacienteDAO.class.getName());
 
+    /**
+     * Constructor que inicializa la conexión a la base de datos.
+     * 
+     * @param conexion Objeto para manejar la conexión a la base de datos.
+     */
     public PacienteDAO(IConexion conexion) {
         this.conexion = conexion;
     }
