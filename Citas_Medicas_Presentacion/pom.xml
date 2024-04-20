@@ -25,7 +25,22 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Citas_Medicas_Negocio</artifactId>
+            <artifactId>Citas_Medicas_AgendarCita</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Citas_Medicas_ConsultarPacientes</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Citas_Medicas_RegistrarPaciente</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Citas_Medicas_RegistroMedico</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

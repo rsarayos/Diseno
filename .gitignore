@@ -5,3 +5,10 @@
 /Citas_Medicas_Negocio/target/
 /Citas_Medicas_Persistencia/target/
 /Citas_Medicas_Presentacion/target/
+/Citas_Medicas_DTOs/target/
+/Citas_Medicas_Convertidores/target/
+/Citas_Medicas_BOs/target/
+/Citas_Medicas_AgendarCita/target/
+/Citas_Medicas_ConsultarPacientes/target/
+/Citas_Medicas_RegistrarPaciente/target/
+/Citas_Medicas_RegistroMedico/target/
