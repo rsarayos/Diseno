@@ -1,9 +1,6 @@
 package registroMedico;
 
 import dtos.MedicoDTO;
-import java.util.logging.Logger;
-import negocio_bo.IMedicoNegocio;
-import negocio_bo.MedicoNegocio;
 
 /**
  *
@@ -11,24 +8,23 @@ import negocio_bo.MedicoNegocio;
  */
 public class RegistroMedico implements IRegistroMedico {
     
-    private final IMedicoNegocio medicoBo; 
-    static final Logger logger = Logger.getLogger(RegistroMedico.class.getName());
+    private final RegistroMedicoCO control;
 
     public RegistroMedico() {
-        this.medicoBo = new MedicoNegocio();
+        this.control = new RegistroMedicoCO();
     }
 
     @Override
     public void registrarMedico() {
         
-        medicoBo.registrarMedico();
+        control.registrarMedico();
         
     }
 
     @Override
     public MedicoDTO obtenerMedico(String numCedula) {
         
-        return medicoBo.obtenerMedico(numCedula);
+        return control.obtenerMedico(numCedula);
         
     }
     

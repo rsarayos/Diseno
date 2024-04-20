@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package org.itson.diseno.citas_medicas_guis;
 
 import agendarCita.AgendarCita;
@@ -38,6 +34,7 @@ public class FrmCitas extends javax.swing.JDialog {
         this.medico = medico;
         this.obtenerPacientesCbx();
         this.btnModificarFecha.setEnabled(false);
+        
     }
     
     protected void obtenerPacientesCbx(){
