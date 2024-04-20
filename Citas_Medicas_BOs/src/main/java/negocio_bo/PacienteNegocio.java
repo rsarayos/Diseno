@@ -16,16 +16,30 @@ import negocio_excepciones.NegocioException;
 import negocio_excepciones.ValidacionException;
 
 /**
- *
- * @author alex_
+ * Clase que implementa la lógica de negocio relacionada con los pacientes.
+ * 
+ * Proporciona métodos para registrar nuevos pacientes y obtener la lista de pacientes registrados.
+ * 
  */
 public class PacienteNegocio implements IPacienteNegocio {
     
+    /** Objeto para gestionar la conexión a la base de datos. */
     private final IConexion conexion;
+    
+    /** Objeto para interactuar con la capa de acceso a datos de los pacientes. */
     private final IPacienteDAO pacienteDAO;
+    
+    /** Objeto para convertir entre DTO y entidad de paciente. */
     private ConvertidorPaciente convPaciente;
+    
+    /** Logger para registrar mensajes de registro. */
     static final Logger logger = Logger.getLogger(PacienteNegocio.class.getName());
 
+    /**
+     * Constructor de la clase PacienteNegocio.
+     * 
+     * Inicializa los objetos necesarios para la lógica de negocio de los pacientes.
+     */
     public PacienteNegocio() {
         this.conexion = new Conexion();
         this.pacienteDAO = new PacienteDAO(conexion);

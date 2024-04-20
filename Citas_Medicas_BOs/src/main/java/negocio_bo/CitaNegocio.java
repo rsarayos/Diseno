@@ -20,18 +20,37 @@ import negocio_excepciones.NegocioException;
 import negocio_excepciones.ValidacionException;
 
 /**
- *
- * @author alex_
+ * Clase que implementa la lógica de negocio relacionada con las citas médicas.
+ * 
+ * Esta clase implementa la interfaz ICitaNegocio y proporciona métodos para agendar citas médicas y consultar su disponibilidad.
+ * Utiliza instancias de ICitaDAO, IPacienteDAO y IMedicoDAO para interactuar con la capa de persistencia.
+ * 
  */
 public class CitaNegocio implements ICitaNegocio{
     
+    /** Instancia para manejar la conexión con la base de datos. */
     private final IConexion conexion;
+    
+    /** Instancia para interactuar con la capa de persistencia para las citas médicas. */
     private final ICitaDAO citaDAO;
+    
+    /** Instancia para interactuar con la capa de persistencia para los pacientes. */
     private final IPacienteDAO pacienteDAO;
+    
+    /** Instancia para interactuar con la capa de persistencia para los médicos. */
     private final IMedicoDAO medicoDAO;
+    
+    /** Instancia del convertidor de citas para convertir entre entidades y DTO. */
     private ConvertidorCita convCita;
+    
+    /** Logger para registrar mensajes de error y depuración. */
     static final Logger logger = Logger.getLogger(CitaNegocio.class.getName());
 
+    /**
+     * Constructor de la clase CitaNegocio.
+     * 
+     * Crea una instancia de CitaNegocio y inicializa las instancias de conexión y los DAO necesarios para interactuar con la capa de persistencia.
+     */
     public CitaNegocio() {
         this.conexion = new Conexion();
         this.citaDAO = new CitaDAO(conexion);

@@ -8,18 +8,35 @@ import negocio_bo.PacienteNegocio;
 import negocio_excepciones.NegocioException;
 
 /**
- *
- * @author alex_
+ * Clase que actúa como controlador para el registro de nuevos pacientes.
+ * 
+ * Esta clase se encarga de gestionar las operaciones relacionadas con el registro de pacientes,
+ * interactuando con la capa de negocio para realizar dichas operaciones.
+ * 
  */
 public class RegistrarPacienteCO {
     
+    /** Objeto de negocio que realiza las operaciones relacionadas con los pacientes. */
     private final IPacienteNegocio pacienteBO;
-    static final Logger logger = Logger.getLogger(RegistrarPaciente.class.getName());
+    
+    /** Objeto Logger para la gestión de logs. */
+    static final Logger logger = Logger.getLogger(RegistrarPacienteCO.class.getName());
 
+    /**
+     * Constructor de la clase RegistrarPacienteCO.
+     * 
+     * Inicializa un objeto de la capa de negocio IPacienteNegocio para utilizarlo en las operaciones de registro.
+     */
     public RegistrarPacienteCO() {
         this.pacienteBO = new PacienteNegocio();
     }
     
+    /**
+     * Registra un nuevo paciente en el sistema.
+     * 
+     * @param pacienteNuevo el objeto PacienteDTO que representa al nuevo paciente a registrar.
+     * @return un objeto PacienteDTO que representa al paciente recién registrado.
+     */
     protected PacienteDTO registrarPaciente(PacienteDTO pacienteNuevo) {
         PacienteDTO paciente = null;
         try {
