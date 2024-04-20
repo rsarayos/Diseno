@@ -11,16 +11,25 @@ import registrarPaciente.IRegistrarPaciente;
 import registrarPaciente.RegistrarPaciente;
 
 /**
- *
- * @author alex_
+ * Clase que representa el formulario para registrar nuevos pacientes.
  */
 public class FrmRegistrarPaciente extends javax.swing.JDialog {
 
+    /**
+     * Objeto para gestionar el registro de pacientes
+     */
     private IRegistrarPaciente registro;
+    
+    /**
+     * Formulario de citas médicas
+     */
     private FrmCitas frmCitas;
     
     /**
-     * Creates new form RegistrarPaciente
+     * Constructor de la clase FrmRegistrarPaciente.
+     * @param parent Componente padre del formulario.
+     * @param modal Indica si el diálogo es modal.
+     * @param frmCitas Formulario FrmCitas asociado.
      */
     public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, FrmCitas frmCitas) {
         super(parent, modal);
@@ -30,6 +39,10 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         
     }
     
+    /**
+     * Método para validar los campos del formulario.
+     * @return true si todos los campos son válidos, false de lo contrario.
+     */
     private boolean validarCampos() {
         Validadores validador = new Validadores();
         if (!validador.validaNombre(txtNombres.getText())){
@@ -184,10 +197,20 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método invocado al hacer clic en el botón "Cancelar".
+     * Cierra el formulario actual.
+     * @param evt Evento de acción generado al hacer clic en el botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Método invocado al hacer clic en el botón "Confirmar".
+     * Registra un nuevo paciente si todos los campos son válidos y están completos.
+     * @param evt Evento de acción generado al hacer clic en el botón.
+     */
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if (!txtNombres.getText().isEmpty() && !txtApellidoPaterno.getText().isEmpty() && !txtApellidoMaterno.getText().isEmpty()
                 && !txtTelefono.getText().isEmpty() && !txtCorreo.getText().isEmpty() && dpFechaNacimiento.getDate() != null) {

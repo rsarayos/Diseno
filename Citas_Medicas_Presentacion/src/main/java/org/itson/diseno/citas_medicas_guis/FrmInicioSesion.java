@@ -6,13 +6,13 @@ import registroMedico.IRegistroMedico;
 import registroMedico.RegistroMedico;
 
 /**
- *
- * @author alex_
+ * Clase que representa el formulario de inicio de sesión de la aplicación.
  */
 public class FrmInicioSesion extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmInicioSesio
+     * Constructor de la clase FrmInicioSesion.
+     * Inicializa los componentes del formulario.
      */
     public FrmInicioSesion() {
         initComponents();
@@ -95,6 +95,13 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Iniciar Sesión".
+     * Verifica las credenciales del médico e inicia sesión si son válidas.
+     * Abre el formulario del menú principal si las credenciales son correctas.
+     * Muestra un mensaje de error si las credenciales son incorrectas o si no se encuentra al médico.
+     * @param evt Evento de acción generado al hacer clic en el botón "Iniciar Sesión".
+     */
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         if (!txtCedula.getText().isEmpty() && !txtContrasenia.getText().isEmpty()) {
             String cedula = txtCedula.getText();
@@ -122,6 +129,11 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Registro".
+     * Intenta registrar un nuevo médico y muestra un mensaje de éxito o error.
+     * @param evt Evento de acción generado al hacer clic en el botón "Registro".
+     */
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
         IRegistroMedico reg = new RegistroMedico();
         MedicoDTO medico = reg.obtenerMedico("12345678");

@@ -3,15 +3,18 @@ package org.itson.diseno.citas_medicas_guis;
 import dtos.MedicoDTO;
 
 /**
- *
- * @author alex_
+ * Clase que representa el formulario del menú principal de la aplicación.
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
-    
+    /**
+     * Medico que inicio la sesion
+     */
     private MedicoDTO medicoActivo;
 
     /**
-     * Creates new form MenuPrincipal
+     * Constructor de la clase FrmMenuPrincipal.
+     * Inicializa los componentes del formulario y asigna el médico activo.
+     * @param medico Objeto MedicoDTO que representa al médico que ha iniciado sesión.
      */
     public FrmMenuPrincipal(MedicoDTO medico) {
         initComponents();
@@ -76,12 +79,20 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Agendar Cita".
+     * Abre el formulario para agendar citas y oculta este formulario del menú principal.
+     * @param evt Evento de acción generado al hacer clic en el botón "Agendar Cita".
+     */
     private void AgendarCitaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendarCitaBtnActionPerformed
         this.setVisible(false);
         FrmCitas citas = new FrmCitas(this, true, medicoActivo);
         citas.setVisible(true);
     }//GEN-LAST:event_AgendarCitaBtnActionPerformed
 
+    /**
+     * Aun no se implementa
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed

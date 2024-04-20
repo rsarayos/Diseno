@@ -11,19 +11,41 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author alex_
+ * Clase que representa el formulario para gestionar citas médicas.
  */
 public class FrmCitas extends javax.swing.JDialog {
     
+    /**
+     * Objeto para gestionar la consulta de pacientes
+     */
     private IConsultarPaciente regPaciente;
+    
+    /**
+     * Objeto para gestionar el registro de citas
+     */
     private IAgendarCita regCita;
+    
+    /**
+     * Formulario del menú principal
+     */
     private FrmMenuPrincipal menu;
+    
+    /**
+     * Médico activo que está utilizando el formulario
+     */
     private MedicoDTO medico;
+    
+    /**
+     * Indica si la fecha seleccionada para la cita es válida
+     */
     private boolean fechaValida;
 
     /**
-     * Creates new form Citas
+     * Constructor de la clase FrmCitas.
+     * Inicializa los componentes del formulario y configura los objetos para gestionar pacientes y citas.
+     * @param parent Componente padre del formulario.
+     * @param modal Indica si el diálogo es modal.
+     * @param medico Objeto MedicoDTO que representa al médico que ha iniciado sesión.
      */
     public FrmCitas(java.awt.Frame parent, boolean modal, MedicoDTO medico) {
         super(parent, modal);
@@ -37,12 +59,18 @@ public class FrmCitas extends javax.swing.JDialog {
         
     }
     
+    /**
+     * Método que obtiene la lista de pacientes y los agrega al ComboBox de pacientes.
+     */
     protected void obtenerPacientesCbx(){
         for (PacienteDTO paciente: regPaciente.consultarPacientes()) {
             this.cbxPacientes.addItem(paciente);
         }
     }
     
+    /**
+     * Método que vacía el ComboBox de pacientes.
+     */
     protected void vaciarPacientesCbx(){
         this.cbxPacientes.removeAllItems();
     }
@@ -175,11 +203,21 @@ public class FrmCitas extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método invocado al hacer clic en el botón "Cancelar".
+     * Cierra el formulario actual y muestra el formulario principal.
+     * @param evt Evento de acción generado al hacer clic en el botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
         this.getParent().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Método invocado al hacer clic en el botón "Confirmar".
+     * Registra una nueva cita médica si la fecha seleccionada es válida.
+     * @param evt Evento de acción generado al hacer clic en el botón.
+     */
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if (fechaValida) {
             GregorianCalendar fecha = new GregorianCalendar(dtpFechaHora.getDateTimePermissive().getYear(), dtpFechaHora.getDateTimePermissive().getMonthValue() - 1, dtpFechaHora.getDateTimePermissive().getDayOfMonth(), dtpFechaHora.getDateTimePermissive().getHour(), dtpFechaHora.getDateTimePermissive().getMinute());
@@ -207,11 +245,21 @@ public class FrmCitas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
+    /**
+     * Método invocado al hacer clic en el botón "Agregar Paciente".
+     * Abre el formulario de registro de paciente.
+     * @param evt Evento de acción generado al hacer clic en el botón.
+     */
     private void btnAddPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPacienteActionPerformed
         FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, this);
         regPaciente.setVisible(true);
     }//GEN-LAST:event_btnAddPacienteActionPerformed
 
+    /**
+     * Método invocado al hacer clic en el botón "Verificar Cita".
+     * Verifica si la fecha seleccionada está disponible para agendar una cita.
+     * @param evt Evento de acción generado al hacer clic en el botón.
+     */
     private void btnVerificaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificaCitaActionPerformed
         if (dtpFechaHora.getDateTimePermissive() != null) {
             GregorianCalendar fecha = new GregorianCalendar(dtpFechaHora.getDateTimePermissive().getYear(), dtpFechaHora.getDateTimePermissive().getMonthValue() - 1, dtpFechaHora.getDateTimePermissive().getDayOfMonth(), dtpFechaHora.getDateTimePermissive().getHour(), dtpFechaHora.getDateTimePermissive().getMinute());
@@ -228,6 +276,11 @@ public class FrmCitas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnVerificaCitaActionPerformed
 
+    /**
+     * Método invocado al hacer clic en el botón "Modificar Fecha".
+     * Permite modificar la fecha seleccionada para la cita.
+     * @param evt Evento de acción generado al hacer clic en el botón.
+     */
     private void btnModificarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFechaActionPerformed
         this.fechaValida = false;
         this.dtpFechaHora.setEnabled(true);
@@ -235,6 +288,10 @@ public class FrmCitas extends javax.swing.JDialog {
         this.btnModificarFecha.setEnabled(false);
     }//GEN-LAST:event_btnModificarFechaActionPerformed
 
+    /**
+     * Método invocado al seleccionar un elemento del ComboBox de pacientes.
+     * @param evt Evento de acción generado al seleccionar un elemento del ComboBox.
+     */
     private void cbxPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPacientesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxPacientesActionPerformed
