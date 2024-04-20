@@ -16,6 +16,12 @@ import javax.persistence.Persistence;
  */
 public class Conexion implements IConexion {
 
+    /**
+     * Constructor por defecto de la clase.
+     */
+    public Conexion() {
+    }
+    
     @Override
     public EntityManager crearConexion() {
         //Obtenemos acceso a la fábrica de entityManager
