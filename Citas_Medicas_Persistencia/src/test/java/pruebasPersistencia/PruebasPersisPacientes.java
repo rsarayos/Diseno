@@ -26,11 +26,11 @@ public class PruebasPersisPacientes {
         IPacienteDAO pacienteDAO = new PacienteDAO(conexion);
         
         
-                    try {
-            pacienteDAO.agregarPacientes();
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            //        try {
+//            pacienteDAO.agregarPacientes();
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
 //        try {
 //            List<Paciente> pacientes = pacienteDAO.obtenerPacientes();
@@ -42,12 +42,12 @@ public class PruebasPersisPacientes {
 //            Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-
-//            Paciente paciente = pacienteDAO.obtenerPaciente(1L);
-//            System.out.println(paciente);
-//        } catch (PersistenciaException ex) {
-//            Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            Paciente paciente = pacienteDAO.obtenerPaciente(1L);
+            System.out.println(paciente);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
