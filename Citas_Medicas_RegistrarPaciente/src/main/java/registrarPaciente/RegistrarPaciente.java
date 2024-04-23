@@ -1,6 +1,5 @@
 package registrarPaciente;
 
-import citas_medicas_dao.PacienteDAOListas;
 import dtos.PacienteDTO;
 
 /**
@@ -22,10 +21,6 @@ public class RegistrarPaciente implements IRegistrarPaciente{
      */
     public RegistrarPaciente() {
         control = new RegistrarPacienteCO();
-    }
-
-    public RegistrarPaciente(PacienteDAOListas pacienteDAO) {
-        this.control = new RegistrarPacienteCO(pacienteDAO);
     }
 
     @Override

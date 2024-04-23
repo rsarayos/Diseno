@@ -4,7 +4,6 @@ import citas_medicas_dao.Conexion;
 import citas_medicas_dao.IConexion;
 import citas_medicas_dao.IPacienteDAO;
 import citas_medicas_dao.PacienteDAO;
-import citas_medicas_dao.PacienteDAOListas;
 import citas_medicas_entidades.Paciente;
 import citas_medicas_persistancia_excepciones.PersistenciaException;
 import convertidores.ConvertidorPaciente;
@@ -44,17 +43,6 @@ public class PacienteNegocio implements IPacienteNegocio {
     public PacienteNegocio() {
         this.conexion = new Conexion();
         this.pacienteDAO = new PacienteDAO(conexion);
-        this.convPaciente = new ConvertidorPaciente();
-    }
-
-    /**
-     * Constructor de la clase PacienteNegocio.
-     * 
-     * @param pacienteDAO dao con la lista de pacientes
-     */
-    public PacienteNegocio(PacienteDAOListas pacienteDAO) {
-        this.conexion = new Conexion();
-        this.pacienteDAO = pacienteDAO;
         this.convPaciente = new ConvertidorPaciente();
     }
     

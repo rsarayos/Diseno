@@ -4,7 +4,6 @@ import citas_medicas_dao.Conexion;
 import citas_medicas_dao.IConexion;
 import citas_medicas_dao.IMedicoDAO;
 import citas_medicas_dao.MedicoDAO;
-import citas_medicas_dao.MedicoDAOListas;
 import citas_medicas_entidades.Medico;
 import citas_medicas_persistancia_excepciones.PersistenciaException;
 import convertidores.ConvertidorMedico;
@@ -40,17 +39,6 @@ public class MedicoNegocio implements IMedicoNegocio {
     public MedicoNegocio() {
         this.conexion = new Conexion();
         this.medicoDAO = new MedicoDAO(conexion);
-        this.convMedico = new ConvertidorMedico();
-    }
-
-    /**
-     * Constructor de la clase MedicoNegocio para utilizar con listas.
-     * 
-     * @param medicoDAO objeto dao con la lista de medicos
-     */
-    public MedicoNegocio(MedicoDAOListas medicoDAO) {
-        this.conexion = new Conexion();
-        this.medicoDAO = medicoDAO;
         this.convMedico = new ConvertidorMedico();
     }
 

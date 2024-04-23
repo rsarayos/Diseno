@@ -2,9 +2,6 @@ package org.itson.diseno.citas_medicas_guis;
 
 import agendarCita.AgendarCita;
 import agendarCita.IAgendarCita;
-import citas_medicas_dao.CitaDAOListas;
-import citas_medicas_dao.MedicoDAOListas;
-import citas_medicas_dao.PacienteDAOListas;
 import consultarPacientes.ConsultarPaciente;
 import consultarPacientes.IConsultarPaciente;
 import dtos.CitaDTO;
@@ -38,8 +35,6 @@ public class FrmCitas extends javax.swing.JDialog {
      */
     private MedicoDTO medico;
     
-    private PacienteDAOListas pacientes;
-    
     /**
      * Indica si la fecha seleccionada para la cita es válida
      */
@@ -52,14 +47,13 @@ public class FrmCitas extends javax.swing.JDialog {
      * @param modal Indica si el diálogo es modal.
      * @param medico Objeto MedicoDTO que representa al médico que ha iniciado sesión.
      */
-    public FrmCitas(java.awt.Frame parent, boolean modal, MedicoDTO medico, MedicoDAOListas medicos, PacienteDAOListas pacientes, CitaDAOListas citas) {
+    public FrmCitas(java.awt.Frame parent, boolean modal, MedicoDTO medico) {
         super(parent, modal);
         initComponents();
-        this.regPaciente = new ConsultarPaciente(pacientes);
-        this.regCita = new AgendarCita(citas, pacientes, medicos);
+        this.regPaciente = new ConsultarPaciente();
+        this.regCita = new AgendarCita();
         this.fechaValida = false;
         this.medico = medico;
-        this.pacientes = pacientes;
         this.obtenerPacientesCbx();
         this.btnModificarFecha.setEnabled(false);
         
@@ -257,7 +251,7 @@ public class FrmCitas extends javax.swing.JDialog {
      * @param evt Evento de acción generado al hacer clic en el botón.
      */
     private void btnAddPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPacienteActionPerformed
-        FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, this, pacientes);
+        FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, this);
         regPaciente.setVisible(true);
     }//GEN-LAST:event_btnAddPacienteActionPerformed
 

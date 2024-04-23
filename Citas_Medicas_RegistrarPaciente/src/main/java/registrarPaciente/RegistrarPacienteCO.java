@@ -1,6 +1,5 @@
 package registrarPaciente;
 
-import citas_medicas_dao.PacienteDAOListas;
 import dtos.PacienteDTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,10 +29,6 @@ public class RegistrarPacienteCO {
      */
     public RegistrarPacienteCO() {
         this.pacienteBO = new PacienteNegocio();
-    }
-
-    public RegistrarPacienteCO(PacienteDAOListas pacienteDAO) {
-        this.pacienteBO = new PacienteNegocio(pacienteDAO);
     }
     
     /**

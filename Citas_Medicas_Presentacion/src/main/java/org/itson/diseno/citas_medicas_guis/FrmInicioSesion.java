@@ -1,11 +1,5 @@
 package org.itson.diseno.citas_medicas_guis;
 
-import citas_medicas_dao.CitaDAOListas;
-import citas_medicas_dao.ICitaDAO;
-import citas_medicas_dao.IMedicoDAO;
-import citas_medicas_dao.IPacienteDAO;
-import citas_medicas_dao.MedicoDAOListas;
-import citas_medicas_dao.PacienteDAOListas;
 import dtos.MedicoDTO;
 import javax.swing.JOptionPane;
 import registroMedico.IRegistroMedico;
@@ -16,20 +10,12 @@ import registroMedico.RegistroMedico;
  */
 public class FrmInicioSesion extends javax.swing.JFrame {
 
-    private MedicoDAOListas medicos;
-    private PacienteDAOListas pacientes;
-    private CitaDAOListas citas;
-    
     /**
      * Constructor de la clase FrmInicioSesion.
      * Inicializa los componentes del formulario.
      */
     public FrmInicioSesion() {
         initComponents();
-        this.medicos = new MedicoDAOListas();
-        this.pacientes = new PacienteDAOListas();
-        this.citas = new CitaDAOListas();
-        
     }
 
     /**
@@ -121,12 +107,12 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             String cedula = txtCedula.getText();
             String contra = txtContrasenia.getText();
 
-            IRegistroMedico reg = new RegistroMedico(medicos);
+            IRegistroMedico reg = new RegistroMedico();
             MedicoDTO medico = reg.obtenerMedico(cedula);
 
             if (medico != null) {
                 if (medico.getContrasenia().equals(contra)) {
-                    FrmMenuPrincipal frmPrincipal = new FrmMenuPrincipal(medico, medicos, pacientes, citas);
+                    FrmMenuPrincipal frmPrincipal = new FrmMenuPrincipal(medico);
                     frmPrincipal.setVisible(true);
                     this.setVisible(false);
                 } else {
@@ -149,7 +135,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
      * @param evt Evento de acción generado al hacer clic en el botón "Registro".
      */
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        IRegistroMedico reg = new RegistroMedico(medicos);
+        IRegistroMedico reg = new RegistroMedico();
         MedicoDTO medico = reg.obtenerMedico("12345678");
         if (medico == null) {
             reg.registrarMedico();

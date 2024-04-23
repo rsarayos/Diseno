@@ -1,8 +1,5 @@
 package agendarCita;
 
-import citas_medicas_dao.CitaDAOListas;
-import citas_medicas_dao.MedicoDAOListas;
-import citas_medicas_dao.PacienteDAOListas;
 import dtos.CitaDTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,10 +29,6 @@ public class AgendarCitaCO {
      */
     public AgendarCitaCO() {
         citaBO = new CitaNegocio();
-    }
-
-    public AgendarCitaCO(CitaDAOListas citaDAO, PacienteDAOListas pacienteDAO, MedicoDAOListas medicoDAO) {
-        this.citaBO = new CitaNegocio(citaDAO, pacienteDAO, medicoDAO);
     }    
     
     /**
