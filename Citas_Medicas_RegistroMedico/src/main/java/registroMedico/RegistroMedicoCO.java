@@ -1,5 +1,6 @@
 package registroMedico;
 
+import citas_medicas_dao.MedicoDAOListas;
 import dtos.MedicoDTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,10 @@ public class RegistroMedicoCO {
      */
     public RegistroMedicoCO() {
         this.medicoBo = new MedicoNegocio();
+    }
+
+    public RegistroMedicoCO(MedicoDAOListas medicoDAO) {
+        this.medicoBo = new MedicoNegocio(medicoDAO);
     }
     
     /**

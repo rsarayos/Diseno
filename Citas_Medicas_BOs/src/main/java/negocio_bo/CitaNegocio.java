@@ -1,13 +1,16 @@
 package negocio_bo;
 
 import citas_medicas_dao.CitaDAO;
+import citas_medicas_dao.CitaDAOListas;
 import citas_medicas_dao.Conexion;
 import citas_medicas_dao.ICitaDAO;
 import citas_medicas_dao.IConexion;
 import citas_medicas_dao.IMedicoDAO;
 import citas_medicas_dao.IPacienteDAO;
 import citas_medicas_dao.MedicoDAO;
+import citas_medicas_dao.MedicoDAOListas;
 import citas_medicas_dao.PacienteDAO;
+import citas_medicas_dao.PacienteDAOListas;
 import citas_medicas_entidades.Cita;
 import citas_medicas_entidades.Medico;
 import citas_medicas_entidades.Paciente;
@@ -56,6 +59,22 @@ public class CitaNegocio implements ICitaNegocio{
         this.citaDAO = new CitaDAO(conexion);
         this.pacienteDAO = new PacienteDAO(conexion);
         this.medicoDAO = new MedicoDAO(conexion);
+        this.convCita = new ConvertidorCita();
+    }
+
+    /**
+     * Constructor de la clase CitaNegocio para utilizar con listas.
+     * 
+     * Crea una instancia de CitaNegocio y inicializa las instancias de conexión y los DAO necesarios para interactuar con la capa de persistencia.
+     * @param citaDAO objeto DAO para persistencia en memoria
+     * @param pacienteDAO objeto DAO para persistencia en memoria
+     * @param medicoDAO objeto DAO para persistencia en memoria
+     */
+    public CitaNegocio(CitaDAOListas citaDAO, PacienteDAOListas pacienteDAO, MedicoDAOListas medicoDAO) {
+        this.conexion = new Conexion();
+        this.citaDAO = citaDAO;
+        this.pacienteDAO = pacienteDAO;
+        this.medicoDAO = medicoDAO;
         this.convCita = new ConvertidorCita();
     }
 

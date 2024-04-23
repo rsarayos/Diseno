@@ -1,5 +1,8 @@
 package agendarCita;
 
+import citas_medicas_dao.CitaDAOListas;
+import citas_medicas_dao.MedicoDAOListas;
+import citas_medicas_dao.PacienteDAOListas;
 import dtos.CitaDTO;
 
 /**
@@ -21,6 +24,10 @@ public class AgendarCita implements IAgendarCita {
      */
     public AgendarCita() {
         control = new AgendarCitaCO();
+    }
+
+    public AgendarCita(CitaDAOListas citaDAO, PacienteDAOListas pacienteDAO, MedicoDAOListas medicoDAO) {
+        this.control = new AgendarCitaCO(citaDAO, pacienteDAO, medicoDAO);
     }
 
     @Override

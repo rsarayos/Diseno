@@ -1,5 +1,6 @@
 package consultarPacientes;
 
+import citas_medicas_dao.PacienteDAOListas;
 import dtos.PacienteDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,10 @@ public class ConsultarPacienteCO {
      */
     public ConsultarPacienteCO() {
         this.pacienteBO = new PacienteNegocio();
+    }
+
+    public ConsultarPacienteCO(PacienteDAOListas pacienteDAO) {
+        this.pacienteBO = new PacienteNegocio(pacienteDAO);
     }
     
     /**

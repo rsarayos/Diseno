@@ -1,5 +1,6 @@
 package consultarPacientes;
 
+import citas_medicas_dao.PacienteDAOListas;
 import dtos.PacienteDTO;
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class ConsultarPaciente implements IConsultarPaciente{
      */
     public ConsultarPaciente() {
         control = new ConsultarPacienteCO();
+    }
+
+    public ConsultarPaciente(PacienteDAOListas pacienteDAO) {
+        this.control = new ConsultarPacienteCO(pacienteDAO);
     }
 
     @Override

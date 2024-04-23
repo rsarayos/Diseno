@@ -1,5 +1,6 @@
 package registroMedico;
 
+import citas_medicas_dao.MedicoDAOListas;
 import dtos.MedicoDTO;
 
 /**
@@ -19,6 +20,10 @@ public class RegistroMedico implements IRegistroMedico {
      */
     public RegistroMedico() {
         this.control = new RegistroMedicoCO();
+    }
+
+    public RegistroMedico(MedicoDAOListas medicoDAO) {
+        this.control = new RegistroMedicoCO(medicoDAO);
     }
 
     @Override

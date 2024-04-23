@@ -1,6 +1,7 @@
 package org.itson.diseno.citas_medicas_guis;
 
 import auxiliares.Validadores;
+import citas_medicas_dao.PacienteDAOListas;
 import consultarPacientes.ConsultarPaciente;
 import dtos.PacienteDTO;
 import java.time.LocalDate;
@@ -30,11 +31,12 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
      * @param parent Componente padre del formulario.
      * @param modal Indica si el diálogo es modal.
      * @param frmCitas Formulario FrmCitas asociado.
+     * @param pacientes
      */
-    public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, FrmCitas frmCitas) {
+    public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, FrmCitas frmCitas, PacienteDAOListas pacientes) {
         super(parent, modal);
         initComponents();
-        this.registro = new RegistrarPaciente();
+        this.registro = new RegistrarPaciente(pacientes);
         this.frmCitas = frmCitas;
         
     }

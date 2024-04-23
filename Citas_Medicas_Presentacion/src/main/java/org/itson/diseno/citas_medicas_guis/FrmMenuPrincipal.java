@@ -1,5 +1,8 @@
 package org.itson.diseno.citas_medicas_guis;
 
+import citas_medicas_dao.CitaDAOListas;
+import citas_medicas_dao.MedicoDAOListas;
+import citas_medicas_dao.PacienteDAOListas;
 import dtos.MedicoDTO;
 
 /**
@@ -10,15 +13,21 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      * Medico que inicio la sesion
      */
     private MedicoDTO medicoActivo;
+    private MedicoDAOListas medicos;
+    private PacienteDAOListas pacientes;
+    private CitaDAOListas citas;
 
     /**
      * Constructor de la clase FrmMenuPrincipal.
      * Inicializa los componentes del formulario y asigna el médico activo.
      * @param medico Objeto MedicoDTO que representa al médico que ha iniciado sesión.
      */
-    public FrmMenuPrincipal(MedicoDTO medico) {
+    public FrmMenuPrincipal(MedicoDTO medico, MedicoDAOListas medicos, PacienteDAOListas pacientes, CitaDAOListas citas) {
         initComponents();
         this.medicoActivo = medico;
+        this.medicos = medicos;
+        this.pacientes = pacientes;
+        this.citas = citas;
     }
 
     /**
@@ -86,7 +95,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      */
     private void AgendarCitaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendarCitaBtnActionPerformed
         this.setVisible(false);
-        FrmCitas citas = new FrmCitas(this, true, medicoActivo);
+        FrmCitas citas = new FrmCitas(this, true, medicoActivo, medicos, pacientes, this.citas);
         citas.setVisible(true);
     }//GEN-LAST:event_AgendarCitaBtnActionPerformed
 
