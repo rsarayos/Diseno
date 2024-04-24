@@ -3,7 +3,7 @@ package dtos;
 import auxiliares.Validadores;
 import java.util.Calendar;
 import java.util.List;
-import negocio_excepciones.ValidacionException;
+import excepcionesNegocio.ValidacionException;
 
 /**
  * Clase que representa un objeto de transferencia de datos (DTO) para un paciente.

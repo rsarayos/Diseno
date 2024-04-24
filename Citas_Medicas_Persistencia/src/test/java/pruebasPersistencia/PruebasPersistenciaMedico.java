@@ -1,11 +1,11 @@
 package pruebasPersistencia;
 
-import citas_medicas_dao.Conexion;
-import citas_medicas_dao.IConexion;
-import citas_medicas_dao.IMedicoDAO;
-import citas_medicas_dao.MedicoDAO;
-import citas_medicas_entidades.Medico;
-import citas_medicas_persistancia_excepciones.PersistenciaException;
+import dao.Conexion;
+import dao.IConexion;
+import dao.IMedicoDAO;
+import dao.MedicoDAO;
+import entidades.Medico;
+import excepcionesPersistencia.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

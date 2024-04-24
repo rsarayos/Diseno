@@ -1,8 +1,8 @@
 package convertidores;
 
-import citas_medicas_entidades.Cita;
-import citas_medicas_entidades.Medico;
-import citas_medicas_entidades.Paciente;
+import entidades.Cita;
+import entidades.Medico;
+import entidades.Paciente;
 import dtos.CitaDTO;
 import dtos.MedicoDTO;
 import dtos.PacienteDTO;

@@ -1,7 +1,7 @@
 package convertidores;
 
-import citas_medicas_entidades.Cita;
-import citas_medicas_entidades.Medico;
+import entidades.Cita;
+import entidades.Medico;
 import dtos.CitaDTO;
 import dtos.MedicoDTO;
 import java.util.LinkedList;

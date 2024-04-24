@@ -76,6 +76,25 @@
                     </archive>
                 </configuration>
             </plugin>
+            <!-- Plugin para copiar dependencias a una carpeta específica -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.2.0</version> <!-- Versión actualizada del plugin -->
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Carpeta donde se copiarán las dependencias -->
+                            <outputDirectory>${project.build.directory}/dependencias</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <name>Citas_Medicas_Presentacion</name>
