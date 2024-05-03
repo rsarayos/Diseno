@@ -1,5 +1,8 @@
 package presentacion;
 
+import consultarPacientes.FConsultarPaciente;
+import consultarPacientes.IConsultarPaciente;
+import dtos.MedicoDTO;
 import dtos.PacienteDTO;
 
 /**
@@ -9,11 +12,23 @@ import dtos.PacienteDTO;
 public class FrmFacturacion extends javax.swing.JDialog {
 
     /**
+     * Objeto para gestionar la consulta de pacientes
+     */
+    private IConsultarPaciente regPaciente;
+    
+    /**
+     * Médico activo que está utilizando el formulario
+     */
+    private MedicoDTO medico;
+    
+    /**
      * Creates new form FrmFacturacion
      */
-    public FrmFacturacion(java.awt.Frame parent, boolean modal) {
+    public FrmFacturacion(java.awt.Frame parent, boolean modal, MedicoDTO medico) {
         super(parent, modal);
         initComponents();
+        this.regPaciente = new FConsultarPaciente();
+        this.medico = medico;
         txtFechaFactura.setEditable(false);
         txtRazonSocial.setEditable(false);
         txtRegimen.setEditable(false);
@@ -23,6 +38,19 @@ public class FrmFacturacion extends javax.swing.JDialog {
         txtImpuesto.setEditable(false);
         txtSubtotal.setEditable(false);
         txtTotal.setEditable(false);
+        obtenerPacientesCbx();
+        
+    }
+    
+    /**
+     * Método que obtiene la lista de pacientes y los agrega al ComboBox de
+     * pacientes.
+     */
+    protected void obtenerPacientesCbx() {
+        this.cbxPacientes.addItem(null);
+        for (PacienteDTO paciente : regPaciente.consultarPacientes()) {
+            this.cbxPacientes.addItem(paciente);
+        }
     }
 
     /**
@@ -238,7 +266,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFacturarActionPerformed
 
     private void cbxPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPacientesActionPerformed
-        // TODO add your handling code here:
+        if (cbxPacientes.getSelectedItem() != null) {
+            PacienteDTO paciente = cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex());
+            txtRazonSocial.setText(paciente.getNombres());
+        }
     }//GEN-LAST:event_cbxPacientesActionPerformed
 
     private void btnAgregarReceptorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarReceptorActionPerformed

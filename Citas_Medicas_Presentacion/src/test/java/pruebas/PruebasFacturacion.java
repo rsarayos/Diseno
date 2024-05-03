@@ -13,8 +13,8 @@ public class PruebasFacturacion {
      */
     public static void main(String[] args) {
         
-        FrmFacturacion facturacion = new FrmFacturacion(null, true);
-        facturacion.setVisible(true);
+//        FrmFacturacion facturacion = new FrmFacturacion(null, true);
+//        facturacion.setVisible(true);
         
     }
     

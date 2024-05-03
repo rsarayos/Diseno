@@ -31,7 +31,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnFacturacion = new javax.swing.JButton();
         AgendarCitaBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -42,15 +42,15 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("Consultar Cita");
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnFacturacion.setBackground(new java.awt.Color(204, 204, 204));
+        btnFacturacion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnFacturacion.setText("Facturacion");
+        btnFacturacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnFacturacionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 177, 58));
+        jPanel1.add(btnFacturacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 177, 58));
 
         AgendarCitaBtn.setText("Agendar Cita");
         AgendarCitaBtn.setBackground(new java.awt.Color(204, 204, 204));
@@ -93,13 +93,16 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     /**
      * Aun no se implementa
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        this.setVisible(false);
+        FrmFacturacion facturacion = new FrmFacturacion(this, true, medicoActivo);
+        facturacion.setVisible(true);
+    }//GEN-LAST:event_btnFacturacionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgendarCitaBtn;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnFacturacion;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
