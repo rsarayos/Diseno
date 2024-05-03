@@ -219,7 +219,7 @@ public class FrmCitas extends javax.swing.JDialog {
      * @param evt Evento de acción generado al hacer clic en el botón.
      */
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        if (fechaValida) {
+        if (fechaValida && cbxPacientes.getSelectedItem() != null) {
             GregorianCalendar fecha = new GregorianCalendar(dtpFechaHora.getDateTimePermissive().getYear(), dtpFechaHora.getDateTimePermissive().getMonthValue() - 1, dtpFechaHora.getDateTimePermissive().getDayOfMonth(), dtpFechaHora.getDateTimePermissive().getHour(), dtpFechaHora.getDateTimePermissive().getMinute());
             CitaDTO citaNueva = new CitaDTO(
                     fecha,
@@ -240,8 +240,14 @@ public class FrmCitas extends javax.swing.JDialog {
                         "Información", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Se tienen que validar la fecha de la cita",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            if (!fechaValida) {
+                JOptionPane.showMessageDialog(this, "Se tiene que validar la fecha de la cita",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (cbxPacientes.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Se tiene que seleccionar un paciente",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
