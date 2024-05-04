@@ -274,6 +274,8 @@ public class FrmFacturacion extends javax.swing.JDialog {
 
     private void btnAgregarReceptorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarReceptorActionPerformed
         // TODO add your handling code here:
+        FrmRegReceptor regReceptor = new FrmRegReceptor(null, true);
+        regReceptor.setVisible(true);
     }//GEN-LAST:event_btnAgregarReceptorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

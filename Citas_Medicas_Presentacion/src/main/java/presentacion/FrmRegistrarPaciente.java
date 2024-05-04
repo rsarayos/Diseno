@@ -125,8 +125,8 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         jLabel10.setText("DATOS DEL PACIENTE");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 260, -1));
 
-        btnCancelar.setBackground(new java.awt.Color(204, 204, 204));
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBackground(new java.awt.Color(204, 204, 204));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -134,8 +134,8 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, 90, 30));
 
-        btnConfirmar.setBackground(new java.awt.Color(204, 204, 204));
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.setBackground(new java.awt.Color(204, 204, 204));
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarActionPerformed(evt);
