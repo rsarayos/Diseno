@@ -7,6 +7,8 @@ import dtos.DetalleFacturaDTO;
 import dtos.FacturaDTO;
 import dtos.MedicoDTO;
 import dtos.PacienteDTO;
+import facturacion.FFacturacion;
+import facturacion.IFacturacion;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +34,8 @@ public class FrmFacturacion extends javax.swing.JDialog {
      */
     private MedicoDTO medico;
     
+    private IFacturacion facturacion;
+    
     /**
      * Creates new form FrmFacturacion
      */
@@ -40,6 +44,7 @@ public class FrmFacturacion extends javax.swing.JDialog {
         initComponents();
         this.regPaciente = new FConsultarPaciente();
         this.medico = medico;
+        this.facturacion = new FFacturacion();
         txtFechaFactura.setEditable(false);
         txtRazonSocial.setEditable(false);
         txtRegimen.setEditable(false);
@@ -465,6 +470,11 @@ public class FrmFacturacion extends javax.swing.JDialog {
                     subtotal, 
                     impuesto, 
                     total);
+            
+            facturacion.facturar(facturaNueva);
+            this.dispose();
+            dispose();
+            this.getParent().setVisible(true);
         }
     }//GEN-LAST:event_btnFacturarActionPerformed
 
@@ -550,7 +560,7 @@ public class FrmFacturacion extends javax.swing.JDialog {
 
     private void tblDetalleFacturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblDetalleFacturaFocusLost
         // TODO add your handling code here:
-        System.out.println("Tabla out");
+        
     }//GEN-LAST:event_tblDetalleFacturaFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
