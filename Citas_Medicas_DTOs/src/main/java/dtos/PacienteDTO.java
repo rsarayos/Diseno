@@ -42,6 +42,8 @@ public class PacienteDTO {
     
     /** La lista de citas del paciente. */
     private List<CitaDTO> citas;
+    
+    private DatosFiscalesDTO datosFiscales;
 
     /**
      * Constructor de la clase PacienteDTO.
@@ -175,6 +177,14 @@ public class PacienteDTO {
      */
     public List<CitaDTO> getCitas() {
         return citas;
+    }
+
+    public DatosFiscalesDTO getDatosFiscales() {
+        return datosFiscales;
+    }
+
+    public void setDatosFiscales(DatosFiscalesDTO datosFiscales) {
+        this.datosFiscales = datosFiscales;
     }    
     
     /**

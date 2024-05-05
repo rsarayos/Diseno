@@ -47,6 +47,8 @@ public class MedicoDTO {
     
     /** La lista de citas del médico. */
     private List<CitaDTO> citas;
+    
+    private DatosFiscalesDTO datosFiscales;
 
     /**
      * Constructor de la clase MedicoDTO.
@@ -210,6 +212,14 @@ public class MedicoDTO {
      */
     public List<CitaDTO> getCitas() {
         return citas;
+    }
+
+    public DatosFiscalesDTO getDatosFiscales() {
+        return datosFiscales;
+    }
+
+    public void setDatosFiscales(DatosFiscalesDTO datosFiscales) {
+        this.datosFiscales = datosFiscales;
     }
     
     /**

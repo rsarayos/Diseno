@@ -12,6 +12,16 @@ public class FrmDatosEmisor extends javax.swing.JDialog {
     public FrmDatosEmisor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.ComboRegimen();
+    }
+    
+    private void ComboRegimen(){
+        this.cbxRegimen.addItem("Régimen Simplificado de Confianza");
+        this.cbxRegimen.addItem("Régimen de Servicios Profesionales");
+        this.cbxRegimen.addItem("Régimen de Actividades Empresariales y Profesionales");
+        this.cbxRegimen.addItem("Régimen de Incorporación Fiscal");
+        this.cbxRegimen.addItem("General de Ley Personas Morales");
+        
     }
 
     /**
@@ -49,7 +59,7 @@ public class FrmDatosEmisor extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxRegimen = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -170,9 +180,7 @@ public class FrmDatosEmisor extends javax.swing.JDialog {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Estado:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 120, 30));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 410, -1));
+        jPanel1.add(cbxRegimen, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 410, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 450));
 
@@ -190,7 +198,7 @@ public class FrmDatosEmisor extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbxRegimen;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
