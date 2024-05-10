@@ -2,6 +2,7 @@ package dtos;
 
 import java.util.Calendar;
 import excepcionesNegocio.ValidacionException;
+import java.util.Date;
 
 /**
  * Clase que representa un objeto de transferencia de datos (DTO) para una cita médica.
@@ -18,17 +19,17 @@ public class CitaDTO {
     /**
      * Fecha y hora de la cita.
      */
-    private Calendar fechaHora;
+    private Date fechaHora;
     
     /**
      * Médico asociado a la cita.
      */
-    private MedicoDTO medico;
+    private String cedulaProfesional;
     
     /**
      * Paciente asociado a la cita.
      */
-    private PacienteDTO paciente;
+    private String idPaciente;
     
     /**
      * Observaciones de la cita.
@@ -40,32 +41,12 @@ public class CitaDTO {
      */
     private Boolean estado;
 
-    /**
-     * Constructor que inicializa todos los atributos del objeto CitaDTO.
-     * 
-     * @param fechaHora La fecha y hora de la cita.
-     * @param medico El médico asociado a la cita.
-     * @param paciente El paciente asociado a la cita.
-     * @param observaciones Las observaciones de la cita.
-     * @param estado El estado de la cita.
-     */
-    public CitaDTO(Calendar fechaHora, MedicoDTO medico, PacienteDTO paciente, String observaciones, Boolean estado) {
+    public CitaDTO(Date fechaHora, String cedulaProfesional, String idPaciente, String observaciones, Boolean estado) {
         this.fechaHora = fechaHora;
-        this.medico = medico;
-        this.paciente = paciente;
+        this.cedulaProfesional = cedulaProfesional;
+        this.idPaciente = idPaciente;
         this.observaciones = observaciones;
         this.estado = estado;
-    }
-
-    /**
-     * Constructor que inicializa la fecha y hora de la cita y el médico asociado.
-     * 
-     * @param fechaHora La fecha y hora de la cita.
-     * @param medico El médico asociado a la cita.
-     */
-    public CitaDTO(Calendar fechaHora, MedicoDTO medico) {
-        this.fechaHora = fechaHora;
-        this.medico = medico;
     }
 
     /**
@@ -73,7 +54,7 @@ public class CitaDTO {
      * 
      * @return La fecha y hora de la cita.
      */
-    public Calendar getFechaHora() {
+    public Date getFechaHora() {
         return fechaHora;
     }
 
@@ -82,8 +63,8 @@ public class CitaDTO {
      * 
      * @return El médico asociado a la cita.
      */
-    public MedicoDTO getMedico() {
-        return medico;
+    public String getCedulaMedico() {
+        return cedulaProfesional;
     }
 
     /**
@@ -91,8 +72,8 @@ public class CitaDTO {
      * 
      * @return El paciente asociado a la cita.
      */
-    public PacienteDTO getPaciente() {
-        return paciente;
+    public String getIdPaciente() {
+        return idPaciente;
     }
 
     /**

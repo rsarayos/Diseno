@@ -55,7 +55,7 @@ public class MedicoDAO implements IMedicoDAO{
         calendar.set(Calendar.MONTH, Calendar.JANUARY);
         calendar.set(Calendar.DAY_OF_MONTH, 20);
         
-        Medico medico1 = new Medico("12345678", "Juan", "Lopez", "Gomez", calendar.getTime(), "Pediatría", "ABCR123456", "5551234567", "juan@example.com", "Contra");
+        Medico medico1 = new Medico("12345678", "Juan", "Lopez", "Gomez", calendar.getTime(), "Pediatría", "5551234567", "juan@example.com", "Contra");
                
         try {
             coleccionMedico.insertOne(medico1);

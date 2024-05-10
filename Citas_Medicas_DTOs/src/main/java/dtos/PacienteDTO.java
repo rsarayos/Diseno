@@ -1,9 +1,9 @@
 package dtos;
 
 import auxiliares.Validadores;
-import java.util.Calendar;
 import java.util.List;
 import excepcionesNegocio.ValidacionException;
+import java.util.Date;
 
 /**
  * Clase que representa un objeto de transferencia de datos (DTO) para un paciente.
@@ -17,7 +17,7 @@ import excepcionesNegocio.ValidacionException;
 public class PacienteDTO {
     
     /** El ID del paciente. */
-    private Long id;
+    private String id;
     
     /** Los nombres del paciente. */
     private String nombres;
@@ -29,7 +29,7 @@ public class PacienteDTO {
     private String apellidoMaterno;
     
     /** La fecha de nacimiento del paciente. */
-    private Calendar fechaNacimiento;
+    private Date fechaNacimiento;
     
     /** La edad del paciente. */
     private int edad;
@@ -40,53 +40,19 @@ public class PacienteDTO {
     /** El correo electrónico del paciente. */
     private String correo;
     
-    /** La lista de citas del paciente. */
-    private List<CitaDTO> citas;
-    
-    private DatosFiscalesDTO datosFiscales;
+    private List<DatosFiscalesDTO> datosFiscales;
 
-    /**
-     * Constructor de la clase PacienteDTO.
-     * 
-     * @param id El ID del paciente.
-     */
-    public PacienteDTO(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * Constructor de la clase PacienteDTO.
-     * 
-     * @param nombres Los nombres del paciente.
-     * @param apellidoPaterno El apellido paterno del paciente.
-     * @param apellidoMaterno El apellido materno del paciente.
-     * @param fechaNacimiento La fecha de nacimiento del paciente.
-     * @param telefono El número de teléfono del paciente.
-     * @param correo El correo electrónico del paciente.
-     */
-    public PacienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String correo) {
+    public PacienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
+        this.edad = edad;
         this.telefono = telefono;
         this.correo = correo;
     }
 
-    /**
-     * Constructor de la clase PacienteDTO.
-     * 
-     * @param id El ID del paciente.
-     * @param nombres Los nombres del paciente.
-     * @param apellidoPaterno El apellido paterno del paciente.
-     * @param apellidoMaterno El apellido materno del paciente.
-     * @param fechaNacimiento La fecha de nacimiento del paciente.
-     * @param edad La edad del paciente.
-     * @param telefono El número de teléfono del paciente.
-     * @param correo El correo electrónico del paciente.
-     * @param citas La lista de citas del paciente.
-     */
-    public PacienteDTO(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, int edad, String telefono, String correo, List<CitaDTO> citas) {
+    public PacienteDTO(String id, String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo, List<DatosFiscalesDTO> datosFiscales) {
         this.id = id;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -95,7 +61,7 @@ public class PacienteDTO {
         this.edad = edad;
         this.telefono = telefono;
         this.correo = correo;
-        this.citas = citas;
+        this.datosFiscales = datosFiscales;
     }
 
     /**
@@ -103,7 +69,7 @@ public class PacienteDTO {
      * 
      * @return El ID del paciente.
      */
-    public Long getId() {
+    public String getID(){
         return id;
     }
 
@@ -139,7 +105,7 @@ public class PacienteDTO {
      * 
      * @return La fecha de nacimiento del paciente.
      */
-    public Calendar getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -170,22 +136,13 @@ public class PacienteDTO {
         return correo;
     }
 
-    /**
-     * Obtiene la lista de citas del paciente.
-     * 
-     * @return La lista de citas del paciente.
-     */
-    public List<CitaDTO> getCitas() {
-        return citas;
-    }
-
-    public DatosFiscalesDTO getDatosFiscales() {
+    public List<DatosFiscalesDTO> getDatosFiscales() {
         return datosFiscales;
     }
 
-    public void setDatosFiscales(DatosFiscalesDTO datosFiscales) {
+    public void setDatosFiscales(List<DatosFiscalesDTO> datosFiscales) {
         this.datosFiscales = datosFiscales;
-    }    
+    } 
     
     /**
      * Verifica si la información del paciente es válida.

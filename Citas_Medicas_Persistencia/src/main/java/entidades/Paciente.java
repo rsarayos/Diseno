@@ -1,6 +1,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -66,23 +67,30 @@ public class Paciente implements Serializable {
     public Paciente() {
     }
 
-    public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
+    public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
+        Calendar fechaActual = Calendar.getInstance();
+        Calendar fechaNacimientoCal = Calendar.getInstance();
+        fechaNacimientoCal.setTime(fechaNacimiento);
+        int edad = fechaActual.get(Calendar.YEAR) - fechaNacimientoCal.get(Calendar.YEAR);
+        if (fechaActual.get(Calendar.MONTH) < fechaNacimientoCal.get(Calendar.MONTH) ||
+            (fechaActual.get(Calendar.MONTH) == fechaNacimientoCal.get(Calendar.MONTH) &&
+             fechaActual.get(Calendar.DAY_OF_MONTH) < fechaNacimientoCal.get(Calendar.DAY_OF_MONTH))) {
+            edad--;
+        }
         this.edad = edad;
         this.telefono = telefono;
         this.correo = correo;
     }
 
-    public Paciente(ObjectId _id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo, List<DatosFiscales> datosFiscales) {
-        this._id = _id;
+    public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo, List<DatosFiscales> datosFiscales) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
-        this.edad = edad;
         this.telefono = telefono;
         this.correo = correo;
         this.datosFiscales = datosFiscales;

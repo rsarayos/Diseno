@@ -3,7 +3,9 @@ package convertidores;
 import entidades.Cita;
 import entidades.Medico;
 import dtos.CitaDTO;
+import dtos.DatosFiscalesDTO;
 import dtos.MedicoDTO;
+import entidades.DatosFiscales;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class ConvertidorMedico {
      * @param m El objeto de tipo MedicoDTO que se va a convertir.
      * @return Un objeto de tipo Medico resultante de la conversión.
      */
-    public Medico convertidorDTOAEntidad(MedicoDTO m) {
+    public Medico DTOAEntidad(MedicoDTO m) {
         
         return new Medico(
                 m.getCedulaProfesional(),
@@ -38,10 +40,43 @@ public class ConvertidorMedico {
                 m.getApellidoMaterno(),
                 m.getFechaNacimiento(),
                 m.getEspecialidad(),
-                m.getRfc(),
                 m.getTelefono(),
                 m.getCorreo(),
                 m.getContrasenia()
+        );
+        
+    }
+    
+    public Medico DTOAEntidadDatosFiscales(MedicoDTO m) {
+        
+        List<DatosFiscales> datosFiscales = new LinkedList<>();
+
+        DatosFiscales datos = new DatosFiscales(
+                m.getDatosFiscales().get(0).getRazonSocial(),
+                m.getDatosFiscales().get(0).getRegimenFiscal(),
+                m.getDatosFiscales().get(0).getRFC(),
+                m.getDatosFiscales().get(0).getCalle(),
+                m.getDatosFiscales().get(0).getColonia(),
+                m.getDatosFiscales().get(0).getNumExterior(),
+                m.getDatosFiscales().get(0).getNumInterior(),
+                m.getDatosFiscales().get(0).getCodigoPostal(),
+                m.getDatosFiscales().get(0).getCiudad(),
+                m.getDatosFiscales().get(0).getMunicipio(),
+                m.getDatosFiscales().get(0).getEstado());
+        
+        datosFiscales.add(datos);
+        
+        return new Medico(
+                m.getCedulaProfesional(),
+                m.getNombre(),
+                m.getApellidoPaterno(),
+                m.getApellidoMaterno(),
+                m.getFechaNacimiento(),
+                m.getEspecialidad(),
+                m.getTelefono(),
+                m.getCorreo(),
+                m.getContrasenia(),
+                datosFiscales
         );
         
     }
@@ -52,17 +87,27 @@ public class ConvertidorMedico {
      * @param m El objeto de tipo Medico que se va a convertir.
      * @return Un objeto de tipo MedicoDTO resultante de la conversión.
      */
-    public MedicoDTO convertidorEntidadaADTO(Medico m) {
+    public MedicoDTO EntidadaADTO(Medico m) {
         if (m != null) {
 
-            ConvertidorCita convCita = new ConvertidorCita();
+            List<DatosFiscalesDTO> datosFiscales = null;
+            if (m.getDatosFiscales() != null) {
 
-            List<CitaDTO> citas = new LinkedList<>();
+                DatosFiscalesDTO datos = new DatosFiscalesDTO(
+                        m.getDatosFiscales().get(0).getRazonSocial(),
+                        m.getDatosFiscales().get(0).getRegimenFiscal(),
+                        m.getDatosFiscales().get(0).getRFC(),
+                        m.getDatosFiscales().get(0).getCalle(),
+                        m.getDatosFiscales().get(0).getColonia(),
+                        m.getDatosFiscales().get(0).getNumExterior(),
+                        m.getDatosFiscales().get(0).getNumInterior(),
+                        m.getDatosFiscales().get(0).getCodigoPostal(),
+                        m.getDatosFiscales().get(0).getCiudad(),
+                        m.getDatosFiscales().get(0).getMunicipio(),
+                        m.getDatosFiscales().get(0).getEstado());
 
-            if (m.getCitas() != null) {
-                for (Cita c : m.getCitas()) {
-                    citas.add(convCita.convertidorEntidadaADTO(c));
-                }
+                datosFiscales = new LinkedList<>();
+                datosFiscales.add(datos);
             }
 
             return new MedicoDTO(
@@ -72,11 +117,10 @@ public class ConvertidorMedico {
                     m.getApellidoMaterno(),
                     m.getFechaNacimiento(),
                     m.getEspecialidad(),
-                    m.getRfc(),
                     m.getTelefono(),
                     m.getCorreo(),
                     m.getContrasenia(),
-                    citas
+                    datosFiscales
             );
         } else {
             return null;

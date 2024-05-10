@@ -31,18 +31,11 @@ public class PruebasPersisPacientes {
         IPacienteDAO pacienteDAO = new PacienteDAO(conexion);
         
         Date fechaActual = new Date();
-        
-        Paciente paciente1 = new Paciente("Ricardo", "Gomez", "Valenzuela", fechaActual, 20, "6455332211", "ricardo@correo.com");
-        DatosFiscales datos = new DatosFiscales("Juan Lopez Gomez", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba");
-        List<DatosFiscales> datosFiscales = new LinkedList<>();
-        datosFiscales.add(datos);
-        paciente1.setDatosFiscales(datosFiscales);
                 
         try {
             List<Paciente> pacientes = pacienteDAO.obtenerPacientes();
-            Paciente pacienteModi = pacientes.get(0);
-            pacienteModi.setDatosFiscales(datosFiscales);
-            pacienteDAO.agregarDatosFiscales(pacienteModi);
+            Paciente pacienteModi = pacientes.get(1);
+            System.out.println(pacienteModi);
         } catch (PersistenciaException ex) {
             Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }

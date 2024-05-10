@@ -44,11 +44,6 @@ public class Medico implements Serializable {
     private String especialidad;
     
     /**
-     * RFC del médico.
-     */
-    private String rfc;
-    
-    /**
      * Teléfono del médico.
      */
     private String telefono;
@@ -87,27 +82,25 @@ public class Medico implements Serializable {
      * @param correo Correo electrónico del médico.
      * @param contrasenia Contraseña del médico.
      */
-    public Medico(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String rfc, String telefono, String correo, String contrasenia) {
+    public Medico(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String telefono, String correo, String contrasenia) {
         this.cedulaProfesional = cedulaProfesional;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.especialidad = especialidad;
-        this.rfc = rfc;
         this.telefono = telefono;
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
 
-    public Medico(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String rfc, String telefono, String correo, String contrasenia, List<DatosFiscales> datosFiscales) {
+    public Medico(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String telefono, String correo, String contrasenia, List<DatosFiscales> datosFiscales) {
         this.cedulaProfesional = cedulaProfesional;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.especialidad = especialidad;
-        this.rfc = rfc;
         this.telefono = telefono;
         this.correo = correo;
         this.contrasenia = contrasenia;
@@ -218,24 +211,6 @@ public class Medico implements Serializable {
      */
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
-    }
-
-    /**
-     * Obtiene el RFC del médico.
-     * 
-     * @return El RFC del médico.
-     */
-    public String getRfc() {
-        return rfc;
-    }
-
-    /**
-     * Establece el RFC del médico.
-     * 
-     * @param rfc El nuevo RFC del médico.
-     */
-    public void setRfc(String rfc) {
-        this.rfc = rfc;
     }
 
     /**
@@ -355,7 +330,6 @@ public class Medico implements Serializable {
         sb.append(", apellidoMaterno=").append(apellidoMaterno);
         sb.append(", fechaNacimiento=").append(fechaNacimiento);
         sb.append(", especialidad=").append(especialidad);
-        sb.append(", rfc=").append(rfc);
         sb.append(", telefono=").append(telefono);
         sb.append(", correo=").append(correo);
         sb.append(", contrasenia=").append(contrasenia);

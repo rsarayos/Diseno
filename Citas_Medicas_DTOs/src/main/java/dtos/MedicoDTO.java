@@ -3,6 +3,7 @@ package dtos;
 import java.util.Calendar;
 import java.util.List;
 import excepcionesNegocio.ValidacionException;
+import java.util.Date;
 
 /**
  * Clase que representa un objeto de transferencia de datos (DTO) para un médico.
@@ -28,13 +29,10 @@ public class MedicoDTO {
     private String apellidoMaterno;
     
     /** La fecha de nacimiento del médico. */
-    private Calendar fechaNacimiento;
+    private Date fechaNacimiento;
     
     /** La especialidad del médico. */
     private String especialidad;
-    
-    /** El RFC del médico. */
-    private String rfc;
     
     /** El número de teléfono del médico. */
     private String telefono;
@@ -45,10 +43,9 @@ public class MedicoDTO {
     /** La contraseña del médico. */
     private String contrasenia;
     
-    /** La lista de citas del médico. */
-    private List<CitaDTO> citas;
+    private List<DatosFiscalesDTO> datosFiscales;
     
-    private DatosFiscalesDTO datosFiscales;
+    private List<FacturaDTO> facturas;
 
     /**
      * Constructor de la clase MedicoDTO.
@@ -68,51 +65,33 @@ public class MedicoDTO {
      * @param apellidoMaterno El apellido materno del médico.
      * @param fechaNacimiento La fecha de nacimiento del médico.
      * @param especialidad La especialidad del médico.
-     * @param rfc El RFC del médico.
      * @param telefono El número de teléfono del médico.
      * @param correo El correo electrónico del médico.
      * @param contrasenia La contraseña del médico.
      */
-    public MedicoDTO(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String especialidad, String rfc, String telefono, String correo, String contrasenia) {
+    public MedicoDTO(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String telefono, String correo, String contrasenia) {
         this.cedulaProfesional = cedulaProfesional;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.especialidad = especialidad;
-        this.rfc = rfc;
         this.telefono = telefono;
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
 
-    /**
-     * Constructor de la clase MedicoDTO.
-     * 
-     * @param cedulaProfesional La cédula profesional del médico.
-     * @param nombre El nombre del médico.
-     * @param apellidoPaterno El apellido paterno del médico.
-     * @param apellidoMaterno El apellido materno del médico.
-     * @param fechaNacimiento La fecha de nacimiento del médico.
-     * @param especialidad La especialidad del médico.
-     * @param rfc El RFC del médico.
-     * @param telefono El número de teléfono del médico.
-     * @param correo El correo electrónico del médico.
-     * @param contrasenia La contraseña del médico.
-     * @param citas La lista de citas del médico.
-     */
-    public MedicoDTO(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String especialidad, String rfc, String telefono, String correo, String contrasenia, List<CitaDTO> citas) {
+    public MedicoDTO(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String telefono, String correo, String contrasenia, List<DatosFiscalesDTO> datosFiscales) {
         this.cedulaProfesional = cedulaProfesional;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.especialidad = especialidad;
-        this.rfc = rfc;
         this.telefono = telefono;
         this.correo = correo;
         this.contrasenia = contrasenia;
-        this.citas = citas;
+        this.datosFiscales = datosFiscales;
     }
 
     /**
@@ -156,7 +135,7 @@ public class MedicoDTO {
      * 
      * @return La fecha de nacimiento del médico.
      */
-    public Calendar getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -167,15 +146,6 @@ public class MedicoDTO {
      */
     public String getEspecialidad() {
         return especialidad;
-    }
-
-    /**
-     * Obtiene el RFC del médico.
-     * 
-     * @return El RFC del médico.
-     */
-    public String getRfc() {
-        return rfc;
     }
 
     /**
@@ -205,21 +175,20 @@ public class MedicoDTO {
         return contrasenia;
     }
 
-    /**
-     * Obtiene la lista de citas del médico.
-     * 
-     * @return La lista de citas del médico.
-     */
-    public List<CitaDTO> getCitas() {
-        return citas;
-    }
-
-    public DatosFiscalesDTO getDatosFiscales() {
+    public List<DatosFiscalesDTO> getDatosFiscales() {
         return datosFiscales;
     }
 
-    public void setDatosFiscales(DatosFiscalesDTO datosFiscales) {
+    public void setDatosFiscales(List<DatosFiscalesDTO> datosFiscales) {
         this.datosFiscales = datosFiscales;
+    }
+
+    public List<FacturaDTO> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<FacturaDTO> facturas) {
+        this.facturas = facturas;
     }
     
     /**
