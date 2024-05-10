@@ -13,11 +13,13 @@ import entidades.Medico;
 import entidades.Paciente;
 import excepcionesPersistencia.PersistenciaException;
 import convertidores.ConvertidorCita;
+import dao.ConstantesPersistencia;
 import dtos.CitaDTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import excepcionesNegocio.NegocioException;
 import excepcionesNegocio.ValidacionException;
+import java.util.Calendar;
 
 /**
  * Clase que implementa la lógica de negocio relacionada con las citas médicas.
@@ -27,9 +29,6 @@ import excepcionesNegocio.ValidacionException;
  * 
  */
 public class CitaNegocio implements ICitaNegocio{
-    
-    /** Instancia para manejar la conexión con la base de datos. */
-    private final IConexion conexion;
     
     /** Instancia para interactuar con la capa de persistencia para las citas médicas. */
     private final ICitaDAO citaDAO;
@@ -52,10 +51,9 @@ public class CitaNegocio implements ICitaNegocio{
      * Crea una instancia de CitaNegocio y inicializa las instancias de conexión y los DAO necesarios para interactuar con la capa de persistencia.
      */
     public CitaNegocio() {
-        this.conexion = new Conexion();
-        this.citaDAO = new CitaDAO(conexion);
-        this.pacienteDAO = new PacienteDAO(conexion);
-        this.medicoDAO = new MedicoDAO(conexion);
+        this.citaDAO = new CitaDAO(new Conexion(ConstantesPersistencia.colecciones.CITAS, Cita.class));
+        this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, Paciente.class));
+        this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, Medico.class));
         this.convCita = new ConvertidorCita();
     }
 
@@ -65,12 +63,13 @@ public class CitaNegocio implements ICitaNegocio{
         try {
             try {
                 if (cita.esValido()) {
-                    Paciente paciente = pacienteDAO.obtenerPaciente(cita.getPaciente().getId());
-                    Medico medico = medicoDAO.obtenerMedicoCedula(cita.getMedico().getCedulaProfesional());
+                    Cita citaP = convCita.DTOAEntidad(cita);
+                    Paciente paciente = pacienteDAO.obtenerPaciente(citaP.getIdPaciente());
+                    Medico medico = medicoDAO.obtenerMedicoCedula(cita.getCedulaMedico());
                     Cita citaNueva = new Cita(
                             cita.getFechaHora(),
-                            medico,
-                            paciente,
+                            medico.getCedulaProfesional(),
+                            paciente.getId(),
                             cita.getObservaciones(),
                             cita.getEstado()
                     );
@@ -83,7 +82,7 @@ public class CitaNegocio implements ICitaNegocio{
             } catch (ValidacionException ex) {
                 logger.log(Level.SEVERE, "Excepcion en validacion");
             }
-            return convCita.convertidorEntidadaADTO(citaPersistencia);
+            return convCita.EntidadaADTO(citaPersistencia);
         } catch (PersistenciaException ex) {
             logger.log(Level.SEVERE, "No se pudo registrar la cita", ex);
             throw new NegocioException("Error al registrar la cita", ex);
@@ -96,9 +95,11 @@ public class CitaNegocio implements ICitaNegocio{
         try {
             try {
                 if (cita.esValido()) {
-                    Medico medico = medicoDAO.obtenerMedicoCedula(cita.getMedico().getCedulaProfesional());
+                    Medico medico = medicoDAO.obtenerMedicoCedula(cita.getCedulaMedico());
+                    Calendar fecha = Calendar.getInstance();
+                    fecha.setTime(cita.getFechaHora());
                     try {
-                        citaPersistencia = citaDAO.consultarConFecha(cita.getFechaHora(), medico);
+                        citaPersistencia = citaDAO.consultarConFecha(fecha, medico);
                     } catch (PersistenciaException ex) {
                         logger.log(Level.SEVERE, "Excepcion en persistencia");
                     }
@@ -107,7 +108,7 @@ public class CitaNegocio implements ICitaNegocio{
                 logger.log(Level.SEVERE, "Excepcion en validacion");
             }
             if (citaPersistencia != null) {
-                return convCita.convertidorEntidadaADTO(citaPersistencia);
+                return convCita.EntidadaADTO(citaPersistencia);
             } else {
                 return null;
             }

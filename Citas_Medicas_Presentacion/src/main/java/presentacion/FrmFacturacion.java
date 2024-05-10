@@ -80,7 +80,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
                     "Ciudad Obregón", 
                     "Cajeme", 
                     "Sonora");
-            paciente.setDatosFiscales(datosFiscales);
+            
+            List<DatosFiscalesDTO> datos = new LinkedList<>();
+            datos.add(datosFiscales);
+            paciente.setDatosFiscales(datos);
             
             this.cbxPacientes.addItem(paciente);
         }
@@ -445,7 +448,9 @@ public class FrmFacturacion extends javax.swing.JDialog {
                     "Ciudad Obregón", 
                     "Cajeme", 
                     "Sonora");
-            this.medico.setDatosFiscales(datosFiscales);
+            List<DatosFiscalesDTO> datos = new LinkedList<>();
+            datos.add(datosFiscales);
+            this.medico.setDatosFiscales(datos);
             
             Integer folioInterno = Integer.valueOf(txtFolioInterno.getText());
             Calendar fechaTimbrado = new GregorianCalendar();
@@ -481,27 +486,27 @@ public class FrmFacturacion extends javax.swing.JDialog {
     private void cbxPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPacientesActionPerformed
         if (cbxPacientes.getSelectedItem() != null) {
             PacienteDTO paciente = cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex());
-            txtRazonSocial.setText(paciente.getDatosFiscales().getRazonSocial());
-            txtRFC.setText(paciente.getDatosFiscales().getRFC());
+            txtRazonSocial.setText(paciente.getDatosFiscales().get(0).getRazonSocial());
+            txtRFC.setText(paciente.getDatosFiscales().get(0).getRFC());
             // se junta la direccion
             StringBuilder direccion = new StringBuilder();
-            direccion.append(paciente.getDatosFiscales().getCalle());
+            direccion.append(paciente.getDatosFiscales().get(0).getCalle());
             direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().getNumExterior());
+            direccion.append(paciente.getDatosFiscales().get(0).getNumExterior());
             direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().getColonia());
+            direccion.append(paciente.getDatosFiscales().get(0).getColonia());
             direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().getCodigoPostal());
+            direccion.append(paciente.getDatosFiscales().get(0).getCodigoPostal());
             direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().getCiudad());
+            direccion.append(paciente.getDatosFiscales().get(0).getCiudad());
             direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().getMunicipio());
+            direccion.append(paciente.getDatosFiscales().get(0).getMunicipio());
             direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().getEstado());
+            direccion.append(paciente.getDatosFiscales().get(0).getEstado());
             direccion.append(" ");
             String direccionCompleta = direccion.toString();
             txtDomicilio.setText(direccionCompleta);
-            txtRegimen.setText(paciente.getDatosFiscales().getRegimenFiscal());
+            txtRegimen.setText(paciente.getDatosFiscales().get(0).getRegimenFiscal());
             
         }
     }//GEN-LAST:event_cbxPacientesActionPerformed

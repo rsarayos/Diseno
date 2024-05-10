@@ -42,6 +42,15 @@ public class PacienteDTO {
     
     private List<DatosFiscalesDTO> datosFiscales;
 
+    public PacienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo) {
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
+
     public PacienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;

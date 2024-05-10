@@ -41,6 +41,11 @@ public class CitaDTO {
      */
     private Boolean estado;
 
+    public CitaDTO(Date fechaHora, String cedulaProfesional) {
+        this.fechaHora = fechaHora;
+        this.cedulaProfesional = cedulaProfesional;
+    }
+    
     public CitaDTO(Date fechaHora, String cedulaProfesional, String idPaciente, String observaciones, Boolean estado) {
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;

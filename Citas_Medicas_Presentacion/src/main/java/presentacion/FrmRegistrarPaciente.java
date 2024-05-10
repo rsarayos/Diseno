@@ -14,7 +14,7 @@ import registrarPaciente.FRegistrarPaciente;
  * Clase que representa el formulario para registrar nuevos pacientes.
  */
 public class FrmRegistrarPaciente extends javax.swing.JDialog {
-
+    
     /**
      * Objeto para gestionar el registro de pacientes
      */
@@ -229,7 +229,7 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
                         nombre,
                         aPaterno,
                         aMaterno,
-                        fechaNacimiento,
+                        fechaNacimiento.getTime(),
                         telefono,
                         correo);
 
