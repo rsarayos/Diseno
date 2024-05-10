@@ -3,6 +3,7 @@ package dao;
 import entidades.Paciente;
 import excepcionesPersistencia.PersistenciaException;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  * Interfaz para el acceso a datos de pacientes.
@@ -12,13 +13,6 @@ import java.util.List;
  * 
  */
 public interface IPacienteDAO {
-    
-    /**
-     * Agrega pacientes a la base de datos.
-     * 
-     * @throws PersistenciaException Si ocurre un error durante la operación de persistencia.
-     */
-    public void agregarPacientes() throws PersistenciaException;
     
     /**
      * Agrega un nuevo paciente a la base de datos.
@@ -44,6 +38,8 @@ public interface IPacienteDAO {
      * @return El paciente encontrado, o null si no se encontró ningún paciente con el ID especificado.
      * @throws PersistenciaException Si ocurre un error durante la operación de persistencia.
      */
-    public Paciente obtenerPaciente(Long id) throws PersistenciaException;
+    public Paciente obtenerPaciente(ObjectId id) throws PersistenciaException;
+    
+    public Paciente agregarDatosFiscales(Paciente paciente) throws PersistenciaException;
     
 }

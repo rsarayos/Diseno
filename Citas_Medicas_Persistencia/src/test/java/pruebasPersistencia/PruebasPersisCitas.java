@@ -27,34 +27,7 @@ public class PruebasPersisCitas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        IConexion conexion = new Conexion();
-        
-        ICitaDAO citaDAO = new CitaDAO(conexion);
-        IMedicoDAO medicoDAO = new MedicoDAO(conexion);
-        IPacienteDAO pacienteDAO = new PacienteDAO(conexion);
-        
-//        try {
-//            
-//            List<Paciente> pacientes = pacienteDAO.obtenerPacientes();
-//            Cita citaNueva = new Cita(new GregorianCalendar(2024, 3, 15, 10, 0), 
-//                medico, 
-//                pacientes.get(0), 
-//                "Consulta general", 
-//                true); 
-//            citaDAO.agregarCita(citaNueva);
-//        } catch (PersistenciaException ex) {
-//            Logger.getLogger(PruebasPersisCitas.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-        
-        try {
-            Medico medico = medicoDAO.obtenerMedicoCedula("12345678");
-            Cita cita = citaDAO.consultarConFecha(new GregorianCalendar(2024, 3, 15, 9, 0), medico);
-            System.out.println(cita);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(PruebasPersisCitas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }
     
 }

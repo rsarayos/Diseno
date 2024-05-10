@@ -1,8 +1,15 @@
 package dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
  * Clase que implementa la interfaz IConexion para crear conexiones a la base de datos.
@@ -16,19 +23,22 @@ import javax.persistence.Persistence;
  */
 public class Conexion implements IConexion {
 
+    private String cadenaConexion  = "mongodb://127.0.0.1:27017";
+    
     /**
      * Constructor por defecto de la clase.
      */
     public Conexion() {
     }
-    
+
     @Override
-    public EntityManager crearConexion() {
-        //Obtenemos acceso a la fábrica de entityManager
-        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("citasMedicasPU");
-        //Solicitamos una entityManager.
-        EntityManager entityManager = emFactory.createEntityManager();
-        return entityManager;
+    public MongoClient obtenerConexion() {
+        CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .codecRegistry(pojoCodecRegistry).applyConnectionString(new ConnectionString(cadenaConexion))
+                .build();
+        return MongoClients.create(settings);
     }
     
 }

@@ -1,6 +1,7 @@
 package dao;
 
-import javax.persistence.EntityManager;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
 
 /**
  * Interfaz para la creación de conexiones a la base de datos.
@@ -16,6 +17,6 @@ public interface IConexion {
      * 
      * @return La nueva conexión a la base de datos en forma de EntityManager.
      */
-    public EntityManager crearConexion();
+     public MongoClient obtenerConexion();
     
 }

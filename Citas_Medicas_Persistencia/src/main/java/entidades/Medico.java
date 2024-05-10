@@ -1,100 +1,72 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.bson.types.ObjectId;
 
 /**
- * Clase que representa a un médico.
- * 
- * Un médico tiene una cédula profesional, nombres, apellidos, fecha de nacimiento,
- * especialidad, RFC, teléfono, correo electrónico y una contraseña.
- * 
- * La clase incluye métodos para acceder y modificar los atributos del médico,
- * así como métodos de utilidad como equals y hashCode para comparar médicos
- * basados en su cédula profesional.
- * 
+ *
+ * @author alex_
  */
-@Entity
-@Table(name = "medicos")
 public class Medico implements Serializable {
-
+    
+    private ObjectId _id;
+    
     /**
      * Cédula profesional del médico.
      */
-    @Id
-    @Column(name = "cedula_profesional", length = 8)
     private String cedulaProfesional;
     
     /**
      * Nombres del médico.
      */
-    @Column(name = "nombres", nullable = false, length = 100)
     private String nombre;
     
     /**
      * Apellido paterno del médico.
      */
-    @Column(name = "apellido_paterno", nullable = false, length = 50)
     private String apellidoPaterno;
     
     /**
      * Apellido materno del médico.
      */
-    @Column(name = "apellido_materno", length = 50)
     private String apellidoMaterno;
     
     /**
      * Fecha de nacimiento del médico.
      */
-    @Column(name = "fecha_nacimiento", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar fechaNacimiento;
+    private Date fechaNacimiento;
     
     /**
      * Especialidad del médico.
      */
-    @Column(name = "especialidad", length = 50)
     private String especialidad;
     
     /**
      * RFC del médico.
      */
-    @Column(name = "rfc", length = 13)
     private String rfc;
     
     /**
      * Teléfono del médico.
      */
-    @Column(name = "telefono", length = 10)
     private String telefono;
     
     /**
      * Correo electrónico del médico.
      */
-    @Column(name = "correo", length = 100)
     private String correo;
     
     /**
      * Contraseña del médico.
      */
-    @Column(name = "contra", length = 50)
     private String contrasenia;
     
-    /**
-     * Lista de citas asociadas al médico.
-     */
-    @OneToMany(mappedBy = "medico", cascade = CascadeType.PERSIST)
-    private List<Cita> citas;
-
+    private List<DatosFiscales> datosFiscales;
+    
+    private List<Factura> facturas;
+            
     /**
      * Constructor por defecto de la clase Medico.
      */
@@ -115,7 +87,7 @@ public class Medico implements Serializable {
      * @param correo Correo electrónico del médico.
      * @param contrasenia Contraseña del médico.
      */
-    public Medico(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String especialidad, String rfc, String telefono, String correo, String contrasenia) {
+    public Medico(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String rfc, String telefono, String correo, String contrasenia) {
         this.cedulaProfesional = cedulaProfesional;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -128,6 +100,28 @@ public class Medico implements Serializable {
         this.contrasenia = contrasenia;
     }
 
+    public Medico(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String rfc, String telefono, String correo, String contrasenia, List<DatosFiscales> datosFiscales) {
+        this.cedulaProfesional = cedulaProfesional;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.especialidad = especialidad;
+        this.rfc = rfc;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+        this.datosFiscales = datosFiscales;
+    }
+
+    public ObjectId getId() {
+        return _id;
+    }
+
+    public void setId(ObjectId id) {
+        this._id = id;
+    }
+    
     /**
      * Obtiene la cédula profesional del médico.
      * 
@@ -200,21 +194,11 @@ public class Medico implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    /**
-     * Obtiene la fecha de nacimiento del médico.
-     * 
-     * @return La fecha de nacimiento del médico.
-     */
-    public Calendar getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    /**
-     * Establece la fecha de nacimiento del médico.
-     * 
-     * @param fechaNacimiento La nueva fecha de nacimiento del médico.
-     */
-    public void setFechaNacimiento(Calendar fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -307,23 +291,21 @@ public class Medico implements Serializable {
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-
-    /**
-     * Obtiene la lista de citas asociadas al médico.
-     * 
-     * @return La lista de citas asociadas al médico.
-     */
-    public List<Cita> getCitas() {
-        return citas;
+    
+    public List<DatosFiscales> getDatosFiscales() {
+        return datosFiscales;
     }
 
-    /**
-     * Establece la lista de citas asociadas al médico.
-     * 
-     * @param citas La nueva lista de citas asociadas al médico.
-     */
-    public void setCitas(List<Cita> citas) {
-        this.citas = citas;
+    public void setDatosFiscales(List<DatosFiscales> datosFiscales) {
+        this.datosFiscales = datosFiscales;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
     }
    
     /**
@@ -366,7 +348,8 @@ public class Medico implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Medico{");
-        sb.append("cedulaProfesional=").append(cedulaProfesional);
+        sb.append("_id=").append(_id);
+        sb.append(", cedulaProfesional=").append(cedulaProfesional);
         sb.append(", nombre=").append(nombre);
         sb.append(", apellidoPaterno=").append(apellidoPaterno);
         sb.append(", apellidoMaterno=").append(apellidoMaterno);
@@ -376,6 +359,7 @@ public class Medico implements Serializable {
         sb.append(", telefono=").append(telefono);
         sb.append(", correo=").append(correo);
         sb.append(", contrasenia=").append(contrasenia);
+        sb.append(", datosFiscales=").append(datosFiscales);
         sb.append('}');
         return sb.toString();
     }

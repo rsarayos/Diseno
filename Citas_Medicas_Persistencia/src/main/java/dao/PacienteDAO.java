@@ -1,12 +1,19 @@
 package dao;
 
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
+import com.mongodb.client.result.UpdateResult;
 import entidades.Paciente;
 import excepcionesPersistencia.PersistenciaException;
-import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
+import org.bson.types.ObjectId;
 
 /**
  * Clase que implementa la interfaz IPacienteDAO para el acceso a datos de pacientes.
@@ -24,11 +31,14 @@ public class PacienteDAO implements IPacienteDAO{
      * Objeto para manejar la conexión a la base de datos.
      */
     private final IConexion conexion;
+    private final ObtenerColeccion obtColeccion;
     
     /**
      * Logger para registrar información y errores.
      */
     static final Logger logger = Logger.getLogger(PacienteDAO.class.getName());
+    static final String nombreColeccion = "pacientes";
+    
 
     /**
      * Constructor que inicializa la conexión a la base de datos.
@@ -37,53 +47,23 @@ public class PacienteDAO implements IPacienteDAO{
      */
     public PacienteDAO(IConexion conexion) {
         this.conexion = conexion;
-    }
-
-    @Override
-    public void agregarPacientes() throws PersistenciaException {
-        
-        EntityManager entityManager = conexion.crearConexion();
-                
-        try {
-
-            entityManager.getTransaction().begin();
-            entityManager.persist(new Paciente("Juan", "García", "López", new GregorianCalendar(1985, 5, 15), "5551234567", "juan@example.com"));
-            entityManager.persist(new Paciente("María", "Rodríguez", "Martínez", new GregorianCalendar(1990, 9, 22), "5552345678", "maria@example.com"));
-            entityManager.persist(new Paciente("José", "Pérez", "Hernández", new GregorianCalendar(1978, 3, 10), "5553456789", "jose@example.com"));
-            entityManager.persist(new Paciente("Ana", "Gómez", "Díaz", new GregorianCalendar(1982, 8, 7), "5554567890", "ana@example.com"));
-            entityManager.persist(new Paciente("Pedro", "Sánchez", "López", new GregorianCalendar(1995, 11, 25), "5555678901", "pedro@example.com"));
-            entityManager.persist(new Paciente("Laura", "Torres", "González", new GregorianCalendar(1989, 2, 14), "5556789012", "laura@example.com"));
-            entityManager.persist(new Paciente("Carlos", "Ramírez", "Vázquez", new GregorianCalendar(1980, 6, 30), "5557890123", "carlos@example.com"));
-            entityManager.persist(new Paciente("Sofía", "Hernández", "Fernández", new GregorianCalendar(1993, 12, 18), "5558901234", "sofia@example.com"));
-            entityManager.persist(new Paciente("Alejandro", "Díaz", "Martínez", new GregorianCalendar(1987, 4, 3), "5559012345", "alejandro@example.com"));
-            entityManager.persist(new Paciente("Lucía", "Vázquez", "Sánchez", new GregorianCalendar(1998, 7, 11), "5550123456", "lucia@example.com"));
-            entityManager.getTransaction().commit();
-            logger.log(Level.INFO, "Se agregaron los pacientes");
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error al agregar a los pacientes");
-            throw new PersistenciaException("No se pudieron registrar los pacientes en la BD.");
-        } finally {
-            entityManager.close();
-        }
-        
+        this.obtColeccion = new ObtenerColeccion(nombreColeccion, Paciente.class);
     }
 
     @Override
     public Paciente agregarPaciente(Paciente paciente) throws PersistenciaException {
 
-        EntityManager entityManager = conexion.crearConexion();
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionPacientes = obtColeccion.obtenerColeccion(cliente);
 
         try {
-
-            entityManager.getTransaction().begin();
-            entityManager.persist(paciente);
-            entityManager.getTransaction().commit();
+            coleccionPacientes.insertOne(paciente);
             logger.log(Level.INFO, "Se agrego al paciente");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error al agregar al paciente");
             throw new PersistenciaException("No se pudo registrar al paciente en la BD.");
         } finally {
-            entityManager.close();
+            cliente.close();
         }
 
         return paciente;
@@ -92,34 +72,40 @@ public class PacienteDAO implements IPacienteDAO{
 
     @Override
     public List<Paciente> obtenerPacientes() throws PersistenciaException {
-        
-        EntityManager entityManager = conexion.crearConexion();
-        List<Paciente> pacientes = null;
 
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionPacientes = obtColeccion.obtenerColeccion(cliente);
+
+        List<Paciente> pacientes = new LinkedList<>();
+        
         try {
-            entityManager.getTransaction().begin();
-            pacientes = entityManager.createQuery("SELECT p FROM Paciente p", Paciente.class).getResultList();
-            entityManager.getTransaction().commit();
+            FindIterable<Paciente> cursor = coleccionPacientes.find();
+
+            MongoCursor<Paciente> iterator = cursor.iterator();
+            while (iterator.hasNext()) {
+                pacientes.add(iterator.next());
+            }
             logger.log(Level.INFO, "Se obtuvieron los pacientes");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error al obtener los pacientes");
             throw new PersistenciaException("No se pudo obtener la lista de pacientes de la BD.");
         } finally {
-            entityManager.close();
+            cliente.close();
         }
 
         return pacientes;
-        
+
     }
 
     @Override
-    public Paciente obtenerPaciente(Long id) throws PersistenciaException {
+    public Paciente obtenerPaciente(ObjectId id) throws PersistenciaException {
         
-        EntityManager entityManager = conexion.crearConexion();
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionPacientes = obtColeccion.obtenerColeccion(cliente);
         Paciente paciente;
         
         try {
-            paciente = entityManager.find(Paciente.class, id);
+            paciente = (Paciente) coleccionPacientes.find(eq("_id", id)).first();
             if (paciente != null) {
                 logger.log(Level.INFO, "Se encontro al paciente");
             } else {
@@ -129,10 +115,35 @@ public class PacienteDAO implements IPacienteDAO{
             logger.log(Level.SEVERE, "Error al consultar el paciente", e);
             throw new PersistenciaException("No se pudo obtener el paciente de la BD.", e);
         } finally {
-            entityManager.close();
+            cliente.close();
         }
         
         return paciente;
+    }
+
+    @Override
+    public Paciente agregarDatosFiscales(Paciente paciente) throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionPacientes = obtColeccion.obtenerColeccion(cliente);
+        
+        try {
+            UpdateResult updateResult = coleccionPacientes.updateOne(eq("_id", paciente.getId()), 
+                    set("datosFiscales", paciente.getDatosFiscales()));
+            if (updateResult.wasAcknowledged()) {
+                logger.log(Level.INFO, "Se modifico al paciente");
+            } else {
+                logger.log(Level.INFO, "No se modifico al paciente");
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al consultar el paciente", e);
+            throw new PersistenciaException("No se pudo obtener el paciente de la BD.", e);
+        } finally {
+            cliente.close();
+        }
+        
+        return paciente;
+        
     }
 
 }

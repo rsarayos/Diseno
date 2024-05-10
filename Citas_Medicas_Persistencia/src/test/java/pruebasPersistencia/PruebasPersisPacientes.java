@@ -4,11 +4,15 @@ import dao.Conexion;
 import dao.IConexion;
 import dao.IPacienteDAO;
 import dao.PacienteDAO;
+import entidades.DatosFiscales;
 import entidades.Paciente;
 import excepcionesPersistencia.PersistenciaException;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -25,29 +29,23 @@ public class PruebasPersisPacientes {
         
         IPacienteDAO pacienteDAO = new PacienteDAO(conexion);
         
+        Date fechaActual = new Date();
         
-                    try {
-            pacienteDAO.agregarPacientes();
+        Paciente paciente1 = new Paciente("Ricardo", "Gomez", "Valenzuela", fechaActual, 20, "6455332211", "ricardo@correo.com");
+        DatosFiscales datos = new DatosFiscales("Juan Lopez Gomez", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba", "prueba");
+        List<DatosFiscales> datosFiscales = new LinkedList<>();
+        datosFiscales.add(datos);
+        paciente1.setDatosFiscales(datosFiscales);
+                
+        try {
+            List<Paciente> pacientes = pacienteDAO.obtenerPacientes();
+            Paciente pacienteModi = pacientes.get(0);
+            pacienteModi.setDatosFiscales(datosFiscales);
+            pacienteDAO.agregarDatosFiscales(pacienteModi);
         } catch (PersistenciaException ex) {
             Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-//        try {
-//            List<Paciente> pacientes = pacienteDAO.obtenerPacientes();
-//            for (Paciente pa : pacientes) {
-//                System.out.println(pa.toString());
-//            }
-//            
-//        } catch (PersistenciaException ex) {
-//            Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-
-//            Paciente paciente = pacienteDAO.obtenerPaciente(1L);
-//            System.out.println(paciente);
-//        } catch (PersistenciaException ex) {
-//            Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
 }

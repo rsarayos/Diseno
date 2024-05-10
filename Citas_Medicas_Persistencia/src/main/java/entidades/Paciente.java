@@ -1,19 +1,9 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.bson.types.ObjectId;
 
 /**
  * Clase que representa a un paciente.
@@ -26,66 +16,49 @@ import javax.persistence.TemporalType;
  * basados en su identificador.
  * 
  */
-@Entity
-@Table(name = "pacientes")
 public class Paciente implements Serializable {
 
     /**
      * Identificador del paciente.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_paciente")
-    private Long id;
+    private ObjectId _id;
     
     /**
      * Nombres del paciente.
      */
-    @Column(name = "nombres", nullable = false, length = 100)
     private String nombre;
     
     /**
      * Apellido paterno del paciente.
      */
-    @Column(name = "apellido_paterno", nullable = false, length = 50)
     private String apellidoPaterno;
     
     /**
      * Apellido materno del paciente.
      */
-    @Column(name = "apellido_materno", length = 50)
     private String apellidoMaterno;
     
     /**
      * Fecha de nacimiento del paciente.
      */
-    @Column(name = "fecha_nacimiento", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar fechaNacimiento;
+    private Date fechaNacimiento;
     
     /**
      * Edad del paciente.
      */
-    @Column(name = "edad")
     private int edad;
     
     /**
      * Teléfono del paciente.
      */
-    @Column(name = "telefono", length = 10)
     private String telefono;
     
     /**
      * Correo electrónico del paciente.
      */
-    @Column(name = "correo", length = 100)
     private String correo;
     
-    /**
-     * Lista de citas asociadas al paciente.
-     */
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.PERSIST)
-    private List<Cita> citas;
+    private List<DatosFiscales> datosFiscales;
 
     /**
      * Constructor por defecto de la clase Paciente.
@@ -93,47 +66,7 @@ public class Paciente implements Serializable {
     public Paciente() {
     }
 
-    /**
-     * Constructor que inicializa algunos atributos del paciente.
-     * 
-     * @param nombre Nombres del paciente.
-     * @param apellidoPaterno Apellido paterno del paciente.
-     * @param apellidoMaterno Apellido materno del paciente.
-     * @param fechaNacimiento Fecha de nacimiento del paciente.
-     * @param telefono Teléfono del paciente.
-     * @param correo Correo electrónico del paciente.
-     */
-    public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String correo) {
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.fechaNacimiento = fechaNacimiento;
-        this.telefono = telefono;
-        this.correo = correo;
-        Calendar hoy = new GregorianCalendar();
-        int edad = hoy.get(Calendar.YEAR) - fechaNacimiento.get(Calendar.YEAR);
-        if (hoy.get(Calendar.MONTH) < fechaNacimiento.get(Calendar.MONTH)
-                || (hoy.get(Calendar.MONTH) == fechaNacimiento.get(Calendar.MONTH)
-                && hoy.get(Calendar.DAY_OF_MONTH) < fechaNacimiento.get(Calendar.DAY_OF_MONTH))) {
-            edad--;
-        }
-        this.edad = edad;
-    }
-
-    /**
-     * Constructor que inicializa todos los atributos del paciente.
-     * 
-     * @param id Identificador del paciente.
-     * @param nombre Nombres del paciente.
-     * @param apellidoPaterno Apellido paterno del paciente.
-     * @param apellidoMaterno Apellido materno del paciente.
-     * @param fechaNacimiento Fecha de nacimiento del paciente.
-     * @param edad Edad del paciente.
-     * @param telefono Teléfono del paciente.
-     * @param correo Correo electrónico del paciente.
-     */
-    public Paciente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, int edad, String telefono, String correo) {
-        this.id = id;
+    public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -143,22 +76,26 @@ public class Paciente implements Serializable {
         this.correo = correo;
     }
 
-    /**
-     * Obtiene el identificador del paciente.
-     * 
-     * @return El identificador del paciente.
-     */
-    public Long getId() {
-        return id;
+    public Paciente(ObjectId _id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo, List<DatosFiscales> datosFiscales) {
+        this._id = _id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.edad = edad;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.datosFiscales = datosFiscales;
+    }
+    
+    
+
+    public ObjectId getId() {
+        return _id;
     }
 
-    /**
-     * Establece el identificador del paciente.
-     * 
-     * @param id El nuevo identificador del paciente.
-     */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(ObjectId _id) {
+        this._id = _id;
     }
 
     /**
@@ -215,21 +152,11 @@ public class Paciente implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    /**
-     * Obtiene la fecha de nacimiento del paciente.
-     * 
-     * @return La fecha de nacimiento del paciente.
-     */
-    public Calendar getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    /**
-     * Establece la fecha de nacimiento del paciente.
-     * 
-     * @param fechaNacimiento La nueva fecha de nacimiento del paciente.
-     */
-    public void setFechaNacimiento(Calendar fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -287,22 +214,12 @@ public class Paciente implements Serializable {
         this.correo = correo;
     }
 
-    /**
-     * Obtiene la lista de citas asociadas al paciente.
-     * 
-     * @return La lista de citas asociadas al paciente.
-     */
-    public List<Cita> getCitas() {
-        return citas;
+    public List<DatosFiscales> getDatosFiscales() {
+        return datosFiscales;
     }
 
-    /**
-     * Establece la lista de citas asociadas al paciente.
-     * 
-     * @param citas La nueva lista de citas asociadas al paciente.
-     */
-    public void setCitas(List<Cita> citas) {
-        this.citas = citas;
+    public void setDatosFiscales(List<DatosFiscales> datosFiscales) {
+        this.datosFiscales = datosFiscales;
     }
 
     /**
@@ -313,7 +230,7 @@ public class Paciente implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (_id != null ? _id.hashCode() : 0);
         return hash;
     }
 
@@ -325,12 +242,11 @@ public class Paciente implements Serializable {
      */
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Paciente)) {
             return false;
         }
         Paciente other = (Paciente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this._id == null && other._id != null) || (this._id != null && !this._id.equals(other._id))) {
             return false;
         }
         return true;
@@ -344,10 +260,18 @@ public class Paciente implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("").append(nombre);
-        sb.append(" ").append(apellidoPaterno);
-        sb.append(" ").append(apellidoMaterno);
+        sb.append("Paciente{");
+        sb.append("_id=").append(_id);
+        sb.append(", nombre=").append(nombre);
+        sb.append(", apellidoPaterno=").append(apellidoPaterno);
+        sb.append(", apellidoMaterno=").append(apellidoMaterno);
+        sb.append(", fechaNacimiento=").append(fechaNacimiento);
+        sb.append(", edad=").append(edad);
+        sb.append(", telefono=").append(telefono);
+        sb.append(", correo=").append(correo);
+        sb.append(", datosFiscales=").append(datosFiscales);
+        sb.append('}');
         return sb.toString();
     }
-    
+
 }
