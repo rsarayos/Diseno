@@ -28,4 +28,6 @@ public interface IMedicoDAO {
      */
     public Medico obtenerMedicoCedula(String cedula) throws PersistenciaException;
     
+    public Medico agregarDatosFiscales(Medico medico) throws PersistenciaException;
+    
 }

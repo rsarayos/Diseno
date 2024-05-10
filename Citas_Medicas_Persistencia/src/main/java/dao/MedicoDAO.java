@@ -1,7 +1,13 @@
 package dao;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
+import com.mongodb.client.result.UpdateResult;
 import entidades.Medico;
 import excepcionesPersistencia.PersistenciaException;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,71 +22,100 @@ import java.util.logging.Logger;
  * y así interactuar con la base de datos.
  * 
  */
-public class MedicoDAO {
+public class MedicoDAO implements IMedicoDAO{
     
-//    /**
-//     * Objeto para manejar la conexión a la base de datos.
-//     */
-//    private final IConexion conexion;
-//    
-//    /**
-//     * Logger para registrar información y errores.
-//     */
-//    static final Logger logger = Logger.getLogger(MedicoDAO.class.getName());
-//
-//    /**
-//     * Constructor que inicializa la conexión a la base de datos.
-//     * 
-//     * @param conexion Objeto para manejar la conexión a la base de datos.
-//     */
-//    public MedicoDAO(IConexion conexion) {
-//        this.conexion = conexion;
-//    }
-//
-//    @Override
-//    public void agregarMedicos() throws PersistenciaException {
-//        
-////        EntityManager entityManager = conexion.crearConexion();
-////        
-//////        Medico medico1 = new Medico("12345678", "Juan", "Lopez", "Gomez", new GregorianCalendar(1995, 5, 15), "Pediatría", "ABCR123456", "5551234567", "juan@example.com", "Contra");
-////               
-////        try {
-////
-////            entityManager.getTransaction().begin();
-////            entityManager.persist(medico1);
-////            entityManager.getTransaction().commit();
-////            logger.log(Level.INFO, "Se agrego al medico");
-////        } catch (Exception e) {
-////            logger.log(Level.SEVERE, "Error al agregar al medico");
-////            throw new PersistenciaException("No se pudo registrar al medico en la BD.");
-////        } finally {
-////            entityManager.close();
-////        }
-//        
-//    }
-//
-//    @Override
-//    public Medico obtenerMedicoCedula(String cedula) throws PersistenciaException {
-//        EntityManager entityManager = conexion.crearConexion();
-//        Medico medicoObt;
-//
-//        try {
-//            entityManager.getTransaction().begin();
-//            medicoObt = entityManager.find(Medico.class, cedula);
-//
-//            if (medicoObt != null) {
-//                logger.log(Level.INFO, "Se encontro un medico");
-//            } else {
-//                logger.log(Level.INFO, "No se encontro al medico");
-//            }
-//        } catch (Exception e) {
-//            logger.log(Level.SEVERE, "Error al obtener al medico");
-//            throw new PersistenciaException("No se pudo obtener al medico.");
-//        } finally {
-//            entityManager.close();
-//        }
-//
-//        return medicoObt;
-//    }
+    /**
+     * Objeto para manejar la conexión a la base de datos.
+     */
+    private final IConexion conexion;
+    
+    /**
+     * Logger para registrar información y errores.
+     */
+    static final Logger logger = Logger.getLogger(MedicoDAO.class.getName());
+
+    /**
+     * Constructor que inicializa la conexión a la base de datos.
+     * 
+     * @param conexion Objeto para manejar la conexión a la base de datos.
+     */
+    public MedicoDAO(IConexion conexion) {
+        this.conexion = conexion;
+    }
+
+    @Override
+    public void agregarMedicos() throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionMedico = conexion.obtenerColeccion(cliente);
+        
+        Calendar calendar = Calendar.getInstance();
+        
+        calendar.set(Calendar.YEAR, 1990);
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.DAY_OF_MONTH, 20);
+        
+        Medico medico1 = new Medico("12345678", "Juan", "Lopez", "Gomez", calendar.getTime(), "Pediatría", "ABCR123456", "5551234567", "juan@example.com", "Contra");
+               
+        try {
+            coleccionMedico.insertOne(medico1);
+            logger.log(Level.INFO, "Se agrego al medico");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al agregar al medico");
+            throw new PersistenciaException("No se pudo registrar al medico en la BD.");
+        } finally {
+            cliente.close();
+        }
+        
+    }
+
+    @Override
+    public Medico obtenerMedicoCedula(String cedula) throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionMedico = conexion.obtenerColeccion(cliente);
+        Medico medicoObt;
+        
+        try {       
+            medicoObt = (Medico) coleccionMedico.find(eq("cedulaProfesional", cedula)).first();
+            if (medicoObt != null) {
+                logger.log(Level.INFO, "Se encontro un medico");
+            } else {
+                logger.log(Level.INFO, "No se encontro al medico");
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al obtener al medico");
+            throw new PersistenciaException("No se pudo obtener al medico.");
+        } finally {
+            cliente.close();
+        }
+
+        return medicoObt;
+    }
+
+    @Override
+    public Medico agregarDatosFiscales(Medico medico) throws PersistenciaException {
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionMedicos = conexion.obtenerColeccion(cliente);
+        
+        try {
+            UpdateResult updateResult = coleccionMedicos.updateOne(eq("cedulaProfesional", medico.getCedulaProfesional()), 
+                    set("datosFiscales", medico.getDatosFiscales()));
+            if (updateResult.wasAcknowledged()) {
+                logger.log(Level.INFO, "Se modifico al medico");
+            } else {
+                medico = null;
+                logger.log(Level.INFO, "No se modifico al medico");
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al consultar el medico", e);
+            throw new PersistenciaException("No se pudo obtener el medico de la BD.", e);
+        } finally {
+            cliente.close();
+        }
+        
+        return medico;
+        
+    }
 
 }

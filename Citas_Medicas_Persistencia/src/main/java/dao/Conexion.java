@@ -21,14 +21,19 @@ import org.bson.codecs.pojo.PojoCodecProvider;
  * en el archivo persistence.xml.
  * 
  */
-public class Conexion implements IConexion {
+public class Conexion<T> implements IConexion {
 
-    private String cadenaConexion  = "mongodb://127.0.0.1:27017";
+    private final String nombreBaseDatos  = ConstantesPersistencia.bases.CITAS_MEDICAS;
+    private final String nombreColeccion;
+    private final Class<T> tipoBase;
+    private final String cadenaConexion  = ConstantesPersistencia.conexiones.CONEXION_MONGO;
     
     /**
      * Constructor por defecto de la clase.
      */
-    public Conexion() {
+    public Conexion(String nombreColeccion, Class<T> tipoBase) {
+        this.nombreColeccion = nombreColeccion;
+        this.tipoBase = tipoBase;
     }
 
     @Override
@@ -39,6 +44,12 @@ public class Conexion implements IConexion {
                 .codecRegistry(pojoCodecRegistry).applyConnectionString(new ConnectionString(cadenaConexion))
                 .build();
         return MongoClients.create(settings);
+    }
+
+    @Override
+    public MongoCollection obtenerColeccion(MongoClient cliente) {
+        MongoDatabase baseDatos = cliente.getDatabase(nombreBaseDatos);
+        return baseDatos.getCollection(nombreColeccion, tipoBase);
     }
     
 }

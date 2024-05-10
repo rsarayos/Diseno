@@ -18,5 +18,7 @@ public interface IConexion {
      * @return La nueva conexión a la base de datos en forma de EntityManager.
      */
      public MongoClient obtenerConexion();
+     
+     public MongoCollection obtenerColeccion(MongoClient cliente);
     
 }

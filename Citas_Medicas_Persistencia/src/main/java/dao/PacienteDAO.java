@@ -31,14 +31,11 @@ public class PacienteDAO implements IPacienteDAO{
      * Objeto para manejar la conexión a la base de datos.
      */
     private final IConexion conexion;
-    private final ObtenerColeccion obtColeccion;
     
     /**
      * Logger para registrar información y errores.
      */
-    static final Logger logger = Logger.getLogger(PacienteDAO.class.getName());
-    static final String nombreColeccion = "pacientes";
-    
+    static final Logger logger = Logger.getLogger(PacienteDAO.class.getName());   
 
     /**
      * Constructor que inicializa la conexión a la base de datos.
@@ -47,14 +44,13 @@ public class PacienteDAO implements IPacienteDAO{
      */
     public PacienteDAO(IConexion conexion) {
         this.conexion = conexion;
-        this.obtColeccion = new ObtenerColeccion(nombreColeccion, Paciente.class);
     }
 
     @Override
     public Paciente agregarPaciente(Paciente paciente) throws PersistenciaException {
 
         MongoClient cliente = conexion.obtenerConexion();
-        MongoCollection coleccionPacientes = obtColeccion.obtenerColeccion(cliente);
+        MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
 
         try {
             coleccionPacientes.insertOne(paciente);
@@ -74,7 +70,7 @@ public class PacienteDAO implements IPacienteDAO{
     public List<Paciente> obtenerPacientes() throws PersistenciaException {
 
         MongoClient cliente = conexion.obtenerConexion();
-        MongoCollection coleccionPacientes = obtColeccion.obtenerColeccion(cliente);
+        MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
 
         List<Paciente> pacientes = new LinkedList<>();
         
@@ -101,7 +97,7 @@ public class PacienteDAO implements IPacienteDAO{
     public Paciente obtenerPaciente(ObjectId id) throws PersistenciaException {
         
         MongoClient cliente = conexion.obtenerConexion();
-        MongoCollection coleccionPacientes = obtColeccion.obtenerColeccion(cliente);
+        MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
         Paciente paciente;
         
         try {
@@ -125,7 +121,7 @@ public class PacienteDAO implements IPacienteDAO{
     public Paciente agregarDatosFiscales(Paciente paciente) throws PersistenciaException {
         
         MongoClient cliente = conexion.obtenerConexion();
-        MongoCollection coleccionPacientes = obtColeccion.obtenerColeccion(cliente);
+        MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
         
         try {
             UpdateResult updateResult = coleccionPacientes.updateOne(eq("_id", paciente.getId()), 
@@ -133,6 +129,7 @@ public class PacienteDAO implements IPacienteDAO{
             if (updateResult.wasAcknowledged()) {
                 logger.log(Level.INFO, "Se modifico al paciente");
             } else {
+                paciente = null;
                 logger.log(Level.INFO, "No se modifico al paciente");
             }
         } catch (Exception e) {

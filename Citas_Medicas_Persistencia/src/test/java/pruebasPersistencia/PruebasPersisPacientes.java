@@ -1,6 +1,7 @@
 package pruebasPersistencia;
 
 import dao.Conexion;
+import dao.ConstantesPersistencia;
 import dao.IConexion;
 import dao.IPacienteDAO;
 import dao.PacienteDAO;
@@ -25,7 +26,7 @@ public class PruebasPersisPacientes {
      */
     public static void main(String[] args) {
         
-        IConexion conexion = new Conexion();
+        IConexion conexion = new Conexion(ConstantesPersistencia.colecciones.PACIENTES, Paciente.class);
         
         IPacienteDAO pacienteDAO = new PacienteDAO(conexion);
         
