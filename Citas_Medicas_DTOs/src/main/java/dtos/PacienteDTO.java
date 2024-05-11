@@ -40,11 +40,25 @@ public class PacienteDTO {
     /** El correo electrónico del paciente. */
     private String correo;
     
+    /** Datos fiscales del médico. */
     private List<DatosFiscalesDTO> datosFiscales;
 
+    /**
+     * Constructor por defecto de la clase
+     */
     public PacienteDTO() {
     }
 
+    /**
+     * Constructor para inicializar la clase con la mayoria de sus atributos
+     * 
+     * @param nombres Nombres del paciente
+     * @param apellidoPaterno Apellido paterno del paciente
+     * @param apellidoMaterno Apellido materno del paciente
+     * @param fechaNacimiento Fecha de nacimiento del paciente
+     * @param telefono Telefono del paciente
+     * @param correo Correo del paciente
+     */
     public PacienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -54,6 +68,17 @@ public class PacienteDTO {
         this.correo = correo;
     }
 
+    /**
+     * Constructor para inicializar la clase con la mayoria de sus atributos
+     * 
+     * @param nombres Nombres del paciente
+     * @param apellidoPaterno Apellido paterno del paciente
+     * @param apellidoMaterno Apellido materno del paciente
+     * @param fechaNacimiento Fecha de nacimiento del paciente
+     * @param edad Edad del paciente
+     * @param telefono Telefono del paciente
+     * @param correo Correo del paciente
+     */
     public PacienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -64,6 +89,19 @@ public class PacienteDTO {
         this.correo = correo;
     }
 
+    /**
+     * Constructor para inicializar la clase con la mayoria de sus atributos
+     * 
+     * @param id Id del paciente
+     * @param nombres Nombres del paciente
+     * @param apellidoPaterno Apellido paterno del paciente
+     * @param apellidoMaterno Apellido materno del paciente
+     * @param fechaNacimiento Fecha de nacimiento del paciente
+     * @param edad Edad del paciente
+     * @param telefono Telefono del paciente
+     * @param correo Correo del paciente
+     * @param datosFiscales Datos fiscales del paciente
+     */
     public PacienteDTO(String id, String nombres, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo, List<DatosFiscalesDTO> datosFiscales) {
         this.id = id;
         this.nombres = nombres;
@@ -148,10 +186,20 @@ public class PacienteDTO {
         return correo;
     }
 
+    /**
+     * Obtiene los datos fiscales del paciente.
+     * 
+     * @return Los datos fiscales del paciente.
+     */
     public List<DatosFiscalesDTO> getDatosFiscales() {
         return datosFiscales;
     }
 
+    /**
+     * Establece los datos fiscales del paciente.
+     * 
+     * @param datosFiscales Los datos fiscales a establecer
+     */
     public void setDatosFiscales(List<DatosFiscalesDTO> datosFiscales) {
         this.datosFiscales = datosFiscales;
     } 

@@ -43,10 +43,12 @@ public class MedicoDTO {
     /** La contraseña del médico. */
     private String contrasenia;
     
+    /** Datos fiscales del médico. */
     private List<DatosFiscalesDTO> datosFiscales;
-    
-    private List<FacturaDTO> facturas;
 
+    /**
+     * Constructor por defecto de la clase
+     */
     public MedicoDTO() {
     }
 
@@ -84,6 +86,20 @@ public class MedicoDTO {
         this.contrasenia = contrasenia;
     }
 
+    /**
+     * Constructor de la clase MedicoDTO.
+     * 
+     * @param cedulaProfesional La cédula profesional del médico.
+     * @param nombre El nombre del médico.
+     * @param apellidoPaterno El apellido paterno del médico.
+     * @param apellidoMaterno El apellido materno del médico.
+     * @param fechaNacimiento La fecha de nacimiento del médico.
+     * @param especialidad La especialidad del médico.
+     * @param telefono El número de teléfono del médico.
+     * @param correo El correo electrónico del médico.
+     * @param contrasenia La contraseña del médico.
+     * @param datosFiscales Los datos fiscales del médico
+     */
     public MedicoDTO(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String telefono, String correo, String contrasenia, List<DatosFiscalesDTO> datosFiscales) {
         this.cedulaProfesional = cedulaProfesional;
         this.nombre = nombre;
@@ -178,20 +194,22 @@ public class MedicoDTO {
         return contrasenia;
     }
 
+    /**
+     * Obtiene los datos fiscales del médico.
+     * 
+     * @return Los datos fiscales del médico.
+     */
     public List<DatosFiscalesDTO> getDatosFiscales() {
         return datosFiscales;
     }
 
+    /**
+     * Establece los datos fiscales del médico.
+     * 
+     * @param datosFiscales Los datos fiscales a establecer
+     */
     public void setDatosFiscales(List<DatosFiscalesDTO> datosFiscales) {
         this.datosFiscales = datosFiscales;
-    }
-
-    public List<FacturaDTO> getFacturas() {
-        return facturas;
-    }
-
-    public void setFacturas(List<FacturaDTO> facturas) {
-        this.facturas = facturas;
     }
     
     /**

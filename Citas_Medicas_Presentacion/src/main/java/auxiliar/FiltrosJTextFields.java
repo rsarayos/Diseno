@@ -6,14 +6,20 @@ import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
 /**
- *
- * @author alex_
+ * La clase FiltrosJTextFields proporciona métodos para aplicar filtros a componentes JTextFields.
  */
 public class FiltrosJTextFields {
 
+    /**
+     * Constructor por defecto de la clase FiltrosJTextFields.
+     */
     public FiltrosJTextFields() {
     }
     
+    /**
+     * Aplica un filtro para permitir únicamente letras en un JTextField.
+     * @return Un PlainDocument con el filtro aplicado.
+     */
     public PlainDocument filtroJTextLetras() {
         PlainDocument doc = new PlainDocument();
 
@@ -38,6 +44,10 @@ public class FiltrosJTextFields {
         return doc;
     }
     
+    /**
+     * Aplica un filtro para permitir únicamente números en un JTextField.
+     * @return Un PlainDocument con el filtro aplicado.
+     */
     public PlainDocument filtroJTextNumeros() {
         PlainDocument doc = new PlainDocument();
 
@@ -62,6 +72,10 @@ public class FiltrosJTextFields {
         return doc;
     }
     
+    /**
+     * Aplica un filtro para permitir letras y números en un JTextField.
+     * @return Un PlainDocument con el filtro aplicado.
+     */
     public PlainDocument filtroJTextLetrasNumeros() {
         PlainDocument doc = new PlainDocument();
 
@@ -86,6 +100,10 @@ public class FiltrosJTextFields {
         return doc;
     }
     
+    /**
+     * Aplica un filtro para permitir letras en mayúsculas y números en un JTextField.
+     * @return Un PlainDocument con el filtro aplicado.
+     */
     public PlainDocument filtroJTextLetrasNumerosCase() {
         PlainDocument doc = new PlainDocument();
 

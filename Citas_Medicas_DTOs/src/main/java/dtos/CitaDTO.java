@@ -41,11 +41,24 @@ public class CitaDTO {
      */
     private Boolean estado;
 
+    /**
+     * Constructor para inicializar la clase con algunos atributos.
+     * @param fechaHora Fecha y hora de la cita
+     * @param cedulaProfesional Cedula del medico relacionado a la cita
+     */
     public CitaDTO(Date fechaHora, String cedulaProfesional) {
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
     }
     
+    /**
+     * Constructor para inicializar la clase con todos sus atributos.
+     * @param fechaHora Fecha y hora de la cita
+     * @param cedulaProfesional Cedula del medico relacionado a la cita
+     * @param idPaciente Id del paciente relacionado a la cita
+     * @param observaciones Observaciones de la cita
+     * @param estado Estado de la cita
+     */
     public CitaDTO(Date fechaHora, String cedulaProfesional, String idPaciente, String observaciones, Boolean estado) {
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
