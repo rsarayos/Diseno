@@ -1,6 +1,7 @@
 package dtos;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class FacturaDTO {
     
     private Integer folioInterno;
     private String folioFiscal;
-    private Calendar fechaTimbrado;
+    private Date fechaTimbrado;
     private MedicoDTO emisor;
     private PacienteDTO receptor;
     private List<DetalleFacturaDTO> detallesFactura;
@@ -22,7 +23,7 @@ public class FacturaDTO {
     private Float impuesto;
     private Float total;
 
-    public FacturaDTO(Integer folioInterno, Calendar fechaTimbrado, MedicoDTO emisor, PacienteDTO receptor, List<DetalleFacturaDTO> detallesFactura, String usoCFDI, String formaPago, String metodoPago, Float subTotal, Float impuesto, Float total) {
+    public FacturaDTO(Integer folioInterno, Date fechaTimbrado, MedicoDTO emisor, PacienteDTO receptor, List<DetalleFacturaDTO> detallesFactura, String usoCFDI, String formaPago, String metodoPago, Float subTotal, Float impuesto, Float total) {
         this.folioInterno = folioInterno;
         this.fechaTimbrado = fechaTimbrado;
         this.emisor = emisor;
@@ -48,7 +49,7 @@ public class FacturaDTO {
         return folioInterno;
     }
 
-    public Calendar getFechaTimbrado() {
+    public Date getFechaTimbrado() {
         return fechaTimbrado;
     }
 

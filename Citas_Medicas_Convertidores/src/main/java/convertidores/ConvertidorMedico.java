@@ -47,6 +47,12 @@ public class ConvertidorMedico {
         
     }
     
+    /**
+     * Convierte un objeto de tipo MedicoDTO a un objeto de tipo Medico con datos fiscales.
+     * 
+     * @param m El objeto de tipo MedicoDTO que se va a convertir.
+     * @return Un objeto de tipo Medico resultante de la conversión.
+     */
     public Medico DTOAEntidadDatosFiscales(MedicoDTO m) {
         
         List<DatosFiscales> datosFiscales = new LinkedList<>();
@@ -96,7 +102,7 @@ public class ConvertidorMedico {
                 DatosFiscalesDTO datos = new DatosFiscalesDTO(
                         m.getDatosFiscales().get(0).getRazonSocial(),
                         m.getDatosFiscales().get(0).getRegimenFiscal(),
-                        m.getDatosFiscales().get(0).getRFC(),
+                        m.getDatosFiscales().get(0).getRfc(),
                         m.getDatosFiscales().get(0).getCalle(),
                         m.getDatosFiscales().get(0).getColonia(),
                         m.getDatosFiscales().get(0).getNumExterior(),

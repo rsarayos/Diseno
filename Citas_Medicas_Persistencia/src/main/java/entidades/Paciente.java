@@ -59,6 +59,9 @@ public class Paciente implements Serializable {
      */
     private String correo;
     
+    /**
+     * Lista con los datos fiscales del paciente.
+     */
     private List<DatosFiscales> datosFiscales;
 
     /**
@@ -66,7 +69,20 @@ public class Paciente implements Serializable {
      */
     public Paciente() {
     }
-
+    
+    /**
+     * Constructor que inicializa la mayoria de los atributos de la clase
+     * Paciente.
+     *
+     * @param _id Id del paciente
+     * @param nombre Nombre del paciente
+     * @param apellidoPaterno Apellido paterno del paciente
+     * @param apellidoMaterno Apellido materno del paciente
+     * @param fechaNacimiento Fecha de nacimiento del paciente
+     * @param telefono Telefono del paciente
+     * @param correo Correo del paciente
+     * @param datosFiscales Datos fiscales del paciente
+     */
     public Paciente(ObjectId _id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo, List<DatosFiscales> datosFiscales) {
         this._id = _id;
         this.nombre = nombre;
@@ -78,6 +94,17 @@ public class Paciente implements Serializable {
         this.datosFiscales = datosFiscales;
     }
 
+    /**
+     * Constructor que inicializa la mayoria de los atributos de la clase
+     * Paciente.
+     *
+     * @param nombre Nombre del paciente
+     * @param apellidoPaterno Apellido paterno del paciente
+     * @param apellidoMaterno Apellido materno del paciente
+     * @param fechaNacimiento Fecha de nacimiento del paciente
+     * @param telefono Telefono del paciente
+     * @param correo Correo del paciente
+     */
     public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -97,6 +124,18 @@ public class Paciente implements Serializable {
         this.correo = correo;
     }
 
+    /**
+     * Constructor que inicializa la mayoria de los atributos de la clase
+     * Paciente.
+     *
+     * @param nombre Nombre del paciente
+     * @param apellidoPaterno Apellido paterno del paciente
+     * @param apellidoMaterno Apellido materno del paciente
+     * @param fechaNacimiento Fecha de nacimiento del paciente
+     * @param telefono Telefono del paciente
+     * @param correo Correo del paciente
+     * @param datosFiscales Datos fiscales del paciente
+     */
     public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo, List<DatosFiscales> datosFiscales) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -107,12 +146,20 @@ public class Paciente implements Serializable {
         this.datosFiscales = datosFiscales;
     }
     
-    
-
+    /**
+     * Obtiene el id del paciente.
+     * 
+     * @return El id del paciente.
+     */
     public ObjectId getId() {
         return _id;
     }
 
+    /**
+     * Establece el id del paciente.
+     * 
+     * @param _id El id del paciente a establecer.
+     */
     public void setId(ObjectId _id) {
         this._id = _id;
     }
@@ -171,10 +218,20 @@ public class Paciente implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    /**
+     * Obtiene la fecha de nacimiento del paciente.
+     * 
+     * @return La fecha de nacimiento del paciente.
+     */
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
+    /**
+     * Establece la fecha del nacimiento del paciente.
+     * 
+     * @param fechaNacimiento La nueva fecha de nacimiento del paciente.
+     */
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
@@ -233,10 +290,20 @@ public class Paciente implements Serializable {
         this.correo = correo;
     }
 
+    /**
+     * Obtiene la lista de datos fiscales del paciente.
+     * 
+     * @return La lista de datos fiscales del paciente.
+     */
     public List<DatosFiscales> getDatosFiscales() {
         return datosFiscales;
     }
 
+    /**
+     * Establece los datos fiscales del paciente.
+     * 
+     * @param datosFiscales La nueva lista con los datos fiscales del paciente.
+     */
     public void setDatosFiscales(List<DatosFiscales> datosFiscales) {
         this.datosFiscales = datosFiscales;
     }

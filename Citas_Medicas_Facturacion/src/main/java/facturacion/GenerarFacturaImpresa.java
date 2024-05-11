@@ -36,11 +36,15 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
- *
- * @author alex_
+ * Clase que se encarga de generar la factura impresa.
  */
 public class GenerarFacturaImpresa {
     
+    /**
+     * Genera la factura impresa a partir de los datos de la factura.
+     * 
+     * @param factura Los datos de la factura.
+     */
     public void generarImpresion(FacturaDTO factura) {
         
         Map<String, Object> parameters = mapeoParametros(factura);
@@ -85,6 +89,12 @@ public class GenerarFacturaImpresa {
 
     }
     
+    /**
+     * Convierte los detalles de la factura a un formato adecuado para el reporte.
+     * 
+     * @param detalles La lista de detalles de la factura.
+     * @return Una lista de detalles de factura en formato para el reporte.
+     */
     private List<DetalleFacturaReporte> convertirDetallesAReporte(List<DetalleFacturaDTO> detalles) {
         List<DetalleFacturaReporte> listaDetalles = new ArrayList<DetalleFacturaReporte>();
 
@@ -113,6 +123,12 @@ public class GenerarFacturaImpresa {
 
     }
     
+    /**
+     * Realiza el mapeo de los parámetros para el reporte de factura.
+     * 
+     * @param factura Los datos de la factura.
+     * @return Un mapa de parámetros para el reporte.
+     */
     private Map<String, Object> mapeoParametros(FacturaDTO factura){
         Map<String, Object> parametros = new HashMap<String, Object>();
         
@@ -196,7 +212,5 @@ public class GenerarFacturaImpresa {
         return parametros;
         
     }
-    
-    
 
 }

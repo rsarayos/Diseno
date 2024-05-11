@@ -6,11 +6,21 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
- *
- * @author alex_
+ * Clase que representa a un medico.
+ * 
+ * Un Medico tiene un identificador, nombres, apellidos, fecha de nacimiento,
+ * edad, teléfono y correo electrónico.
+ * 
+ * La clase incluye métodos para acceder y modificar los atributos del medico,
+ * así como métodos de utilidad como equals y hashCode para comparar medicos
+ * basados en su identificador.
+ * 
  */
 public class Medico implements Serializable {
     
+    /**
+     * Object id correspondiente al registro en la base de datos del médico.
+     */
     private ObjectId _id;
     
     /**
@@ -58,9 +68,10 @@ public class Medico implements Serializable {
      */
     private String contrasenia;
     
+    /**
+     * Lista con los datos fiscales del medico.
+     */
     private List<DatosFiscales> datosFiscales;
-    
-    private List<Factura> facturas;
             
     /**
      * Constructor por defecto de la clase Medico.
@@ -69,7 +80,7 @@ public class Medico implements Serializable {
     }
 
     /**
-     * Constructor que inicializa todos los atributos del médico.
+     * Constructor que inicializa la mayoria de los atributos del médico.
      * 
      * @param cedulaProfesional Cédula profesional del médico.
      * @param nombre Nombres del médico.
@@ -77,7 +88,6 @@ public class Medico implements Serializable {
      * @param apellidoMaterno Apellido materno del médico.
      * @param fechaNacimiento Fecha de nacimiento del médico.
      * @param especialidad Especialidad del médico.
-     * @param rfc RFC del médico.
      * @param telefono Teléfono del médico.
      * @param correo Correo electrónico del médico.
      * @param contrasenia Contraseña del médico.
@@ -94,6 +104,20 @@ public class Medico implements Serializable {
         this.contrasenia = contrasenia;
     }
 
+    /**
+     * Constructor que inicializa todos los atributos del médico.
+     * 
+     * @param cedulaProfesional Cédula profesional del médico.
+     * @param nombre Nombres del médico.
+     * @param apellidoPaterno Apellido paterno del médico.
+     * @param apellidoMaterno Apellido materno del médico.
+     * @param fechaNacimiento Fecha de nacimiento del médico.
+     * @param especialidad Especialidad del médico.
+     * @param telefono Teléfono del médico.
+     * @param correo Correo electrónico del médico.
+     * @param contrasenia Contraseña del médico.
+     * @param datosFiscales Datos fiscales del médico.
+     */
     public Medico(String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String telefono, String correo, String contrasenia, List<DatosFiscales> datosFiscales) {
         this.cedulaProfesional = cedulaProfesional;
         this.nombre = nombre;
@@ -107,10 +131,20 @@ public class Medico implements Serializable {
         this.datosFiscales = datosFiscales;
     }
 
+    /**
+     * Obtiene el id del médico.
+     * 
+     * @return El id del médico.
+     */
     public ObjectId getId() {
         return _id;
     }
 
+    /**
+     * Establece el id del médico.
+     * 
+     * @param id el id del médico a establecer.
+     */
     public void setId(ObjectId id) {
         this._id = id;
     }
@@ -187,10 +221,20 @@ public class Medico implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    /**
+     * Obtiene la fecha de nacimiento del médico.
+     * 
+     * @return La fecha de nacimiento del médico.
+     */
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
+    /**
+     * Establece la fecha de nacimiento del médico.
+     * 
+     * @param fechaNacimiento La fecha de nacimiento del médico.
+     */
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
@@ -267,20 +311,22 @@ public class Medico implements Serializable {
         this.contrasenia = contrasenia;
     }
     
+    /**
+     * Obtiene la lista de datos fiscales del médico.
+     * 
+     * @return La lista de datos fiscales del médico.
+     */
     public List<DatosFiscales> getDatosFiscales() {
         return datosFiscales;
     }
 
+    /**
+     * Establece la lista de datos fiscales del médico.
+     * 
+     * @param datosFiscales La nueva lista de datos fiscales del médico a establecer.
+     */
     public void setDatosFiscales(List<DatosFiscales> datosFiscales) {
         this.datosFiscales = datosFiscales;
-    }
-
-    public List<Factura> getFacturas() {
-        return facturas;
-    }
-
-    public void setFacturas(List<Factura> facturas) {
-        this.facturas = facturas;
     }
    
     /**

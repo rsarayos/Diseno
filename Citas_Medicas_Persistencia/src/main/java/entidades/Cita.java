@@ -54,6 +54,14 @@ public class Cita implements Serializable {
     public Cita() {
     }
 
+    /**
+     * Constructor para inicializar los atributos de la clase
+     * @param fechaHora fecha y hora de la cita
+     * @param cedulaProfesional cedula del medico
+     * @param idPaciente id del paciente
+     * @param observacion observaciones de la citas
+     * @param estado estado de la cita
+     */
     public Cita(Date fechaHora, String cedulaProfesional, ObjectId idPaciente, String observacion, Boolean estado) {
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
@@ -62,34 +70,74 @@ public class Cita implements Serializable {
         this.estado = estado;
     }
 
+    /**
+     * Obtiene el object id de la cita.
+     * 
+     * @return el id de la cita.
+     */
     public ObjectId getId() {
         return _id;
     }
 
+    /**
+     * Establece el object id de la cita.
+     * 
+     * @param _id El nuevo id de la cita.
+     */
     public void setId(ObjectId _id) {
         this._id = _id;
     }
 
+    /**
+     * Obtiene la fecha y hora de la cita.
+     * 
+     * @return La fecha y hora de la cita.
+     */
     public Date getFechaHora() {
         return fechaHora;
     }
 
+    /**
+     * Establece la fecha y hora de la cita.
+     * 
+     * @param fechaHora La nueva fecha y hora de la cita.
+     */
     public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
     }
 
+    /**
+     * Obtiene la cedula del medico relacionado a la cita.
+     * 
+     * @return cedula del medico de la cita.
+     */
     public String getCedulaProfesional() {
         return cedulaProfesional;
     }
 
+    /**
+     * Establece la cedula del medico relacionado a la cita.
+     * 
+     * @param cedulaProfesional cedula del medico a establecer en la cita
+     */
     public void setCedulaProfesional(String cedulaProfesional) {
         this.cedulaProfesional = cedulaProfesional;
     }
 
+    /**
+     * Obtiene el id del paciente relacionado a la cita.
+     * 
+     * @return El id del paciente relacionado.
+     */
     public ObjectId getIdPaciente() {
         return idPaciente;
     }
 
+    /**
+     * Establece el id del paciente relacionado a la cita.
+     * 
+     * @param idPaciente id del paciente a establecer en la cita
+     */
     public void setIdPaciente(ObjectId idPaciente) {
         this.idPaciente = idPaciente;
     }

@@ -5,13 +5,17 @@ import dtos.MedicoDTO;
 import dtos.PacienteDTO;
 
 /**
- *
- * @author alex_
+ * Implementación de la interfaz IFacturacion que actúa como fachada para
+ * delegar las operaciones de facturación a la clase CFacturacion.
  */
-public class FFacturacion implements IFacturacion{
-    
+public class FFacturacion implements IFacturacion {
+
+     /** Controlador para realizar las operaciones de facturación. */
     private CFacturacion control;
 
+    /**
+     * Constructor de la clase FFacturacion que inicializa el controlador de facturación.
+     */
     public FFacturacion() {
         control = new CFacturacion();
     }

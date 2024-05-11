@@ -40,6 +40,13 @@ public interface IPacienteDAO {
      */
     public Paciente obtenerPaciente(ObjectId id) throws PersistenciaException;
     
+    /**
+     * Agrega datos fiscales a un paciente en la base de datos.
+     * 
+     * @param paciente El paciente al que se le agregarán los datos fiscales.
+     * @return El médico con los datos fiscales agregados.
+     * @throws PersistenciaException Si ocurre un error durante la operación de persistencia.
+     */
     public Paciente agregarDatosFiscales(Paciente paciente) throws PersistenciaException;
     
 }

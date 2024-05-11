@@ -12,24 +12,39 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
- * Clase que implementa la interfaz IConexion para crear conexiones a la base de datos.
+ * Interfaz para la creación de conexiones a la base de datos.
  * 
- * Esta clase proporciona una implementación del método crearConexion para obtener
- * una instancia de EntityManager y así interactuar con la base de datos.
+ * Esta clase implementa la interfaz IConexion para crear y obtener una instancia de
+ * MongoClient, que se utiliza para interactuar con la base de datos.
  * 
- * Se asume que existe una unidad de persistencia llamada "citasMedicasPU" configurada
- * en el archivo persistence.xml.
- * 
+ * @param <T> clase relacionada a la coleccion a mapear
  */
 public class Conexion<T> implements IConexion {
 
+    /**
+     * Nombre de la base de datos.
+     */
     private final String nombreBaseDatos  = ConstantesPersistencia.bases.CITAS_MEDICAS;
+    
+    /**
+     * Nombre de la coleccion.
+     */
     private final String nombreColeccion;
+    
+    /**
+     * Clase relacionada a la coleccion.
+     */
     private final Class<T> tipoBase;
+    
+    /**
+     * cadena con la conexion.
+     */
     private final String cadenaConexion  = ConstantesPersistencia.conexiones.CONEXION_MONGO;
     
     /**
      * Constructor por defecto de la clase.
+     * @param nombreColeccion Nombre de la coleccion a obtener con la conexion
+     * @param tipoBase Clase relacionada a la coleccion para mapear
      */
     public Conexion(String nombreColeccion, Class<T> tipoBase) {
         this.nombreColeccion = nombreColeccion;

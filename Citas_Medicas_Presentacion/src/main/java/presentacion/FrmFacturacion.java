@@ -66,6 +66,7 @@ public class FrmFacturacion extends javax.swing.JDialog {
      */
     protected void obtenerPacientesCbx() {
         this.cbxPacientes.removeAllItems();
+        this.cbxFormaPago.setSelectedIndex(-1);
         this.cbxPacientes.addItem(null);
         for (PacienteDTO paciente : regPaciente.consultarPacientes()) {
             this.cbxPacientes.addItem(paciente);
@@ -431,7 +432,7 @@ public class FrmFacturacion extends javax.swing.JDialog {
             
             FacturaDTO facturaNueva = new FacturaDTO(
                     folioInterno, 
-                    fechaTimbrado, 
+                    fechaTimbrado.getTime(), 
                     medico, 
                     paciente, 
                     detalles, 

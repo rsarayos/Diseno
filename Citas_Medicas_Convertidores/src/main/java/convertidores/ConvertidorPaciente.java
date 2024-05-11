@@ -23,17 +23,17 @@ public class ConvertidorPaciente {
      * Constructor predeterminado de ConvertidorPaciente.
      */
     public ConvertidorPaciente() {
-        
+
     }
 
     /**
      * Convierte un objeto de tipo PacienteDTO a un objeto de tipo Paciente.
-     * 
+     *
      * @param p El objeto de tipo PacienteDTO que se va a convertir.
      * @return Un objeto de tipo Paciente resultante de la conversión.
      */
     public Paciente DTOAEntidad(PacienteDTO p) {
-        
+
         return new Paciente(
                 p.getNombres(),
                 p.getApellidoPaterno(),
@@ -42,13 +42,19 @@ public class ConvertidorPaciente {
                 p.getTelefono(),
                 p.getCorreo()
         );
-        
+
     }
-    
+
+    /**
+     * Convierte un objeto de tipo PacienteDTO a un objeto de tipo Paciente, incluyendo los datos fiscales.
+     * 
+     * @param p El objeto de tipo PacienteDTO que se va a convertir.
+     * @return Un objeto de tipo Paciente resultante de la conversión, incluyendo los datos fiscales.
+     */
     public Paciente DTOAEntidadCompleto(PacienteDTO p) {
-        
+
         ObjectId id = new ObjectId(p.getID());
-        
+
         List<DatosFiscales> datosFiscales = new LinkedList<>();
 
         DatosFiscales datos = new DatosFiscales(
@@ -63,9 +69,9 @@ public class ConvertidorPaciente {
                 p.getDatosFiscales().get(0).getCiudad(),
                 p.getDatosFiscales().get(0).getMunicipio(),
                 p.getDatosFiscales().get(0).getEstado());
-        
+
         datosFiscales.add(datos);
-        
+
         return new Paciente(
                 id,
                 p.getNombres(),
@@ -76,9 +82,15 @@ public class ConvertidorPaciente {
                 p.getCorreo(),
                 datosFiscales
         );
-        
+
     }
-    
+
+    /**
+     * Convierte un objeto de tipo PacienteDTO a un objeto de tipo Paciente, incluyendo los datos fiscales.
+     * 
+     * @param p El objeto de tipo PacienteDTO que se va a convertir.
+     * @return Un objeto de tipo Paciente resultante de la conversión, incluyendo los datos fiscales.
+     */
     public Paciente DTOAEntidadDatosFiscales(PacienteDTO p) {
 
         List<DatosFiscales> datosFiscales = new LinkedList<>();
@@ -95,7 +107,7 @@ public class ConvertidorPaciente {
                 p.getDatosFiscales().get(0).getCiudad(),
                 p.getDatosFiscales().get(0).getMunicipio(),
                 p.getDatosFiscales().get(0).getEstado());
-        
+
         datosFiscales.add(datos);
 
         return new Paciente(
@@ -109,10 +121,10 @@ public class ConvertidorPaciente {
         );
 
     }
-    
+
     /**
      * Convierte un objeto de tipo Paciente a un objeto de tipo PacienteDTO.
-     * 
+     *
      * @param p El objeto de tipo Paciente que se va a convertir.
      * @return Un objeto de tipo PacienteDTO resultante de la conversión.
      */
@@ -127,7 +139,7 @@ public class ConvertidorPaciente {
                 DatosFiscalesDTO datos = new DatosFiscalesDTO(
                         p.getDatosFiscales().get(0).getRazonSocial(),
                         p.getDatosFiscales().get(0).getRegimenFiscal(),
-                        p.getDatosFiscales().get(0).getRFC(),
+                        p.getDatosFiscales().get(0).getRfc(),
                         p.getDatosFiscales().get(0).getCalle(),
                         p.getDatosFiscales().get(0).getColonia(),
                         p.getDatosFiscales().get(0).getNumExterior(),

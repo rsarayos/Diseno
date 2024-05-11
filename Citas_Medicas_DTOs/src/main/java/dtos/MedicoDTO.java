@@ -47,6 +47,9 @@ public class MedicoDTO {
     
     private List<FacturaDTO> facturas;
 
+    public MedicoDTO() {
+    }
+
     /**
      * Constructor de la clase MedicoDTO.
      * 

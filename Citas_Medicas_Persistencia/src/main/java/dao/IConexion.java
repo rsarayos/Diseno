@@ -13,12 +13,18 @@ import com.mongodb.client.MongoCollection;
 public interface IConexion {
     
     /**
-     * Crea y devuelve una nueva conexión a la base de datos.
-     * 
-     * @return La nueva conexión a la base de datos en forma de MongoClient.
+     * Método para obtener una conexión a MongoDB.
+     *
+     * @return Cliente MongoClient que representa la conexión a MongoDB.
      */
      public MongoClient obtenerConexion();
      
+     /**
+     * Método para obtener una colección específica utilizando un cliente MongoClient.
+     *
+     * @param cliente Cliente MongoClient previamente establecido.
+     * @return Colección MongoCollection que representa una colección en MongoDB.
+     */
      public MongoCollection obtenerColeccion(MongoClient cliente);
     
 }

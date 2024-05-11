@@ -1,8 +1,7 @@
 package facturacion;
 
 /**
- *
- * @author alex_
+ * Clase que proporciona métodos para convertir números a letras en formato de pesos mexicanos.
  */
 public class NumeroALetras {
     
@@ -11,6 +10,12 @@ public class NumeroALetras {
     private static final String[] diezAVeinte = {"DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISEIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE"};
     private static final String[] centenas = {"", "CIENTO", "DOSCIENTOS", "TRESCIENTOS", "CUATROCIENTOS", "QUINIENTOS", "SEISCIENTOS", "SETECIENTOS", "OCHOCIENTOS", "NOVECIENTOS"};
     
+    /**
+     * Convierte un número en formato float a letras en formato de pesos mexicanos.
+     * 
+     * @param numero El número a convertir.
+     * @return Una cadena de texto que representa el número en letras.
+     */
     public String convertirNumeroALetras(float numero) {
         String resultado = "";
         
@@ -41,6 +46,12 @@ public class NumeroALetras {
         return resultado;
     }
     
+    /**
+     * Convierte un número entero en letras.
+     * 
+     * @param numero El número entero a convertir.
+     * @return Una cadena de texto que representa el número en letras.
+     */
     private String convertirEntero(int numero) {
         String letras = "";
         
