@@ -65,26 +65,9 @@ public class FrmFacturacion extends javax.swing.JDialog {
      * pacientes.
      */
     protected void obtenerPacientesCbx() {
+        this.cbxPacientes.removeAllItems();
         this.cbxPacientes.addItem(null);
         for (PacienteDTO paciente : regPaciente.consultarPacientes()) {
-            // se agrego para efectos del avance, con persistencia ya se obtendrian los datos completos de la consulta
-            DatosFiscalesDTO datosFiscales = new DatosFiscalesDTO(
-                    "Juan Alberto Perez Gonzalez", 
-                    "Sueldos y salarios e ingresos asimilados a salarios", 
-                    "PEGJ750220LJ4", 
-                    "Chapultepec", 
-                    "Benito Juarez", 
-                    "234", 
-                    "", 
-                    "83200", 
-                    "Ciudad Obregón", 
-                    "Cajeme", 
-                    "Sonora");
-            
-            List<DatosFiscalesDTO> datos = new LinkedList<>();
-            datos.add(datosFiscales);
-            paciente.setDatosFiscales(datos);
-            
             this.cbxPacientes.addItem(paciente);
         }
     }
@@ -435,23 +418,6 @@ public class FrmFacturacion extends javax.swing.JDialog {
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
 
         if (verificacionesCampos()) {
-            // mismo caso del paciente para efectos del avance
-            DatosFiscalesDTO datosFiscales = new DatosFiscalesDTO(
-                    "Juan Lopez Gomez", 
-                    "Régimen de Servicios Profesionales", 
-                    "GOLJ950615AM5", 
-                    "Tabasco", 
-                    "Centro", 
-                    "1340", 
-                    "", 
-                    "83150", 
-                    "Ciudad Obregón", 
-                    "Cajeme", 
-                    "Sonora");
-            List<DatosFiscalesDTO> datos = new LinkedList<>();
-            datos.add(datosFiscales);
-            this.medico.setDatosFiscales(datos);
-            
             Integer folioInterno = Integer.valueOf(txtFolioInterno.getText());
             Calendar fechaTimbrado = new GregorianCalendar();
             PacienteDTO paciente = cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex());
@@ -485,29 +451,37 @@ public class FrmFacturacion extends javax.swing.JDialog {
 
     private void cbxPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPacientesActionPerformed
         if (cbxPacientes.getSelectedItem() != null) {
-            PacienteDTO paciente = cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex());
-            txtRazonSocial.setText(paciente.getDatosFiscales().get(0).getRazonSocial());
-            txtRFC.setText(paciente.getDatosFiscales().get(0).getRFC());
-            // se junta la direccion
-            StringBuilder direccion = new StringBuilder();
-            direccion.append(paciente.getDatosFiscales().get(0).getCalle());
-            direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().get(0).getNumExterior());
-            direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().get(0).getColonia());
-            direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().get(0).getCodigoPostal());
-            direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().get(0).getCiudad());
-            direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().get(0).getMunicipio());
-            direccion.append(" ");
-            direccion.append(paciente.getDatosFiscales().get(0).getEstado());
-            direccion.append(" ");
-            String direccionCompleta = direccion.toString();
-            txtDomicilio.setText(direccionCompleta);
-            txtRegimen.setText(paciente.getDatosFiscales().get(0).getRegimenFiscal());
-            
+            if (cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()).getDatosFiscales() != null) {
+                PacienteDTO paciente = cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex());
+                txtRazonSocial.setText(paciente.getDatosFiscales().get(0).getRazonSocial());
+                txtRFC.setText(paciente.getDatosFiscales().get(0).getRFC());
+                // se junta la direccion
+                StringBuilder direccion = new StringBuilder();
+                direccion.append(paciente.getDatosFiscales().get(0).getCalle());
+                direccion.append(" ");
+                direccion.append(paciente.getDatosFiscales().get(0).getNumExterior());
+                direccion.append(" ");
+                direccion.append(paciente.getDatosFiscales().get(0).getColonia());
+                direccion.append(" ");
+                direccion.append(paciente.getDatosFiscales().get(0).getCodigoPostal());
+                direccion.append(" ");
+                direccion.append(paciente.getDatosFiscales().get(0).getCiudad());
+                direccion.append(" ");
+                direccion.append(paciente.getDatosFiscales().get(0).getMunicipio());
+                direccion.append(" ");
+                direccion.append(paciente.getDatosFiscales().get(0).getEstado());
+                direccion.append(" ");
+                String direccionCompleta = direccion.toString();
+                txtDomicilio.setText(direccionCompleta);
+                txtRegimen.setText(paciente.getDatosFiscales().get(0).getRegimenFiscal());
+            } else {
+                JOptionPane.showMessageDialog(this, "El paciente seleccionado requiere informacion para la emision de la factura, favor de capturarlos",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+                FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()), null, this);
+                this.setVisible(false);
+                regReceptor.setVisible(true);
+                
+            }
         }
     }//GEN-LAST:event_cbxPacientesActionPerformed
 
@@ -523,8 +497,14 @@ public class FrmFacturacion extends javax.swing.JDialog {
     
     private void btnAgregarReceptorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarReceptorActionPerformed
         // TODO add your handling code here:
-        FrmRegReceptor regReceptor = new FrmRegReceptor(null, true);
+        if(cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()) != null){
+        FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()), null, this);
+        this.setVisible(false);
         regReceptor.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccionar un paciente",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarReceptorActionPerformed
 
     private void tblDetalleFacturaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblDetalleFacturaFocusGained

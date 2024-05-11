@@ -126,7 +126,7 @@ public class PacienteDAO implements IPacienteDAO{
         try {
             UpdateResult updateResult = coleccionPacientes.updateOne(eq("_id", paciente.getId()), 
                     set("datosFiscales", paciente.getDatosFiscales()));
-            if (updateResult.wasAcknowledged()) {
+            if (updateResult.getModifiedCount() > 0) {
                 logger.log(Level.INFO, "Se modifico al paciente");
             } else {
                 paciente = null;

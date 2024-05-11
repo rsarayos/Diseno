@@ -1,6 +1,11 @@
 package facturacion;
 
 import dtos.FacturaDTO;
+import dtos.MedicoDTO;
+import dtos.PacienteDTO;
+import excepcionesNegocio.NegocioException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objetosNegocio.FacturacionNegocio;
 import objetosNegocio.IFacturacionNegocio;
 import timbradofactura.TimbrarFactura;
@@ -29,6 +34,24 @@ public class CFacturacion {
         return facturaTimbrada;
     }
     
+    protected MedicoDTO registrarDFMedico(MedicoDTO medico){
+        try {
+            return persistencia.registrarDFMedico(medico);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
     
+    protected PacienteDTO registrarDFPaciente(PacienteDTO paciente){
+        try {
+            return persistencia.registrarDFPaciente(paciente);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
     
 }

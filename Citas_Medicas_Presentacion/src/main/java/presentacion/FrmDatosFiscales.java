@@ -1,26 +1,127 @@
 package presentacion;
 
+import auxiliar.FiltrosJTextFields;
+import auxiliares.Validadores;
+import dtos.DatosFiscalesDTO;
+import dtos.MedicoDTO;
+import dtos.PacienteDTO;
+import facturacion.FFacturacion;
+import facturacion.IFacturacion;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alex_
  */
-public class FrmDatosEmisor extends javax.swing.JDialog {
+public class FrmDatosFiscales extends javax.swing.JDialog {
+    
+    private PacienteDTO paciente;
+    private MedicoDTO medico;
+    private FiltrosJTextFields filtro;
+    private Validadores validador;
+    private IFacturacion facturacion;
+    private FrmFacturacion frmFacturacion;
 
     /**
      * Creates new form FrmDatosEmisor
      */
-    public FrmDatosEmisor(java.awt.Frame parent, boolean modal) {
+    public FrmDatosFiscales(java.awt.Frame parent, boolean modal, PacienteDTO paciente, MedicoDTO medico, FrmFacturacion frmFacturacion) {
         super(parent, modal);
         initComponents();
+        this.frmFacturacion = frmFacturacion;
+        this.facturacion = new FFacturacion();
+        this.paciente = paciente;
+        this.medico = medico;
         this.ComboRegimen();
+        this.filtro  = new FiltrosJTextFields();
+        this.validador = new Validadores();
+        filtrarCampostxt();
     }
     
     private void ComboRegimen(){
+        this.cbxRegimen.addItem(null);
         this.cbxRegimen.addItem("Régimen Simplificado de Confianza");
+        this.cbxRegimen.addItem("Régimen de Sueldos y Salarios");
         this.cbxRegimen.addItem("Régimen de Servicios Profesionales");
         this.cbxRegimen.addItem("Régimen de Actividades Empresariales y Profesionales");
         this.cbxRegimen.addItem("Régimen de Incorporación Fiscal");
         this.cbxRegimen.addItem("General de Ley Personas Morales");
+        
+    }
+    
+    private void filtrarCampostxt(){
+        this.txtRazonSocial.setDocument(filtro.filtroJTextLetrasNumeros());
+        this.txtCalle.setDocument(filtro.filtroJTextLetrasNumeros());
+        this.txtColonia.setDocument(filtro.filtroJTextLetrasNumeros());
+        this.txtCiudad.setDocument(filtro.filtroJTextLetras());
+        this.txtCodigoPostal.setDocument(filtro.filtroJTextNumeros());
+        this.txtMunicipio.setDocument(filtro.filtroJTextLetras());
+        this.txtEstado.setDocument(filtro.filtroJTextLetras());
+        this.txtNumExterior.setDocument(filtro.filtroJTextNumeros());
+        this.txtNumeroInterior.setDocument(filtro.filtroJTextNumeros());
+        this.txtRFC.setDocument(filtro.filtroJTextLetrasNumerosCase());
+    }
+    
+    private boolean validarCamposCompletos(){
+        if (this.cbxRegimen.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccionar un regimen fiscal",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtRazonSocial.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar la Razon social",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtRFC.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar el RFC",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtCalle.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar la calle",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtColonia.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar la colonia",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtNumExterior.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar el numero exterior",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtCodigoPostal.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar el codigo postal",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtCiudad.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar la ciudad",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtMunicipio.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar el municipio",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (this.txtEstado.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ingresar el estado",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        if (!validador.validaRFC(txtRFC.getText())) {
+            JOptionPane.showMessageDialog(this, "El RFC es invalido: AAAA000000AAA",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        
+        return true;
         
     }
 
@@ -73,7 +174,7 @@ public class FrmDatosEmisor extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("DATOS EMISOR");
+        jLabel4.setText("DATOS FISCALES");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 50));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 50));
@@ -185,6 +286,7 @@ public class FrmDatosEmisor extends javax.swing.JDialog {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 450));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -192,7 +294,82 @@ public class FrmDatosEmisor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-
+        if (validarCamposCompletos()) {
+            
+            String razonSocial = txtRazonSocial.getText();
+            String regimenFiscal = cbxRegimen.getItemAt(cbxRegimen.getSelectedIndex());
+            String rfc = txtRFC.getText();
+            String calle = txtCalle.getText();
+            String colonia = txtColonia.getText();
+            String numExterior = txtNumExterior.getText();
+            String numInterior = txtNumeroInterior.getText();
+            String codigoPostal = txtCodigoPostal.getText();
+            String ciudad = txtCiudad.getText();
+            String municipio = txtMunicipio.getText();
+            String estado = txtEstado.getText();
+            
+            if (this.medico != null) {
+                DatosFiscalesDTO datos = new DatosFiscalesDTO(
+                        razonSocial, 
+                        regimenFiscal, 
+                        rfc, 
+                        calle, 
+                        colonia, 
+                        numExterior, 
+                        numInterior, 
+                        codigoPostal, 
+                        ciudad, 
+                        municipio, 
+                        estado);
+                List<DatosFiscalesDTO> datosFiscales = new LinkedList<>();
+                datosFiscales.add(datos);
+                this.medico.setDatosFiscales(datosFiscales);
+                
+                MedicoDTO resultado = this.facturacion.registrarDatosFiscalesMedico(medico);
+                
+                if (resultado != null) {
+                    JOptionPane.showMessageDialog(this, "Se registraron los datos del medico",
+                        "Registro", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se registraron los datos del medico",
+                            "Error", JOptionPane.INFORMATION_MESSAGE);
+                }
+                
+                this.dispose();
+                
+            }
+            if (this.paciente != null) {
+                DatosFiscalesDTO datos = new DatosFiscalesDTO(
+                        razonSocial, 
+                        regimenFiscal, 
+                        rfc, 
+                        calle, 
+                        colonia, 
+                        numExterior, 
+                        numInterior, 
+                        codigoPostal, 
+                        ciudad, 
+                        municipio, 
+                        estado);
+                List<DatosFiscalesDTO> datosFiscales = new LinkedList<>();
+                datosFiscales.add(datos);
+                this.paciente.setDatosFiscales(datosFiscales);
+                
+                PacienteDTO resultado = this.facturacion.registrarDatosFiscalesPaciente(paciente);
+                
+                if (resultado != null) {
+                    JOptionPane.showMessageDialog(this, "Se registraron los datos del paciente",
+                            "Registro", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se registraron los datos del paciente",
+                            "Error", JOptionPane.INFORMATION_MESSAGE);
+                }
+                
+                this.dispose();
+                frmFacturacion.obtenerPacientesCbx();
+                frmFacturacion.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,6 +1,8 @@
 package facturacion;
 
 import dtos.FacturaDTO;
+import dtos.MedicoDTO;
+import dtos.PacienteDTO;
 
 /**
  *
@@ -18,6 +20,20 @@ public class FFacturacion implements IFacturacion{
     public FacturaDTO facturar(FacturaDTO factura) {
         
         return control.facturar(factura);
+        
+    }
+
+    @Override
+    public MedicoDTO registrarDatosFiscalesMedico(MedicoDTO medico) {
+        
+        return control.registrarDFMedico(medico);
+        
+    }
+
+    @Override
+    public PacienteDTO registrarDatosFiscalesPaciente(PacienteDTO paciente) {
+        
+        return control.registrarDFPaciente(paciente);
         
     }
     

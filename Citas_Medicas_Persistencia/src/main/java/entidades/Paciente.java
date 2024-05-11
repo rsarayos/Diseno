@@ -67,6 +67,17 @@ public class Paciente implements Serializable {
     public Paciente() {
     }
 
+    public Paciente(ObjectId _id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo, List<DatosFiscales> datosFiscales) {
+        this._id = _id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.datosFiscales = datosFiscales;
+    }
+
     public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;

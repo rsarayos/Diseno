@@ -1,6 +1,7 @@
 package presentacion;
 
 import dtos.MedicoDTO;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que representa el formulario del menú principal de la aplicación.
@@ -85,7 +86,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      * @param evt Evento de acción generado al hacer clic en el botón "Agendar Cita".
      */
     private void AgendarCitaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendarCitaBtnActionPerformed
-        this.setVisible(false);
         FrmCitas citas = new FrmCitas(this, true, medicoActivo);
         citas.setVisible(true);
     }//GEN-LAST:event_AgendarCitaBtnActionPerformed
@@ -95,9 +95,15 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      */
     private void btnFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacionActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        FrmFacturacion facturacion = new FrmFacturacion(this, true, medicoActivo);
-        facturacion.setVisible(true);
+        if (medicoActivo.getDatosFiscales() == null) {
+            JOptionPane.showMessageDialog(this, "Se requieren datos para la emision de factura, favor de capturarlos",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, null, medicoActivo, null);
+            regReceptor.setVisible(true);
+        } else {
+            FrmFacturacion facturacion = new FrmFacturacion(this, true, medicoActivo);
+            facturacion.setVisible(true);
+        }
     }//GEN-LAST:event_btnFacturacionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

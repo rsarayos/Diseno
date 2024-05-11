@@ -8,6 +8,7 @@ import dtos.PacienteDTO;
 import entidades.DatosFiscales;
 import java.util.LinkedList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  * Clase que proporciona métodos para convertir entre objetos de tipo Paciente y PacienteDTO.
@@ -40,6 +41,40 @@ public class ConvertidorPaciente {
                 p.getFechaNacimiento(),
                 p.getTelefono(),
                 p.getCorreo()
+        );
+        
+    }
+    
+    public Paciente DTOAEntidadCompleto(PacienteDTO p) {
+        
+        ObjectId id = new ObjectId(p.getID());
+        
+        List<DatosFiscales> datosFiscales = new LinkedList<>();
+
+        DatosFiscales datos = new DatosFiscales(
+                p.getDatosFiscales().get(0).getRazonSocial(),
+                p.getDatosFiscales().get(0).getRegimenFiscal(),
+                p.getDatosFiscales().get(0).getRFC(),
+                p.getDatosFiscales().get(0).getCalle(),
+                p.getDatosFiscales().get(0).getColonia(),
+                p.getDatosFiscales().get(0).getNumExterior(),
+                p.getDatosFiscales().get(0).getNumInterior(),
+                p.getDatosFiscales().get(0).getCodigoPostal(),
+                p.getDatosFiscales().get(0).getCiudad(),
+                p.getDatosFiscales().get(0).getMunicipio(),
+                p.getDatosFiscales().get(0).getEstado());
+        
+        datosFiscales.add(datos);
+        
+        return new Paciente(
+                id,
+                p.getNombres(),
+                p.getApellidoPaterno(),
+                p.getApellidoMaterno(),
+                p.getFechaNacimiento(),
+                p.getTelefono(),
+                p.getCorreo(),
+                datosFiscales
         );
         
     }
