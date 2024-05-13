@@ -1,17 +1,9 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.Date;
+import org.bson.types.ObjectId;
+
 
 /**
  * Clase que representa una cita médica.
@@ -24,49 +16,36 @@ import javax.persistence.TemporalType;
  * basadas en su identificador único.
  * 
  */
-@Entity
-@Table(name = "citas")
 public class Cita implements Serializable {
 
     /**
      * Identificador único de la cita.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cita")
-    private Long id;
+    private ObjectId _id;
     
     /**
      * Fecha y hora de la cita.
      */
-    @Column(name = "fecha_cita", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar fechaHora;
+    private Date fechaHora;
     
     /**
      * Médico asociado a la cita.
      */
-    @ManyToOne
-    @JoinColumn(name = "cedula_medico", nullable = false)
-    private Medico medico;
+    private String cedulaProfesional;
     
     /**
      * Paciente asociado a la cita.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_paciente", nullable = false)
-    private Paciente paciente;
+    private ObjectId idPaciente;
     
     /**
      * Observación adicional sobre la cita (opcional).
      */
-    @Column(name = "observacion", length = 100)
     private String observacion;
     
     /**
      * Estado de la cita (activo/inactivo).
      */
-    @Column(name = "estado")
     private Boolean estado;
 
     /**
@@ -76,38 +55,37 @@ public class Cita implements Serializable {
     }
 
     /**
-     * Constructor que inicializa todos los atributos de la cita.
-     * 
-     * @param fechaHora Fecha y hora de la cita.
-     * @param medico Médico asociado a la cita.
-     * @param paciente Paciente asociado a la cita.
-     * @param observacion Observación adicional sobre la cita.
-     * @param estado Estado de la cita.
+     * Constructor para inicializar los atributos de la clase
+     * @param fechaHora fecha y hora de la cita
+     * @param cedulaProfesional cedula del medico
+     * @param idPaciente id del paciente
+     * @param observacion observaciones de la citas
+     * @param estado estado de la cita
      */
-    public Cita(Calendar fechaHora, Medico medico, Paciente paciente, String observacion, Boolean estado) {
+    public Cita(Date fechaHora, String cedulaProfesional, ObjectId idPaciente, String observacion, Boolean estado) {
         this.fechaHora = fechaHora;
-        this.medico = medico;
-        this.paciente = paciente;
+        this.cedulaProfesional = cedulaProfesional;
+        this.idPaciente = idPaciente;
         this.observacion = observacion;
         this.estado = estado;
     }
 
     /**
-     * Obtiene el identificador único de la cita.
+     * Obtiene el object id de la cita.
      * 
-     * @return El identificador único de la cita.
+     * @return el id de la cita.
      */
-    public Long getId() {
-        return id;
+    public ObjectId getId() {
+        return _id;
     }
 
     /**
-     * Establece el identificador único de la cita.
+     * Establece el object id de la cita.
      * 
-     * @param id El nuevo identificador único de la cita.
+     * @param _id El nuevo id de la cita.
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(ObjectId _id) {
+        this._id = _id;
     }
 
     /**
@@ -115,7 +93,7 @@ public class Cita implements Serializable {
      * 
      * @return La fecha y hora de la cita.
      */
-    public Calendar getFechaHora() {
+    public Date getFechaHora() {
         return fechaHora;
     }
 
@@ -124,44 +102,44 @@ public class Cita implements Serializable {
      * 
      * @param fechaHora La nueva fecha y hora de la cita.
      */
-    public void setFechaHora(Calendar fechaHora) {
+    public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
     }
 
     /**
-     * Obtiene el médico asociado a la cita.
+     * Obtiene la cedula del medico relacionado a la cita.
      * 
-     * @return El médico asociado a la cita.
+     * @return cedula del medico de la cita.
      */
-    public Medico getMedico() {
-        return medico;
+    public String getCedulaProfesional() {
+        return cedulaProfesional;
     }
 
     /**
-     * Establece el médico asociado a la cita.
+     * Establece la cedula del medico relacionado a la cita.
      * 
-     * @param medico El nuevo médico asociado a la cita.
+     * @param cedulaProfesional cedula del medico a establecer en la cita
      */
-    public void setMedico(Medico medico) {
-        this.medico = medico;
+    public void setCedulaProfesional(String cedulaProfesional) {
+        this.cedulaProfesional = cedulaProfesional;
     }
 
     /**
-     * Obtiene el paciente asociado a la cita.
+     * Obtiene el id del paciente relacionado a la cita.
      * 
-     * @return El paciente asociado a la cita.
+     * @return El id del paciente relacionado.
      */
-    public Paciente getPaciente() {
-        return paciente;
+    public ObjectId getIdPaciente() {
+        return idPaciente;
     }
 
     /**
-     * Establece el paciente asociado a la cita.
+     * Establece el id del paciente relacionado a la cita.
      * 
-     * @param paciente El nuevo paciente asociado a la cita.
+     * @param idPaciente id del paciente a establecer en la cita
      */
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setIdPaciente(ObjectId idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
     /**
@@ -208,7 +186,7 @@ public class Cita implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (_id != null ? _id.hashCode() : 0);
         return hash;
     }
 
@@ -225,7 +203,7 @@ public class Cita implements Serializable {
             return false;
         }
         Cita other = (Cita) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this._id == null && other._id != null) || (this._id != null && !this._id.equals(other._id))) {
             return false;
         }
         return true;
@@ -240,10 +218,10 @@ public class Cita implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Cita{");
-        sb.append("id=").append(id);
+        sb.append("_id=").append(_id);
         sb.append(", fechaHora=").append(fechaHora);
-        sb.append(", medico=").append(medico);
-        sb.append(", paciente=").append(paciente);
+        sb.append(", cedulaProfesional=").append(cedulaProfesional);
+        sb.append(", idPaciente=").append(idPaciente);
         sb.append(", observacion=").append(observacion);
         sb.append(", estado=").append(estado);
         sb.append('}');

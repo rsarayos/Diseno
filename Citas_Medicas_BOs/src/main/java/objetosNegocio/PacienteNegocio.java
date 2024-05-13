@@ -7,6 +7,7 @@ import dao.PacienteDAO;
 import entidades.Paciente;
 import excepcionesPersistencia.PersistenciaException;
 import convertidores.ConvertidorPaciente;
+import dao.ConstantesPersistencia;
 import dtos.PacienteDTO;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,9 +24,6 @@ import excepcionesNegocio.ValidacionException;
  */
 public class PacienteNegocio implements IPacienteNegocio {
     
-    /** Objeto para gestionar la conexión a la base de datos. */
-    private final IConexion conexion;
-    
     /** Objeto para interactuar con la capa de acceso a datos de los pacientes. */
     private final IPacienteDAO pacienteDAO;
     
@@ -41,8 +39,7 @@ public class PacienteNegocio implements IPacienteNegocio {
      * Inicializa los objetos necesarios para la lógica de negocio de los pacientes.
      */
     public PacienteNegocio() {
-        this.conexion = new Conexion();
-        this.pacienteDAO = new PacienteDAO(conexion);
+        this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, Paciente.class));
         this.convPaciente = new ConvertidorPaciente();
     }
     
@@ -51,32 +48,34 @@ public class PacienteNegocio implements IPacienteNegocio {
         Paciente pacientePersistencia = null;
         try {
             if (paciente.esValido()) {
-                Paciente pasNuevo = convPaciente.convertidorDTOAEntidad(paciente);
-                Paciente pasEncontrado = null;
-                List<Paciente> pacientesRegistrados = pacienteDAO.obtenerPacientes();
-
-                for (Paciente p : pacientesRegistrados) {
-                    if (p.getTelefono().equals(pasNuevo.getTelefono())) {
-                        pasEncontrado = p;
-                    }
-                }
-
-                if (pasEncontrado == null) {
                     try {
-                        pacientePersistencia = pacienteDAO.agregarPaciente(convPaciente.convertidorDTOAEntidad(paciente));
+                        pacientePersistencia = pacienteDAO.agregarPaciente(convPaciente.DTOAEntidad(paciente));
                     } catch (PersistenciaException ex) {
                         logger.log(Level.SEVERE, "Excepcion en persistencia");
                     }
-                }
             } else {
                 return null;
             }
         } catch (ValidacionException ex) {
             logger.log(Level.SEVERE, "Excepcion en validacion");
-        } catch (PersistenciaException ex) {
-            logger.log(Level.SEVERE, "Excepcion en persistencia");
         }
-        return convPaciente.convertidorEntidadaADTO(pacientePersistencia);
+        return convPaciente.EntidadaADTO(pacientePersistencia);
+    }
+    
+    @Override
+    public PacienteDTO buscarPacienteTelefono(String telefono) throws NegocioException {
+        Paciente pacienteEncontrado = null;
+        
+        try {
+            pacienteEncontrado = pacienteDAO.obtenerPacienteTelefono(telefono);
+            
+            return convPaciente.EntidadaADTO(pacienteEncontrado);
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PacienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return convPaciente.EntidadaADTO(pacienteEncontrado);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class PacienteNegocio implements IPacienteNegocio {
         }
         if (pacientesPersistencia != null) {
             for (Paciente paciente : pacientesPersistencia) {
-                pacientes.add(convPaciente.convertidorEntidadaADTO(paciente));
+                pacientes.add(convPaciente.EntidadaADTO(paciente));
             }
         }
         

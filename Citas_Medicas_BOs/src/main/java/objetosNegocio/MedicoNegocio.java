@@ -1,12 +1,12 @@
 package objetosNegocio;
 
 import dao.Conexion;
-import dao.IConexion;
 import dao.IMedicoDAO;
 import dao.MedicoDAO;
 import entidades.Medico;
 import excepcionesPersistencia.PersistenciaException;
 import convertidores.ConvertidorMedico;
+import dao.ConstantesPersistencia;
 import dtos.MedicoDTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,10 +18,7 @@ import java.util.logging.Logger;
  * 
  */
 public class MedicoNegocio implements IMedicoNegocio {
-    
-    /** Objeto para gestionar la conexión a la base de datos. */
-    private final IConexion conexion;
-    
+       
     /** Objeto para interactuar con la capa de acceso a datos de los medicos. */
     private final IMedicoDAO medicoDAO;
     
@@ -37,8 +34,7 @@ public class MedicoNegocio implements IMedicoNegocio {
      * Inicializa los atributos de conexión, objeto de acceso a datos de médico (DAO) y convertidor de médico.
      */
     public MedicoNegocio() {
-        this.conexion = new Conexion();
-        this.medicoDAO = new MedicoDAO(conexion);
+        this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, Medico.class));
         this.convMedico = new ConvertidorMedico();
     }
 
@@ -56,7 +52,7 @@ public class MedicoNegocio implements IMedicoNegocio {
         MedicoDTO medico = null;
         try {
             Medico medicoObt = medicoDAO.obtenerMedicoCedula(numCedula);
-            medico = convMedico.convertidorEntidadaADTO(medicoObt);
+            medico = convMedico.EntidadaADTO(medicoObt);
         } catch (PersistenciaException ex) {
             Logger.getLogger(MedicoNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }

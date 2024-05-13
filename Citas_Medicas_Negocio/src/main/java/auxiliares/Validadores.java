@@ -78,4 +78,19 @@ public class Validadores {
     
     }
     
+    /**
+     * Valida el formato de rfc.
+     * 
+     * @param rfc El rfc a validar.
+     * @return true si el rfc es válida, false en caso contrario.
+     */
+    public boolean validaRFC(String rfc) {
+
+        Pattern patron = Pattern.compile("^[A-Z&Ñ]{4}[0-9]{6}[A-Z0-9]{3}$");
+        Matcher matcher = patron.matcher(rfc);
+
+        return matcher.matches();
+
+    }
+    
 }

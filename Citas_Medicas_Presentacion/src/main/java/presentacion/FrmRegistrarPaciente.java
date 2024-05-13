@@ -1,7 +1,10 @@
 package presentacion;
 
+import auxiliar.FiltrosJTextFields;
 import auxiliares.Validadores;
 import consultarPacientes.FConsultarPaciente;
+import consultarPacientes.IConsultarPaciente;
+import dtos.MedicoDTO;
 import dtos.PacienteDTO;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -14,11 +17,21 @@ import registrarPaciente.FRegistrarPaciente;
  * Clase que representa el formulario para registrar nuevos pacientes.
  */
 public class FrmRegistrarPaciente extends javax.swing.JDialog {
-
+    
     /**
      * Objeto para gestionar el registro de pacientes
      */
     private IRegistrarPaciente registro;
+    
+    /**
+     * Objeto para gestionar la consulta de pacientes
+     */
+    private IConsultarPaciente regPacientes;
+    
+    /**
+     * Medico activo en la consulta
+     */
+    private MedicoDTO medico;
     
     /**
      * Formulario de citas médicas
@@ -26,17 +39,37 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
     private FrmCitas frmCitas;
     
     /**
+     * Filtros para los campos de texto
+     */
+    private FiltrosJTextFields filtro;
+    
+    /**
      * Constructor de la clase FrmRegistrarPaciente.
      * @param parent Componente padre del formulario.
      * @param modal Indica si el diálogo es modal.
      * @param frmCitas Formulario FrmCitas asociado.
      */
-    public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, FrmCitas frmCitas) {
+    public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, MedicoDTO medico, FrmCitas frmCitas) {
         super(parent, modal);
         initComponents();
         this.registro = new FRegistrarPaciente();
+        this.regPacientes = new FConsultarPaciente();
+        this.medico = medico;
         this.frmCitas = frmCitas;
+        this.filtro  = new FiltrosJTextFields();
+        filtrarCampostxt();
         
+    }
+    
+    /**
+     * Método para agregar filtros a los campos del formulario.
+     */
+    private void filtrarCampostxt(){
+        this.txtNombres.setDocument(filtro.filtroJTextLetras());
+        this.txtApellidoPaterno.setDocument(filtro.filtroJTextLetras());
+        this.txtApellidoMaterno.setDocument(filtro.filtroJTextLetras());
+        this.txtTelefono.setDocument(filtro.filtroJTextNumeros());
+    
     }
     
     /**
@@ -70,7 +103,12 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
                     "Información", JOptionPane.INFORMATION_MESSAGE);
             return false; 
         }
-        
+        PacienteDTO telefonoRegistrado = regPacientes.consultarTelefonoRegistrado(txtTelefono.getText());
+        if (telefonoRegistrado != null) {
+            JOptionPane.showMessageDialog(this, "El telefono ya se encuentra registrado",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            return false; 
+        }
         return true;
     }
 
@@ -125,8 +163,8 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         jLabel10.setText("DATOS DEL PACIENTE");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 260, -1));
 
-        btnCancelar.setBackground(new java.awt.Color(204, 204, 204));
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBackground(new java.awt.Color(204, 204, 204));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -134,8 +172,8 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, 90, 30));
 
-        btnConfirmar.setBackground(new java.awt.Color(204, 204, 204));
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.setBackground(new java.awt.Color(204, 204, 204));
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarActionPerformed(evt);
@@ -229,7 +267,7 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
                         nombre,
                         aPaterno,
                         aMaterno,
-                        fechaNacimiento,
+                        fechaNacimiento.getTime(),
                         telefono,
                         correo);
 
@@ -237,8 +275,13 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
                 if (pacienteRegistrado != null) {
                     JOptionPane.showMessageDialog(this, "Paciente registrado.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
-                    this.frmCitas.vaciarPacientesCbx();
-                    this.frmCitas.obtenerPacientesCbx();
+                    if (this.frmCitas != null) {
+                        this.frmCitas.vaciarPacientesCbx();
+                        this.frmCitas.obtenerPacientesCbx();
+                    } else {
+                        FrmDatosFiscales frmFiscal = new FrmDatosFiscales(null, true, pacienteRegistrado, medico);
+                        frmFiscal.setVisible(true);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "El paciente ya se encuentra registrado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 }

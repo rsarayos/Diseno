@@ -22,6 +22,15 @@ public interface IPacienteNegocio {
     public PacienteDTO registrarPaciente(PacienteDTO paciente) throws NegocioException;
     
     /**
+     * Busca un paciente en el sistema que tenga el telefono a buscar.
+     * 
+     * @param telefono El telefono del paciente a buscar.
+     * @return El paciente encontrado, o null si no se encontro coincidencia.
+     * @throws NegocioException Si ocurre un error durante la busqueda del paciente.
+     */
+    public PacienteDTO buscarPacienteTelefono(String telefono) throws NegocioException;
+    
+    /**
      * Obtiene la lista de todos los pacientes registrados en el sistema.
      * 
      * @return La lista de pacientes registrados.

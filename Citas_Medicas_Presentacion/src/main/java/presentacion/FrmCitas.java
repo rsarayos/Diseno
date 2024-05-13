@@ -7,6 +7,7 @@ import consultarPacientes.IConsultarPaciente;
 import dtos.CitaDTO;
 import dtos.MedicoDTO;
 import dtos.PacienteDTO;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
@@ -221,10 +222,11 @@ public class FrmCitas extends javax.swing.JDialog {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if (fechaValida && cbxPacientes.getSelectedItem() != null) {
             GregorianCalendar fecha = new GregorianCalendar(dtpFechaHora.getDateTimePermissive().getYear(), dtpFechaHora.getDateTimePermissive().getMonthValue() - 1, dtpFechaHora.getDateTimePermissive().getDayOfMonth(), dtpFechaHora.getDateTimePermissive().getHour(), dtpFechaHora.getDateTimePermissive().getMinute());
+            Date fechaDate = fecha.getTime();
             CitaDTO citaNueva = new CitaDTO(
-                    fecha,
-                    this.medico,
-                    cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()),
+                    fechaDate,
+                    this.medico.getCedulaProfesional(),
+                    cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()).getID(),
                     jTextArea1.getText(),
                     Boolean.TRUE);
 
@@ -257,7 +259,7 @@ public class FrmCitas extends javax.swing.JDialog {
      * @param evt Evento de acción generado al hacer clic en el botón.
      */
     private void btnAddPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPacienteActionPerformed
-        FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, this);
+        FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, medico, this);
         regPaciente.setVisible(true);
     }//GEN-LAST:event_btnAddPacienteActionPerformed
 
@@ -269,7 +271,8 @@ public class FrmCitas extends javax.swing.JDialog {
     private void btnVerificaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificaCitaActionPerformed
         if (dtpFechaHora.getDateTimePermissive() != null && dtpFechaHora.getDateTimePermissive().getHour() > 0) {
             GregorianCalendar fecha = new GregorianCalendar(dtpFechaHora.getDateTimePermissive().getYear(), dtpFechaHora.getDateTimePermissive().getMonthValue() - 1, dtpFechaHora.getDateTimePermissive().getDayOfMonth(), dtpFechaHora.getDateTimePermissive().getHour(), dtpFechaHora.getDateTimePermissive().getMinute());
-            CitaDTO cita = regCita.consultarDisponibilidadCita(new CitaDTO(fecha, this.medico));
+            Date fechaDate = fecha.getTime();
+            CitaDTO cita = regCita.consultarDisponibilidadCita(new CitaDTO(fechaDate, this.medico.getCedulaProfesional()));
             if (cita == null) {
                 this.fechaValida = true;
                 dtpFechaHora.setEnabled(false);

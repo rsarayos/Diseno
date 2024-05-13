@@ -28,4 +28,13 @@ public interface IMedicoDAO {
      */
     public Medico obtenerMedicoCedula(String cedula) throws PersistenciaException;
     
+    /**
+     * Agrega datos fiscales a un médico en la base de datos.
+     * 
+     * @param medico El médico al que se le agregarán los datos fiscales.
+     * @return El médico con los datos fiscales agregados.
+     * @throws PersistenciaException Si ocurre un error durante la operación de persistencia.
+     */
+    public Medico agregarDatosFiscales(Medico medico) throws PersistenciaException;
+    
 }

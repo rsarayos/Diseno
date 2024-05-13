@@ -1,14 +1,21 @@
 package dao;
 
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.and;
 import entidades.Cita;
 import entidades.Medico;
 import excepcionesPersistencia.PersistenciaException;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import org.bson.Document;
 
 /**
  * Clase que implementa la interfaz ICitaDAO para el acceso a datos de citas médicas.
@@ -44,19 +51,17 @@ public class CitaDAO implements ICitaDAO {
     @Override
     public Cita agregarCita(Cita cita) throws PersistenciaException {
         
-        EntityManager entityManager = conexion.crearConexion();
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionCitas = conexion.obtenerColeccion(cliente);
 
         try {
-
-            entityManager.getTransaction().begin();
-            entityManager.persist(cita);
-            entityManager.getTransaction().commit();
+            coleccionCitas.insertOne(cita);
             logger.log(Level.INFO, "Se agrego la cita");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error al agregar la cita");
             throw new PersistenciaException("No se pudo registrar la cita en la BD.");
         } finally {
-            entityManager.close();
+            cliente.close();
         }
 
         return cita;
@@ -65,30 +70,28 @@ public class CitaDAO implements ICitaDAO {
 
     @Override
     public Cita consultarConFecha(Calendar fecha, Medico medico) throws PersistenciaException {
-        EntityManager entityManager = conexion.crearConexion();
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionCitas = conexion.obtenerColeccion(cliente);
 
         try {
-            entityManager.getTransaction().begin();
-
-            // Consulta JPQL para obtener la cita con la fechaHora y medico especificados
-            Query query = entityManager.createQuery("SELECT c FROM Cita c WHERE c.fechaHora = :fechaHora AND c.medico = :medico", Cita.class);
-            query.setParameter("fechaHora", fecha);
-            query.setParameter("medico", medico);
-
-            // Obtener el resultado de la consulta
-            List<Cita> resultados = query.getResultList();
-
-            entityManager.getTransaction().commit();
+            FindIterable<Cita> cursor = coleccionCitas.find(and(
+                    eq("cedulaProfesional", medico.getCedulaProfesional()),
+                    eq("fechaHora", fecha.getTime())
+            ));
+            MongoCursor<Cita> iterator = cursor.iterator();
+            List<Cita> resultados = new LinkedList<>();
+            while (iterator.hasNext()) {
+                resultados.add(iterator.next());
+            }
             logger.log(Level.INFO, "Consulta de cita realizada con éxito");
-
             // Devolver la primera cita encontrada (si hay alguna)
             return resultados.isEmpty() ? null : resultados.get(0);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error al consultar la cita");
             throw new PersistenciaException("Error al consultar la cita en la BD.");
         } finally {
-            entityManager.close();
+            cliente.close();
         }
     }
-    
+
 }

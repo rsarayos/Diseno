@@ -6,6 +6,7 @@ import entidades.Paciente;
 import dtos.CitaDTO;
 import dtos.MedicoDTO;
 import dtos.PacienteDTO;
+import org.bson.types.ObjectId;
 
 /**
  * Clase que proporciona métodos para convertir entre objetos de tipo Cita y CitaDTO.
@@ -28,32 +29,14 @@ public class ConvertidorCita {
      * @param c El objeto de tipo CitaDTO que se va a convertir.
      * @return Un objeto de tipo Cita resultante de la conversión.
      */
-    public Cita convertidorDTOAEntidad(CitaDTO c) {
+    public Cita DTOAEntidad(CitaDTO c) {
         
-        Medico medico = new Medico(
-                c.getMedico().getCedulaProfesional(), 
-                c.getMedico().getNombre(), 
-                c.getMedico().getApellidoPaterno(), 
-                c.getMedico().getApellidoMaterno(), 
-                c.getMedico().getFechaNacimiento(), 
-                c.getMedico().getEspecialidad(), 
-                c.getMedico().getRfc(), 
-                c.getMedico().getTelefono(), 
-                c.getMedico().getCorreo(), 
-                c.getMedico().getContrasenia());
-        
-        Paciente paciente = new Paciente(
-                c.getPaciente().getNombres(), 
-                c.getPaciente().getApellidoPaterno(), 
-                c.getPaciente().getApellidoMaterno(), 
-                c.getPaciente().getFechaNacimiento(), 
-                c.getPaciente().getTelefono(), 
-                c.getPaciente().getCorreo());
+        ObjectId idPac = new ObjectId(c.getIdPaciente());
         
         return new Cita(
                 c.getFechaHora(), 
-                medico, 
-                paciente, 
+                c.getCedulaMedico(), 
+                idPac, 
                 c.getObservaciones(), 
                 c.getEstado()
         );
@@ -66,36 +49,22 @@ public class ConvertidorCita {
      * @param c El objeto de tipo Cita que se va a convertir.
      * @return Un objeto de tipo CitaDTO resultante de la conversión.
      */
-    public CitaDTO convertidorEntidadaADTO(Cita c) {
-        
-        MedicoDTO medico = new MedicoDTO(
-                c.getMedico().getCedulaProfesional(), 
-                c.getMedico().getNombre(), 
-                c.getMedico().getApellidoPaterno(), 
-                c.getMedico().getApellidoMaterno(), 
-                c.getMedico().getFechaNacimiento(), 
-                c.getMedico().getEspecialidad(), 
-                c.getMedico().getRfc(), 
-                c.getMedico().getTelefono(), 
-                c.getMedico().getCorreo(), 
-                c.getMedico().getContrasenia());
-        
-        PacienteDTO paciente = new PacienteDTO(
-                c.getPaciente().getNombre(), 
-                c.getPaciente().getApellidoPaterno(), 
-                c.getPaciente().getApellidoMaterno(), 
-                c.getPaciente().getFechaNacimiento(), 
-                c.getPaciente().getTelefono(), 
-                c.getPaciente().getCorreo());
-        
-        return new CitaDTO(
-                c.getFechaHora(), 
-                medico, 
-                paciente, 
-                c.getObservacion(), 
-                c.getEstado()
-        );
-        
+    public CitaDTO EntidadaADTO(Cita c) {
+
+        if (c != null) {
+
+             String id = c.getIdPaciente().toHexString();
+            
+            return new CitaDTO(
+                    c.getFechaHora(),
+                    c.getCedulaProfesional(),
+                    id,
+                    c.getObservacion(),
+                    c.getEstado()
+            );
+        }
+
+        return null;
     }
     
 }

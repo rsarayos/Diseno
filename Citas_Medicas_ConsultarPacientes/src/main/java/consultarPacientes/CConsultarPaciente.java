@@ -50,4 +50,21 @@ public class CConsultarPaciente {
         return listaPacientes;
     }
     
+    /**
+     * Método protegido para consultar un telefono registrado dentro del sistema de pacientes.
+     * 
+     * @param telefono El telefono a encontrar.
+     * @return El paciente encontrado, o null si no se encontro ninguno.
+     */
+    protected PacienteDTO verificarTelefonoExistente(String telefono){
+    
+        try {
+            return pacienteBO.buscarPacienteTelefono(telefono);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CConsultarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
 }
