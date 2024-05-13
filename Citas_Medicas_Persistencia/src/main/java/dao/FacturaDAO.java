@@ -2,16 +2,13 @@ package dao;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Updates.push;
-import static com.mongodb.client.model.Updates.set;
-import com.mongodb.client.result.UpdateResult;
-import static dao.PacienteDAO.logger;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import entidades.Factura;
+import entidades.Medico;
 import excepcionesPersistencia.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bson.Document;
 
 /**
  * Implementación de la interfaz IFacturaDAO que proporciona métodos para
@@ -56,6 +53,30 @@ public class FacturaDAO implements IFacturaDAO {
 
         return factura;
         
+    }
+
+    @Override
+    public Factura consultarUltimaFacturaMedico(Medico medico) throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionFacturas = conexion.obtenerColeccion(cliente);
+        Factura factura;
+
+        try {
+            factura = (Factura) coleccionFacturas.find(
+                    Filters.eq("rfcMedico", medico.getDatosFiscales().get(0).getRfc()))
+                    .sort(Sorts.descending("folioInterno"))
+                    .first();
+
+            logger.log(Level.INFO, "Se consultaron las facturas");
+            return factura;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al consultar la factura", e);
+            throw new PersistenciaException("No se pudo obtener las facturas de la BD.", e);
+        } finally {
+            cliente.close();
+        }
+
     }
     
 }

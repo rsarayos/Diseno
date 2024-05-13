@@ -33,4 +33,20 @@ public interface IFacturacion {
      */
     public PacienteDTO registrarDatosFiscalesPaciente(PacienteDTO paciente);
     
+    /**
+     * Busca un rfc dentro del sistema de pacientes.
+     *
+     * @param rfc El RFC a buscar dentro del sistema.
+     * @return El paciente encontrado, o null si no se encontro ningun paciente.
+     */
+    public PacienteDTO buscarRFCExistente(String rfc);
+    
+    /**
+     * Obtiene el folio a utilizar para la siguiente factura de un medico especifico
+     *
+     * @param medico El medico que realiza la factura.
+     * @return El numero de folio a utilizar.
+     */
+    public Integer obtenerNuevoFolio(MedicoDTO medico);
+    
 }

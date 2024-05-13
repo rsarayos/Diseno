@@ -98,7 +98,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         if (medicoActivo.getDatosFiscales() == null) {
             JOptionPane.showMessageDialog(this, "Se requieren datos para la emision de factura, favor de capturarlos",
                         "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
-            FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, null, medicoActivo, null);
+            FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, null, medicoActivo);
             regReceptor.setVisible(true);
         } else {
             FrmFacturacion facturacion = new FrmFacturacion(this, true, medicoActivo);

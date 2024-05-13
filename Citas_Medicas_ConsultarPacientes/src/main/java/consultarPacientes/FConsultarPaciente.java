@@ -27,5 +27,12 @@ public class FConsultarPaciente implements IConsultarPaciente{
         return control.consultarPacientes();
         
     }
+
+    @Override
+    public PacienteDTO consultarTelefonoRegistrado(String telefono) {
+        
+        return control.verificarTelefonoExistente(telefono);
+        
+    }
     
 }

@@ -48,32 +48,34 @@ public class PacienteNegocio implements IPacienteNegocio {
         Paciente pacientePersistencia = null;
         try {
             if (paciente.esValido()) {
-                Paciente pasNuevo = convPaciente.DTOAEntidad(paciente);
-                Paciente pasEncontrado = null;
-                List<Paciente> pacientesRegistrados = pacienteDAO.obtenerPacientes();
-
-                for (Paciente p : pacientesRegistrados) {
-                    if (p.getTelefono().equals(pasNuevo.getTelefono())) {
-                        pasEncontrado = p;
-                    }
-                }
-
-                if (pasEncontrado == null) {
                     try {
                         pacientePersistencia = pacienteDAO.agregarPaciente(convPaciente.DTOAEntidad(paciente));
                     } catch (PersistenciaException ex) {
                         logger.log(Level.SEVERE, "Excepcion en persistencia");
                     }
-                }
             } else {
                 return null;
             }
         } catch (ValidacionException ex) {
             logger.log(Level.SEVERE, "Excepcion en validacion");
-        } catch (PersistenciaException ex) {
-            logger.log(Level.SEVERE, "Excepcion en persistencia");
         }
         return convPaciente.EntidadaADTO(pacientePersistencia);
+    }
+    
+    @Override
+    public PacienteDTO buscarPacienteTelefono(String telefono) throws NegocioException {
+        Paciente pacienteEncontrado = null;
+        
+        try {
+            pacienteEncontrado = pacienteDAO.obtenerPacienteTelefono(telefono);
+            
+            return convPaciente.EntidadaADTO(pacienteEncontrado);
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PacienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return convPaciente.EntidadaADTO(pacienteEncontrado);
     }
 
     @Override

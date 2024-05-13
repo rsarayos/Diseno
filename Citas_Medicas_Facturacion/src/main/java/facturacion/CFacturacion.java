@@ -16,7 +16,7 @@ import timbradofactura.TimbrarFactura;
 public class CFacturacion {
     
     /** Instancia para interactuar con la capa de negocio de facturación. */
-    private IFacturacionNegocio persistencia;
+    private IFacturacionNegocio negocio;
     
     /** Instancia para generar la impresión de la factura. */
     private GenerarFacturaImpresa impresion;
@@ -28,7 +28,7 @@ public class CFacturacion {
      * Constructor de la clase CFacturacion que inicializa las instancias necesarias.
      */
     public CFacturacion() {
-        this.persistencia = new FacturacionNegocio();
+        this.negocio = new FacturacionNegocio();
         this.impresion = new GenerarFacturaImpresa();
         this.timbrado = new TimbrarFactura();
     }
@@ -45,7 +45,7 @@ public class CFacturacion {
         FacturaDTO facturaTimbrada = timbrado.timbrarFactura(factura);
         
         try {
-            persistencia.registrarFactura(factura);
+            negocio.registrarFactura(factura);
         } catch (NegocioException ex) {
             Logger.getLogger(CFacturacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,7 +63,7 @@ public class CFacturacion {
      */
     protected MedicoDTO registrarDFMedico(MedicoDTO medico){
         try {
-            return persistencia.registrarDFMedico(medico);
+            return negocio.registrarDFMedico(medico);
         } catch (NegocioException ex) {
             Logger.getLogger(CFacturacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,7 +79,7 @@ public class CFacturacion {
      */
     protected PacienteDTO registrarDFPaciente(PacienteDTO paciente){
         try {
-            return persistencia.registrarDFPaciente(paciente);
+            return negocio.registrarDFPaciente(paciente);
         } catch (NegocioException ex) {
             Logger.getLogger(CFacturacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,4 +87,32 @@ public class CFacturacion {
         return null;
     }
     
+    /**
+     * Busca un paciente dentro del sistema con el rfc especificado.
+     *
+     * @param rfc El rfc del paciente a buscar.
+     * @return El paciente con el rfc especificado, o null si no se encontro coincidencia.
+     */
+    protected PacienteDTO verificarRFCExistente(String rfc){
+        
+        try {
+            return negocio.obtenerPacienteRFC(rfc);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+        
+    }
+    
+    protected Integer obtenerFolioFactura(MedicoDTO medico) {
+
+        try {
+            return negocio.obtenerFolioNuevo(medico);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

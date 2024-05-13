@@ -2,6 +2,8 @@ package presentacion;
 
 import auxiliar.FiltrosJTextFields;
 import auxiliares.Validadores;
+import consultarPacientes.FConsultarPaciente;
+import consultarPacientes.IConsultarPaciente;
 import dtos.DatosFiscalesDTO;
 import dtos.MedicoDTO;
 import dtos.PacienteDTO;
@@ -22,16 +24,16 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
     private FiltrosJTextFields filtro;
     private Validadores validador;
     private IFacturacion facturacion;
-    private FrmFacturacion frmFacturacion;
+    private IConsultarPaciente consPacientes;
 
     /**
      * Creates new form FrmDatosEmisor
      */
-    public FrmDatosFiscales(java.awt.Frame parent, boolean modal, PacienteDTO paciente, MedicoDTO medico, FrmFacturacion frmFacturacion) {
+    public FrmDatosFiscales(java.awt.Frame parent, boolean modal, PacienteDTO paciente, MedicoDTO medico) {
         super(parent, modal);
         initComponents();
-        this.frmFacturacion = frmFacturacion;
         this.facturacion = new FFacturacion();
+        this.consPacientes = new FConsultarPaciente();
         this.paciente = paciente;
         this.medico = medico;
         this.ComboRegimen();
@@ -119,10 +121,17 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "El RFC es invalido: AAAA000000AAA",
                         "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
             return false;
+        } else {
+            PacienteDTO rfcRegistrado = facturacion.buscarRFCExistente(txtRFC.getText());
+            if (rfcRegistrado != null) {
+                JOptionPane.showMessageDialog(this, "El RFC ya se encuentra registrado",
+                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
         }
-        
+
         return true;
-        
+
     }
 
     /**
@@ -308,7 +317,7 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
             String municipio = txtMunicipio.getText();
             String estado = txtEstado.getText();
             
-            if (this.medico != null) {
+            if (this.paciente == null) {
                 DatosFiscalesDTO datos = new DatosFiscalesDTO(
                         razonSocial, 
                         regimenFiscal, 
@@ -335,10 +344,11 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
                             "Error", JOptionPane.INFORMATION_MESSAGE);
                 }
                 
+                FrmFacturacion frmFacturacion = new FrmFacturacion(null, true, medico);
                 this.dispose();
+                frmFacturacion.setVisible(true);
                 
-            }
-            if (this.paciente != null) {
+            } else {
                 DatosFiscalesDTO datos = new DatosFiscalesDTO(
                         razonSocial, 
                         regimenFiscal, 
@@ -365,8 +375,8 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
                             "Error", JOptionPane.INFORMATION_MESSAGE);
                 }
                 
+                FrmFacturacion frmFacturacion = new FrmFacturacion(null, true, medico);
                 this.dispose();
-                frmFacturacion.obtenerPacientesCbx();
                 frmFacturacion.setVisible(true);
             }
         }

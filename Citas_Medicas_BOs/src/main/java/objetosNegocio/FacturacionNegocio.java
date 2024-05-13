@@ -89,5 +89,39 @@ public class FacturacionNegocio implements IFacturacionNegocio{
         }
         return paciente;
     }
+
+    @Override
+    public PacienteDTO obtenerPacienteRFC(String rfc) throws NegocioException {
+        Paciente pacienteEncontrado = null;
+
+        try {
+            pacienteEncontrado = pacienteDAO.obtenerPacienteRFC(rfc);
+
+            return convPaciente.EntidadaADTO(pacienteEncontrado);
+
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PacienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return convPaciente.EntidadaADTO(pacienteEncontrado);
+    }
+
+    @Override
+    public Integer obtenerFolioNuevo(MedicoDTO medico) throws NegocioException {
+        Integer numFacturaNueva = 10000;
+        
+            try {
+            Factura factura = facturaDAO.consultarUltimaFacturaMedico(convMedico.DTOAEntidadDatosFiscales(medico));
+            if (factura != null) {
+                numFacturaNueva = factura.getFolioInterno();
+                numFacturaNueva++;
+                return numFacturaNueva;
+            } 
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(FacturacionNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return numFacturaNueva;
+    }
     
 }

@@ -33,9 +33,8 @@ public class PruebasPersisPacientes {
         Date fechaActual = new Date();
                 
         try {
-            List<Paciente> pacientes = pacienteDAO.obtenerPacientes();
-            Paciente pacienteModi = pacientes.get(1);
-            System.out.println(pacienteModi);
+            Paciente pacientes = pacienteDAO.obtenerPacienteRFC("GOST200506MEO");
+            System.out.println(pacientes);
         } catch (PersistenciaException ex) {
             Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -41,6 +41,24 @@ public interface IPacienteDAO {
     public Paciente obtenerPaciente(ObjectId id) throws PersistenciaException;
     
     /**
+     * Obtiene un paciente por su ID.
+     * 
+     * @param telefono El telefono del paciente que se desea obtener.
+     * @return El paciente encontrado, o null si no se encontró ningún paciente con el ID especificado.
+     * @throws PersistenciaException Si ocurre un error durante la operación de persistencia.
+     */
+    public Paciente obtenerPacienteTelefono(String telefono) throws PersistenciaException;
+    
+    /**
+     * Obtiene un paciente por su ID.
+     * 
+     * @param rfc El rfc del paciente que se desea obtener.
+     * @return El paciente encontrado, o null si no se encontró ningún paciente con el ID especificado.
+     * @throws PersistenciaException Si ocurre un error durante la operación de persistencia.
+     */
+    public Paciente obtenerPacienteRFC(String rfc) throws PersistenciaException;
+    
+    /**
      * Agrega datos fiscales a un paciente en la base de datos.
      * 
      * @param paciente El paciente al que se le agregarán los datos fiscales.

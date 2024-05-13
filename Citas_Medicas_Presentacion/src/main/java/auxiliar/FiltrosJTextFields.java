@@ -27,7 +27,7 @@ public class FiltrosJTextFields {
             @Override
             public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
                 // Permitir solo letras
-                if (string.matches("[a-zA-Z ]+")) {
+                if (string.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+")) {
                     super.insertString(fb, offset, string, attr);
                 }
             }
@@ -35,7 +35,7 @@ public class FiltrosJTextFields {
             @Override
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 // Permitir solo letras
-                if (text.matches("[a-zA-Z ]+")) {
+                if (text.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+")) {
                     super.replace(fb, offset, length, text, attrs);
                 }
             }
@@ -83,7 +83,7 @@ public class FiltrosJTextFields {
             @Override
             public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
                 // Permitir solo letras y dígitos
-                if (string.matches("[a-zA-Z0-9 ]+")) {
+                if (string.matches("[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ  ]+")) {
                     super.insertString(fb, offset, string, attr);
                 }
             }
@@ -91,7 +91,7 @@ public class FiltrosJTextFields {
             @Override
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 // Permitir solo letras y dígitos
-                if (text.matches("[a-zA-Z0-9 ]+")) {
+                if (text.matches("[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ  ]+")) {
                     super.replace(fb, offset, length, text, attrs);
                 }
             }

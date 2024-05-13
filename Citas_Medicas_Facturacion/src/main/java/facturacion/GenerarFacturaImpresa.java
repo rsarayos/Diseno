@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -46,47 +47,25 @@ public class GenerarFacturaImpresa {
      * @param factura Los datos de la factura.
      */
     public void generarImpresion(FacturaDTO factura) {
-        
+
         Map<String, Object> parameters = mapeoParametros(factura);
 
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Guardar Reporte");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos PDF", "pdf"));
+        try (InputStream input = new FileInputStream(new File("Factura.jrxml"))) {
+            JasperDesign jasperDesign = JRXmlLoader.load(input);
 
-        int userSelection = fileChooser.showSaveDialog(null);
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            String filePath = fileToSave.getAbsolutePath();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 
-            if (!filePath.endsWith(".pdf")) {
-                filePath += ".pdf";
-            }
+            JasperViewer viewer = new JasperViewer(jasperPrint, false);
+            viewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            viewer.setVisible(true);
 
-            try (InputStream input = new FileInputStream(new File("Factura.jrxml"))) {
-                JasperDesign jasperDesign = JRXmlLoader.load(input);
-
-                JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
-                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
-
-                try (OutputStream outputStream = new FileOutputStream(new File(filePath))) {
-                    JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-                }
-
-                // visualiza el reporte en el lector jasper
-                JasperViewer.viewReport(jasperPrint);
-
-            } catch (Exception ex) {
-                Logger.getLogger(GenerarFacturaImpresa.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Error al generar el reporte.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-            System.out.println("File Generated");
-        } else if (userSelection == JFileChooser.CANCEL_OPTION) {
-            System.out.println("Save command cancelled by user.");
+        } catch (Exception ex) {
+            Logger.getLogger(GenerarFacturaImpresa.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al generar el reporte.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+        
     }
     
     /**

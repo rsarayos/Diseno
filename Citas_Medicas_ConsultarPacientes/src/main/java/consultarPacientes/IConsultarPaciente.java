@@ -18,4 +18,12 @@ public interface IConsultarPaciente {
      */
     public List<PacienteDTO> consultarPacientes();
     
+    /**
+     * Método para consultar si un telefono se encuentra previamente registrado en un paciente.
+     * 
+     * @param telefono Telefono a buscar en el sistema.
+     * @return El paciente encontrado, o null si no se encontro ningun paciente.
+     */
+    public PacienteDTO consultarTelefonoRegistrado(String telefono);
+    
 }

@@ -116,6 +116,54 @@ public class PacienteDAO implements IPacienteDAO{
         
         return paciente;
     }
+    
+    @Override
+    public Paciente obtenerPacienteTelefono(String telefono) throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
+        Paciente paciente;
+        
+        try {
+            paciente = (Paciente) coleccionPacientes.find(eq("telefono", telefono)).first();
+            if (paciente != null) {
+                logger.log(Level.INFO, "Se encontro al paciente");
+            } else {
+                logger.log(Level.INFO, "No se encontro al paciente");
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al consultar el paciente", e);
+            throw new PersistenciaException("No se pudo obtener el paciente de la BD.", e);
+        } finally {
+            cliente.close();
+        }
+        
+        return paciente;
+    }
+    
+    @Override
+    public Paciente obtenerPacienteRFC(String rfc) throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
+        Paciente paciente;
+        
+        try {
+            paciente = (Paciente) coleccionPacientes.find(eq("datosFiscales.rfc", rfc)).first();
+            if (paciente != null) {
+                logger.log(Level.INFO, "Se encontro al paciente");
+            } else {
+                logger.log(Level.INFO, "No se encontro al paciente");
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al consultar el paciente", e);
+            throw new PersistenciaException("No se pudo obtener el paciente de la BD.", e);
+        } finally {
+            cliente.close();
+        }
+        
+        return paciente;
+    }
 
     @Override
     public Paciente agregarDatosFiscales(Paciente paciente) throws PersistenciaException {

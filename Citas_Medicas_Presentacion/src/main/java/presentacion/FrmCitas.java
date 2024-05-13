@@ -259,7 +259,7 @@ public class FrmCitas extends javax.swing.JDialog {
      * @param evt Evento de acción generado al hacer clic en el botón.
      */
     private void btnAddPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPacienteActionPerformed
-        FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, this);
+        FrmRegistrarPaciente regPaciente = new FrmRegistrarPaciente(null, true, medico, this);
         regPaciente.setVisible(true);
     }//GEN-LAST:event_btnAddPacienteActionPerformed
 

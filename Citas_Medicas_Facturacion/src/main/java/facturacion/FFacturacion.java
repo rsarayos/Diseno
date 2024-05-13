@@ -40,5 +40,19 @@ public class FFacturacion implements IFacturacion {
         return control.registrarDFPaciente(paciente);
         
     }
+
+    @Override
+    public PacienteDTO buscarRFCExistente(String rfc) {
+        
+        return control.verificarRFCExistente(rfc);
+        
+    }
+
+    @Override
+    public Integer obtenerNuevoFolio(MedicoDTO medico) {
+        
+        return control.obtenerFolioFactura(medico);
+        
+    }
     
 }

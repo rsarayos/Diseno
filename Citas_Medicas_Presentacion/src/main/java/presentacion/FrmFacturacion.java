@@ -64,9 +64,8 @@ public class FrmFacturacion extends javax.swing.JDialog {
      * Método que obtiene la lista de pacientes y los agrega al ComboBox de
      * pacientes.
      */
-    protected void obtenerPacientesCbx() {
+    private void obtenerPacientesCbx() {
         this.cbxPacientes.removeAllItems();
-        this.cbxFormaPago.setSelectedIndex(-1);
         this.cbxPacientes.addItem(null);
         for (PacienteDTO paciente : regPaciente.consultarPacientes()) {
             this.cbxPacientes.addItem(paciente);
@@ -257,7 +256,7 @@ public class FrmFacturacion extends javax.swing.JDialog {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, 90, 30));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 90, 30));
 
         btnFacturar.setBackground(new java.awt.Color(204, 204, 204));
         btnFacturar.setText("Facturar");
@@ -266,7 +265,7 @@ public class FrmFacturacion extends javax.swing.JDialog {
                 btnFacturarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnFacturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 90, 30));
+        jPanel1.add(btnFacturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 440, 90, 30));
 
         cbxPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,24 +324,24 @@ public class FrmFacturacion extends javax.swing.JDialog {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("RFC:");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 80, -1));
-        jPanel1.add(cbxUsoCFDI, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 80, -1));
+        jPanel1.add(cbxUsoCFDI, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 430, -1));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel20.setText("Uso CFDI:");
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 70, -1));
-        jPanel1.add(cbxMetodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, 80, -1));
+        jPanel1.add(cbxMetodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 430, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("Metodo Pago:");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 100, -1));
-        jPanel1.add(cbxFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, 80, -1));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 100, -1));
+        jPanel1.add(cbxFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 430, -1));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel22.setText("Forma Pago:");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 340, 90, -1));
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 90, -1));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -405,7 +404,7 @@ public class FrmFacturacion extends javax.swing.JDialog {
         txtImpuesto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel1.add(txtImpuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 340, 100, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 780, 450));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 780, 490));
 
         pack();
         setLocationRelativeTo(null);
@@ -413,7 +412,6 @@ public class FrmFacturacion extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
-        this.getParent().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
@@ -444,9 +442,7 @@ public class FrmFacturacion extends javax.swing.JDialog {
                     total);
             
             facturacion.facturar(facturaNueva);
-            this.dispose();
             dispose();
-            this.getParent().setVisible(true);
         }
     }//GEN-LAST:event_btnFacturarActionPerformed
 
@@ -475,20 +471,28 @@ public class FrmFacturacion extends javax.swing.JDialog {
                 String direccionCompleta = direccion.toString();
                 txtDomicilio.setText(direccionCompleta);
                 txtRegimen.setText(paciente.getDatosFiscales().get(0).getRegimenFiscal());
+                btnAgregarReceptor.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(this, "El paciente seleccionado requiere informacion para la emision de la factura, favor de capturarlos",
                         "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
-                FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()), null, this);
-                this.setVisible(false);
+                FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()), medico);
+                this.dispose();
                 regReceptor.setVisible(true);
-                
+
             }
+        } else {
+            txtRazonSocial.setText("");
+            txtRFC.setText("");
+            txtDomicilio.setText("");
+            txtRegimen.setText("");
+            btnAgregarReceptor.setEnabled(true);
         }
     }//GEN-LAST:event_cbxPacientesActionPerformed
 
     private void obtenerFolioFechaFactura(){
         // aqui se obtendria el folio y la fecha con persistencia
-        txtFolioInterno.setText("10023");    
+        Integer folioNuevo = facturacion.obtenerNuevoFolio(medico);
+        txtFolioInterno.setText(folioNuevo.toString());    
         LocalDate fechaActual = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fechaFormateada = fechaActual.format(formato);
@@ -499,8 +503,8 @@ public class FrmFacturacion extends javax.swing.JDialog {
     private void btnAgregarReceptorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarReceptorActionPerformed
         // TODO add your handling code here:
         if(cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()) != null){
-        FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()), null, this);
-        this.setVisible(false);
+        FrmDatosFiscales regReceptor = new FrmDatosFiscales(null, true, cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()), medico);
+        this.dispose();
         regReceptor.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Seleccionar un paciente",

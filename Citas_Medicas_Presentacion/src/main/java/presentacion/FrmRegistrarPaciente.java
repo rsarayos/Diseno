@@ -1,7 +1,10 @@
 package presentacion;
 
+import auxiliar.FiltrosJTextFields;
 import auxiliares.Validadores;
 import consultarPacientes.FConsultarPaciente;
+import consultarPacientes.IConsultarPaciente;
+import dtos.MedicoDTO;
 import dtos.PacienteDTO;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -20,10 +23,16 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
      */
     private IRegistrarPaciente registro;
     
+    private IConsultarPaciente regPacientes;
+    
+    private MedicoDTO medico;
+    
     /**
      * Formulario de citas médicas
      */
     private FrmCitas frmCitas;
+    
+    private FiltrosJTextFields filtro;
     
     /**
      * Constructor de la clase FrmRegistrarPaciente.
@@ -31,12 +40,24 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
      * @param modal Indica si el diálogo es modal.
      * @param frmCitas Formulario FrmCitas asociado.
      */
-    public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, FrmCitas frmCitas) {
+    public FrmRegistrarPaciente(java.awt.Frame parent, boolean modal, MedicoDTO medico, FrmCitas frmCitas) {
         super(parent, modal);
         initComponents();
         this.registro = new FRegistrarPaciente();
+        this.regPacientes = new FConsultarPaciente();
+        this.medico = medico;
         this.frmCitas = frmCitas;
+        this.filtro  = new FiltrosJTextFields();
+        filtrarCampostxt();
         
+    }
+    
+    private void filtrarCampostxt(){
+        this.txtNombres.setDocument(filtro.filtroJTextLetras());
+        this.txtApellidoPaterno.setDocument(filtro.filtroJTextLetras());
+        this.txtApellidoMaterno.setDocument(filtro.filtroJTextLetras());
+        this.txtTelefono.setDocument(filtro.filtroJTextNumeros());
+    
     }
     
     /**
@@ -70,7 +91,12 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
                     "Información", JOptionPane.INFORMATION_MESSAGE);
             return false; 
         }
-        
+        PacienteDTO telefonoRegistrado = regPacientes.consultarTelefonoRegistrado(txtTelefono.getText());
+        if (telefonoRegistrado != null) {
+            JOptionPane.showMessageDialog(this, "El telefono ya se encuentra registrado",
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            return false; 
+        }
         return true;
     }
 
@@ -237,8 +263,13 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
                 if (pacienteRegistrado != null) {
                     JOptionPane.showMessageDialog(this, "Paciente registrado.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
-                    this.frmCitas.vaciarPacientesCbx();
-                    this.frmCitas.obtenerPacientesCbx();
+                    if (this.frmCitas != null) {
+                        this.frmCitas.vaciarPacientesCbx();
+                        this.frmCitas.obtenerPacientesCbx();
+                    } else {
+                        FrmDatosFiscales frmFiscal = new FrmDatosFiscales(null, true, pacienteRegistrado, medico);
+                        frmFiscal.setVisible(true);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "El paciente ya se encuentra registrado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 }
