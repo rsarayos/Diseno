@@ -478,7 +478,11 @@ public class FrmFacturacion extends javax.swing.JDialog {
                     impuesto, 
                     total);
             
-            facturacion.facturar(facturaNueva);
+            FacturaDTO factura = facturacion.facturar(facturaNueva);
+            if (factura != null) {
+                JOptionPane.showMessageDialog(this, "Se ha timbrado la factura con folio: \n" + factura.getFolioFiscal() + "\nSe envio al correo: \n" + paciente.getCorreo(),
+                        "Factura timbrada", JOptionPane.INFORMATION_MESSAGE);
+            }
             dispose();
         }
     }//GEN-LAST:event_btnFacturarActionPerformed
