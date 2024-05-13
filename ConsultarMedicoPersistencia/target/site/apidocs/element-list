@@ -1,0 +1,5 @@
+com.mycompany.consultarmedicopersistencia
+com.mycompany.consultarmedicopersistencia.ConexionBD
+com.mycompany.consultarmedicopersistencia.DAOS
+com.mycompany.consultarmedicopersistencia.Excepciones
+com.mycompany.consultarmedicopersistencia.POJO

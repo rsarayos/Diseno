@@ -1,0 +1,4 @@
+com\mycompany\consultarmediconegocio\ConsultarMedicoNegocio.class
+com\mycompany\consultarmediconegocio\Excepciones\NegocioException.class
+com\mycompany\consultarmediconegocio\Excepciones\ValidacionException.class
+com\mycompany\consultarmediconegocio\Validadores\Validadores.class

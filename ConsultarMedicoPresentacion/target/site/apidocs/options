@@ -1,0 +1,24 @@
+-classpath
+'C:/Users/uirtis/.m2/repository/org/netbeans/external/AbsoluteLayout/RELEASE150/AbsoluteLayout-RELEASE150.jar;C:/Users/uirtis/.m2/repository/ConsultarMedicoDTO/ConsultarMedicoDTO/1.0-SNAPSHOT/ConsultarMedicoDTO-1.0-SNAPSHOT.jar;C:/Users/uirtis/.m2/repository/ConsultarMedicoBO/ConsultarMedicoBO/1.0-SNAPSHOT/ConsultarMedicoBO-1.0-SNAPSHOT.jar;C:/Users/uirtis/.m2/repository/ConsultarMedicoSubsistemas/ConsultarMedicoSubsistemas/1.0-SNAPSHOT/ConsultarMedicoSubsistemas-1.0-SNAPSHOT.jar;C:/Users/uirtis/.m2/repository/org/mongodb/mongodb-driver/3.10.2/mongodb-driver-3.10.2.jar;C:/Users/uirtis/.m2/repository/org/mongodb/bson/3.10.2/bson-3.10.2.jar;C:/Users/uirtis/.m2/repository/org/mongodb/mongodb-driver-core/3.10.2/mongodb-driver-core-3.10.2.jar;C:/Users/uirtis/.m2/repository/ConsultarMedicoNegocio/ConsultarMedicoNegocio/1.0-SNAPSHOT/ConsultarMedicoNegocio-1.0-SNAPSHOT.jar;C:/Users/uirtis/.m2/repository/ConsultarMedicoPersistencia/ConsultarMedicoPersistencia/1.0-SNAPSHOT/ConsultarMedicoPersistencia-1.0-SNAPSHOT.jar;C:/Users/uirtis/.m2/repository/ConsultarMedicoConvertidor/ConsultarMedicoConvertidor/1.0-SNAPSHOT/ConsultarMedicoConvertidor-1.0-SNAPSHOT.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'18'
+-sourcepath
+'C:/Users/uirtis/Documents/NetBeansProjects/ConsultarMedicoPresentacion/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/uirtis/Documents/NetBeansProjects/ConsultarMedicoPresentacion/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'ConsultarMedicoPresentacion 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'ConsultarMedicoPresentacion 1.0-SNAPSHOT API'

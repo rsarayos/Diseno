@@ -1,0 +1,53 @@
+@options
+@packages
+-classpath
+'C:/Users/uirtis/.m2/repository/ConsultarMedicoBO/ConsultarMedicoBO/1.0-SNAPSHOT/ConsultarMedicoBO-1.0-SNAPSHOT.jar;C:/Users/uirtis/.m2/repository/ConsultarMedicoNegocio/ConsultarMedicoNegocio/1.0-SNAPSHOT/ConsultarMedicoNegocio-1.0-SNAPSHOT.jar;C:/Users/uirtis/.m2/repository/ConsultarMedicoDTO/ConsultarMedicoDTO/1.0-SNAPSHOT/ConsultarMedicoDTO-1.0-SNAPSHOT.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'18'
+-sourcepath
+'C:/Users/uirtis/Documents/NetBeansProjects/ConsultarMedicoSubsistemas/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/uirtis/Documents/NetBeansProjects/ConsultarMedicoSubsistemas/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'ConsultarMedicoSubsistemas 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'ConsultarMedicoSubsistemas 1.0-SNAPSHOT API'
+com.mycompany.consultarmedicosubsistemas.BuscarMedico
+com.mycompany.consultarmedicosubsistemas.ConsultarMedico
+com.mycompany.consultarmedicosubsistemas
+com.mycompany.consultarmedicosubsistemas.EliminarMedico
+com.mycompany.consultarmedicosubsistemas.RegistrarMedico
+C:\Users\uirtis\.m2\repository\ConsultarMedicoBO\ConsultarMedicoBO\1.0-SNAPSHOT\ConsultarMedicoBO-1.0-SNAPSHOT.jar = 1715479077933
+C:\Users\uirtis\.m2\repository\ConsultarMedicoNegocio\ConsultarMedicoNegocio\1.0-SNAPSHOT\ConsultarMedicoNegocio-1.0-SNAPSHOT.jar = 1715325331951
+C:\Users\uirtis\.m2\repository\ConsultarMedicoDTO\ConsultarMedicoDTO\1.0-SNAPSHOT\ConsultarMedicoDTO-1.0-SNAPSHOT.jar = 1715477661407
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\src\main\java = 1715334935970
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\allclasses-index.html = 1715485120057
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\allpackages-index.html = 1715485120062
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\copy.svg = 1715485120109
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\element-list = 1715485119842
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\help-doc.html = 1715485120102
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\index-all.html = 1715485120091
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\index.html = 1715485120037
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\jquery-ui.overrides.css = 1715485120153
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\member-search-index.js = 1715485120072
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\module-search-index.js = 1715485120065
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\overview-summary.html = 1715485120094
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\overview-tree.html = 1715485120031
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\package-search-index.js = 1715485120068
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\script.js = 1715485120108
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\search.js = 1715485120113
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\stylesheet.css = 1715485120106
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\tag-search-index.js = 1715485120074
+C:\Users\uirtis\Documents\NetBeansProjects\ConsultarMedicoSubsistemas\target\site\apidocs\type-search-index.js = 1715485120070
