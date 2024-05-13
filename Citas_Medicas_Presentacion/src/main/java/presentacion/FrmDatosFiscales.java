@@ -14,20 +14,46 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author alex_
+ * La clase FrmDatosFiscales representa un formulario para ingresar los datos fiscales de un paciente.
  */
 public class FrmDatosFiscales extends javax.swing.JDialog {
     
+    /**
+     * El DTO del paciente.
+     */
     private PacienteDTO paciente;
+    
+    /**
+     * El DTO del médico.
+     */
     private MedicoDTO medico;
+    
+    /**
+     * El objeto FiltrosJTextFields para aplicar filtros a los campos de texto.
+     */
     private FiltrosJTextFields filtro;
+    
+    /**
+     * El objeto Validadores para validar los campos de texto.
+     */
     private Validadores validador;
+    
+    /**
+     * La interfaz IFacturacion para realizar la facturación.
+     */
     private IFacturacion facturacion;
+    
+    /**
+     * La interfaz IConsultarPaciente para consultar información del paciente.
+     */
     private IConsultarPaciente consPacientes;
 
     /**
-     * Creates new form FrmDatosEmisor
+     * Constructor de la clase FrmDatosFiscales.
+     * @param parent El JFrame padre del diálogo.
+     * @param modal Indica si el diálogo es modal o no.
+     * @param paciente El DTO del paciente.
+     * @param medico El DTO del médico.
      */
     public FrmDatosFiscales(java.awt.Frame parent, boolean modal, PacienteDTO paciente, MedicoDTO medico) {
         super(parent, modal);
@@ -42,6 +68,9 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
         filtrarCampostxt();
     }
     
+    /**
+     * Método privado para llenar un combo con opciones de régimen fiscal.
+     */
     private void ComboRegimen(){
         this.cbxRegimen.addItem(null);
         this.cbxRegimen.addItem("Régimen Simplificado de Confianza");
@@ -53,6 +82,9 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
         
     }
     
+    /**
+     * Método privado para filtrar los campos de texto.
+     */
     private void filtrarCampostxt(){
         this.txtRazonSocial.setDocument(filtro.filtroJTextLetrasNumeros());
         this.txtCalle.setDocument(filtro.filtroJTextLetrasNumeros());
@@ -66,6 +98,10 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
         this.txtRFC.setDocument(filtro.filtroJTextLetrasNumerosCase());
     }
     
+    /**
+     * Método privado para validar que todos los campos estén completos.
+     * @return true si todos los campos están completos, false en caso contrario.
+     */
     private boolean validarCamposCompletos(){
         if (this.cbxRegimen.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Seleccionar un regimen fiscal",
@@ -298,10 +334,18 @@ public class FrmDatosFiscales extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Manejador de eventos para el botón de cancelar.
+     * @param evt El evento que desencadena esta acción.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Manejador de eventos para el botón de confirmar.
+     * @param evt El evento que desencadena esta acción.
+     */
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if (validarCamposCompletos()) {
             

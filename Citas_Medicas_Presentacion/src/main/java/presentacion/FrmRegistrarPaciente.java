@@ -52,6 +52,9 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
         
     }
     
+    /**
+     * Método para agregar filtros a los campos del formulario.
+     */
     private void filtrarCampostxt(){
         this.txtNombres.setDocument(filtro.filtroJTextLetras());
         this.txtApellidoPaterno.setDocument(filtro.filtroJTextLetras());

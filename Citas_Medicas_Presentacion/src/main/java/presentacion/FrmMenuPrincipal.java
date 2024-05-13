@@ -91,7 +91,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_AgendarCitaBtnActionPerformed
 
     /**
-     * Aun no se implementa
+     * Metodo que se ejecuta al hacer clic en el boton "Facturar"
+     * Abre el formulario para facturacion
+     * @param evt Evento de acción generado al hacer clic en el botón "Facturar".
      */
     private void btnFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacionActionPerformed
         // TODO add your handling code here:

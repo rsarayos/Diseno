@@ -19,8 +19,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author alex_
+ * La clase FrmFacturacion representa un formulario para realizar la facturación de servicios médicos.
  */
 public class FrmFacturacion extends javax.swing.JDialog {
 
@@ -34,10 +33,16 @@ public class FrmFacturacion extends javax.swing.JDialog {
      */
     private MedicoDTO medico;
     
+    /**
+     * Interfaz para realizar la facturación.
+     */
     private IFacturacion facturacion;
     
     /**
-     * Creates new form FrmFacturacion
+     * Constructor de la clase FrmFacturacion.
+     * @param parent El JFrame padre del diálogo.
+     * @param modal Indica si el diálogo es modal o no.
+     * @param medico El médico activo que está utilizando el formulario.
      */
     public FrmFacturacion(java.awt.Frame parent, boolean modal, MedicoDTO medico) {
         super(parent, modal);
@@ -72,6 +77,9 @@ public class FrmFacturacion extends javax.swing.JDialog {
         }
     }
     
+    /**
+     * Método privado para obtener otros elementos necesarios para el formulario.
+     */
     private void obtenerOtrosCmbx(){
         
         this.cbxUsoCFDI.addItem(null);
@@ -90,6 +98,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
         this.cbxFormaPago.addItem("04. Tarjeta de credito");
     }
     
+    /**
+     * Método privado para calcular el subtotal de la factura en la tabla.
+     * @return El subtotal de la factura.
+     */
     private Float calcularSubTotal() {
         float subTotal = 0;
 
@@ -105,6 +117,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
         return subTotal;
     }
 
+    /**
+     * Método privado para calcular los totales de la factura.
+     * @param subTotal El subtotal de la factura.
+     */
     private void calcularTotales(Float subTotal) {
         txtSubtotal.setText(NumberFormat.getCurrencyInstance().format(subTotal));
         Float impuesto = subTotal * .1f;
@@ -113,6 +129,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
         txtTotal.setText(NumberFormat.getCurrencyInstance().format(total));
     }
     
+    /**
+     * Método privado para obtener los detalles de la factura.
+     * @return Una lista de DetalleFacturaDTO con los detalles de la factura.
+     */
     private List<DetalleFacturaDTO> obtenerDetalles() {
         List<DetalleFacturaDTO> detalles = new LinkedList<>();
         for (int i = 0; i < tblDetalleFactura.getRowCount(); i++) {
@@ -142,6 +162,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
         return detalles;
     }
     
+    /**
+     * Método privado para verificar los campos antes de realizar la facturación.
+     * @return true si los campos están correctamente llenos, false en caso contrario.
+     */
     private boolean verificacionesCampos(){
 
         if (this.cbxPacientes.getSelectedItem() == null) {
@@ -174,6 +198,11 @@ public class FrmFacturacion extends javax.swing.JDialog {
         
     }
     
+    /**
+     * Método privado para convertir una cadena a un valor de punto flotante (float).
+     * @param cadena La cadena a convertir.
+     * @return El valor de punto flotante (float) obtenido.
+     */
     private Float convertirStringAFloat(String cadena) {
         // Eliminar el símbolo de la moneda y los separadores de miles y decimales
         String cadenaLimpia = cadena.replaceAll("[^\\d.]", "");
@@ -410,10 +439,18 @@ public class FrmFacturacion extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Manejador de eventos para el botón de cancelar.
+     * @param evt El evento que desencadena esta acción.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Manejador de eventos para el botón de facturar.
+     * @param evt El evento que desencadena esta acción.
+     */
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
 
         if (verificacionesCampos()) {
@@ -446,6 +483,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnFacturarActionPerformed
 
+    /**
+     * Manejador de eventos para el ComboBox de pacientes.
+     * @param evt El evento que desencadena esta acción.
+     */
     private void cbxPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPacientesActionPerformed
         if (cbxPacientes.getSelectedItem() != null) {
             if (cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()).getDatosFiscales() != null) {
@@ -489,6 +530,9 @@ public class FrmFacturacion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cbxPacientesActionPerformed
 
+    /**
+     * Método privado para obtener el folio y la fecha de la factura.
+     */
     private void obtenerFolioFechaFactura(){
         // aqui se obtendria el folio y la fecha con persistencia
         Integer folioNuevo = facturacion.obtenerNuevoFolio(medico);
@@ -500,6 +544,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
         
     }
     
+    /**
+     * Manejador de eventos para el botón de agregar receptor.
+     * @param evt El evento que desencadena esta acción.
+     */
     private void btnAgregarReceptorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarReceptorActionPerformed
         // TODO add your handling code here:
         if(cbxPacientes.getItemAt(cbxPacientes.getSelectedIndex()) != null){
@@ -512,6 +560,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnAgregarReceptorActionPerformed
 
+    /**
+     * Manejador de eventos cuando la tabla de detalle de factura gana el foco.
+     * @param evt El evento que desencadena esta acción.
+     */
     private void tblDetalleFacturaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblDetalleFacturaFocusGained
         // Obtener el índice de la fila seleccionada
         int filaSeleccionada = tblDetalleFactura.getSelectedRow();
@@ -548,6 +600,10 @@ public class FrmFacturacion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tblDetalleFacturaFocusGained
 
+    /**
+     * Manejador de eventos cuando la tabla de detalle de factura pierde el foco.
+     * @param evt El evento que desencadena esta acción.
+     */
     private void tblDetalleFacturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblDetalleFacturaFocusLost
         // TODO add your handling code here:
         
