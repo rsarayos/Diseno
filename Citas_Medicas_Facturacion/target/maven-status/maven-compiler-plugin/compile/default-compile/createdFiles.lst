@@ -1,0 +1,6 @@
+facturacion\NumeroALetras.class
+facturacion\IFacturacion.class
+facturacion\CFacturacion.class
+facturacion\DetalleFacturaReporte.class
+facturacion\FFacturacion.class
+facturacion\GenerarFacturaImpresa.class
