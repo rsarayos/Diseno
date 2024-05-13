@@ -555,8 +555,9 @@ public class FrmFacturacion extends javax.swing.JDialog {
         this.dispose();
         regReceptor.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccionar un paciente",
-                        "Datos incompletos", JOptionPane.INFORMATION_MESSAGE);
+            FrmRegistrarPaciente frmRegistro = new FrmRegistrarPaciente(null, true, medico, null);
+            this.dispose();
+            frmRegistro.setVisible(true);
         }
     }//GEN-LAST:event_btnAgregarReceptorActionPerformed
 

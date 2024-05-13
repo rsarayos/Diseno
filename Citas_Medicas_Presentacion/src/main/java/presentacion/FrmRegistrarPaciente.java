@@ -23,8 +23,14 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
      */
     private IRegistrarPaciente registro;
     
+    /**
+     * Objeto para gestionar la consulta de pacientes
+     */
     private IConsultarPaciente regPacientes;
     
+    /**
+     * Medico activo en la consulta
+     */
     private MedicoDTO medico;
     
     /**
@@ -32,6 +38,9 @@ public class FrmRegistrarPaciente extends javax.swing.JDialog {
      */
     private FrmCitas frmCitas;
     
+    /**
+     * Filtros para los campos de texto
+     */
     private FiltrosJTextFields filtro;
     
     /**
