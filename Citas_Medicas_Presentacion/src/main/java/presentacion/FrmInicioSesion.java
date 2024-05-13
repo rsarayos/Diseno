@@ -32,8 +32,9 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         btnRegistro = new javax.swing.JButton();
-        btnIniciarSesion = new javax.swing.JButton();
+        btnAdministrador = new javax.swing.JButton();
         txtContrasenia = new javax.swing.JPasswordField();
+        btnIniciarSesion1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -47,15 +48,15 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Cedula");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 49, 100, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 100, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Contraseña");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 93, 100, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 100, -1));
 
         txtCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 50, 220, 25));
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 400, 25));
 
         btnRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnRegistro.setText("Registro");
@@ -64,21 +65,30 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 btnRegistroActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 120, 35));
+        jPanel1.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 120, 35));
 
-        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnIniciarSesion.setText("Iniciar Sesion");
-        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+        btnAdministrador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAdministrador.setText("Administrador");
+        btnAdministrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIniciarSesionActionPerformed(evt);
+                btnAdministradorActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 120, 35));
+        jPanel1.add(btnAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 120, 35));
 
         txtContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 220, -1));
+        jPanel1.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 400, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 440, 260));
+        btnIniciarSesion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnIniciarSesion1.setText("Iniciar Sesion");
+        btnIniciarSesion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSesion1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnIniciarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 120, 35));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 630, 260));
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -87,7 +97,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("INICIAR SESION");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 440, 50));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 630, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 70));
 
@@ -102,7 +112,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
      * Muestra un mensaje de error si las credenciales son incorrectas o si no se encuentra al médico.
      * @param evt Evento de acción generado al hacer clic en el botón "Iniciar Sesión".
      */
-    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+    private void btnAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministradorActionPerformed
         if (!txtCedula.getText().isEmpty() && !txtContrasenia.getText().isEmpty()) {
             String cedula = txtCedula.getText();
             String contra = txtContrasenia.getText();
@@ -127,7 +137,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Introducir informacion a los campos.",
                     "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnIniciarSesionActionPerformed
+    }//GEN-LAST:event_btnAdministradorActionPerformed
 
     /**
      * Método que se ejecuta al hacer clic en el botón "Registro".
@@ -147,8 +157,13 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegistroActionPerformed
 
+    private void btnIniciarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIniciarSesion1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JButton btnAdministrador;
+    private javax.swing.JButton btnIniciarSesion1;
     private javax.swing.JButton btnRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
