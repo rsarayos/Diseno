@@ -13,7 +13,7 @@ public class ConvertidorMedico {
      * @param medico entidad a convertir
      * @return un objeto de tipo MedicoMapeo
      */
-    protected MedicoMapeo convertirEntidadAMapeo(Medico medico){
+    public MedicoMapeo convertirEntidadAMapeo(Medico medico){
         
         if (medico.getDatosFiscales() != null) {
         return new MedicoMapeo(
@@ -45,31 +45,40 @@ public class ConvertidorMedico {
      * @param medico entidad a convertir
      * @return un objeto de tipo Medico
      */
-    protected Medico convertirMapeoAEntidad(MedicoMapeo medico){
-    
-        if (medico.getDatosFiscales() != null) {
-        return new Medico(
-                medico.getCedulaProfesional(), 
-                medico.getNombre(), 
-                medico.getApellidoPaterno(), 
-                medico.getApellidoMaterno(), 
-                medico.getFechaNacimiento(), 
-                medico.getEspecialidad(), 
-                medico.getTelefono(), 
-                medico.getCorreo(), 
-                medico.getContrasenia(), 
-                medico.getDatosFiscales());
-        } 
-        return new Medico(
-                medico.getCedulaProfesional(), 
-                medico.getNombre(), 
-                medico.getApellidoPaterno(), 
-                medico.getApellidoMaterno(), 
-                medico.getFechaNacimiento(), 
-                medico.getEspecialidad(), 
-                medico.getTelefono(), 
-                medico.getCorreo(), 
-                medico.getContrasenia());
+    public Medico convertirMapeoAEntidad(MedicoMapeo medico) {
+        if (medico != null) {
+
+            String idMed = medico.getId().toHexString();
+
+            if (medico.getDatosFiscales() != null) {
+                return new Medico(
+                        idMed,
+                        medico.getCedulaProfesional(),
+                        medico.getNombre(),
+                        medico.getApellidoPaterno(),
+                        medico.getApellidoMaterno(),
+                        medico.getFechaNacimiento(),
+                        medico.getEspecialidad(),
+                        medico.getTelefono(),
+                        medico.getCorreo(),
+                        medico.getContrasenia(),
+                        medico.getDatosFiscales());
+            } else {
+                return new Medico(
+                        idMed,
+                        medico.getCedulaProfesional(),
+                        medico.getNombre(),
+                        medico.getApellidoPaterno(),
+                        medico.getApellidoMaterno(),
+                        medico.getFechaNacimiento(),
+                        medico.getEspecialidad(),
+                        medico.getTelefono(),
+                        medico.getCorreo(),
+                        medico.getContrasenia());
+            }
+        } else {
+            return null;
+        }
     }
-    
+
 }

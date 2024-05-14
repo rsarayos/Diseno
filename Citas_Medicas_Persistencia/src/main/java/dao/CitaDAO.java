@@ -6,8 +6,10 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.and;
+import convertidorMapeo.ConvertidorCita;
 import entidades.Cita;
 import entidades.Medico;
+import entidadesMapeo.CitaMapeo;
 import excepcionesPersistencia.PersistenciaException;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +35,7 @@ public class CitaDAO implements ICitaDAO {
      * Objeto para manejar la conexión a la base de datos.
      */
     private final IConexion conexion;
+    private ConvertidorCita conv;
     
     /**
      * Logger para registrar información y errores.
@@ -46,6 +49,7 @@ public class CitaDAO implements ICitaDAO {
      */
     public CitaDAO(IConexion conexion) {
         this.conexion = conexion;
+        this.conv = new ConvertidorCita();
     }
     
     @Override
@@ -55,7 +59,8 @@ public class CitaDAO implements ICitaDAO {
         MongoCollection coleccionCitas = conexion.obtenerColeccion(cliente);
 
         try {
-            coleccionCitas.insertOne(cita);
+            CitaMapeo c = conv.convertirEntidadAMapeo(cita);
+            coleccionCitas.insertOne(c);
             logger.log(Level.INFO, "Se agrego la cita");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error al agregar la cita");
@@ -74,14 +79,14 @@ public class CitaDAO implements ICitaDAO {
         MongoCollection coleccionCitas = conexion.obtenerColeccion(cliente);
 
         try {
-            FindIterable<Cita> cursor = coleccionCitas.find(and(
+            FindIterable<CitaMapeo> cursor = coleccionCitas.find(and(
                     eq("cedulaProfesional", medico.getCedulaProfesional()),
                     eq("fechaHora", fecha.getTime())
             ));
-            MongoCursor<Cita> iterator = cursor.iterator();
+            MongoCursor<CitaMapeo> iterator = cursor.iterator();
             List<Cita> resultados = new LinkedList<>();
             while (iterator.hasNext()) {
-                resultados.add(iterator.next());
+                resultados.add(conv.convertirMapeoAEntidad(iterator.next()));
             }
             logger.log(Level.INFO, "Consulta de cita realizada con éxito");
             // Devolver la primera cita encontrada (si hay alguna)

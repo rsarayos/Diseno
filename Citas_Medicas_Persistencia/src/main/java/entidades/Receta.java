@@ -5,7 +5,6 @@
 package entidades;
 
 import java.io.Serializable;
-import org.bson.types.ObjectId;
 
 /**
  * Clase que representa una receta médica. Esta clase se utiliza para mapear
@@ -13,7 +12,7 @@ import org.bson.types.ObjectId;
  */
 public class Receta implements Serializable {
 
-    private ObjectId id; // El identificador de la receta (generado automáticamente por MongoDB).
+    private Object id; // El identificador de la receta (generado automáticamente por MongoDB).
 
     private String medicamento; // El nombre del medicamento prescrito en la receta.
 
@@ -51,7 +50,7 @@ public class Receta implements Serializable {
      *
      * @param id El nuevo identificador de la receta.
      */
-    public void setId(ObjectId id) {
+    public void setId(Object id) {
         this.id = id;
     }
 
