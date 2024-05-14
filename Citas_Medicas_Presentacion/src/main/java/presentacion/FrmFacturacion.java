@@ -571,38 +571,51 @@ public class FrmFacturacion extends javax.swing.JDialog {
      */
     private void tblDetalleFacturaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblDetalleFacturaFocusGained
         // Obtener el índice de la fila seleccionada
-        int filaSeleccionada = tblDetalleFactura.getSelectedRow();
+    int filaSeleccionada = tblDetalleFactura.getSelectedRow();
 
-        // Verificar si hay una fila seleccionada
-        if (filaSeleccionada != -1) {
-            // Obtener el valor de la cantidad (primera columna)
-            Object cantidadObject = tblDetalleFactura.getValueAt(filaSeleccionada, 0);
-            // setea los otros campos una ves se ingresa la cantidad
-            if(cantidadObject != null){
-            tblDetalleFactura.setValueAt("Servicio", filaSeleccionada, 1);
-            tblDetalleFactura.setValueAt("E48", filaSeleccionada, 2);
-            tblDetalleFactura.setValueAt("85121600", filaSeleccionada, 3);
-            tblDetalleFactura.setValueAt("Consulta Medica", filaSeleccionada, 4);
-            }
-            // Obtener el valor unitario (sexta columna)
-            Object valorUnitarioObject = tblDetalleFactura.getValueAt(filaSeleccionada, 5);
+    // Verificar si hay una fila seleccionada
+    if (filaSeleccionada != -1) {
+        // Obtener el valor de la cantidad (primera columna)
+        Object cantidadObject = tblDetalleFactura.getValueAt(filaSeleccionada, 0);
+        // Obtener el valor unitario (sexta columna)
+        Object valorUnitarioObject = tblDetalleFactura.getValueAt(filaSeleccionada, 5);
 
-            // Verificar si ambos valores no son nulos
-            if (cantidadObject != null && valorUnitarioObject != null) {
-                // Convertir los valores a los tipos correspondientes
-                int cantidad = (int) cantidadObject;
-                float valorUnitario = (float) valorUnitarioObject;
+        // Verificar si ambos valores no son nulos
+        if (cantidadObject != null && valorUnitarioObject != null) {
+            // Convertir los valores a los tipos correspondientes
+            int cantidad = (int) cantidadObject;
+            float valorUnitario = (float) valorUnitarioObject;
+
+            // Verificar si la cantidad y el valor unitario son positivos
+            if (cantidad >= 0 && valorUnitario >= 0) {
+                // setea los otros campos una vez se ingresa la cantidad
+                if (cantidad > 0) {
+                    tblDetalleFactura.setValueAt("Servicio", filaSeleccionada, 1);
+                    tblDetalleFactura.setValueAt("E48", filaSeleccionada, 2);
+                    tblDetalleFactura.setValueAt("85121600", filaSeleccionada, 3);
+                    tblDetalleFactura.setValueAt("Consulta Medica", filaSeleccionada, 4);
+                }
 
                 // Calcular el total
                 float total = cantidad * valorUnitario;
 
                 // Actualizar la celda correspondiente con el total calculado
                 tblDetalleFactura.setValueAt(total, filaSeleccionada, 6);
-                
+
                 // Llamar al método para calcular los totales globales
                 calcularTotales(calcularSubTotal());
+            } else {
+                // Mostrar un mensaje de error si la cantidad o el valor unitario son negativos
+                tblDetalleFactura.setValueAt(null,filaSeleccionada, 0);
+                tblDetalleFactura.setValueAt(null,filaSeleccionada, 1);
+                tblDetalleFactura.setValueAt(null,filaSeleccionada, 2);
+                tblDetalleFactura.setValueAt(null,filaSeleccionada, 3);
+                tblDetalleFactura.setValueAt(null,filaSeleccionada, 4);
+                tblDetalleFactura.setValueAt(null,filaSeleccionada, 5);
+                JOptionPane.showMessageDialog(null, "La cantidad y el valor unitario deben ser valores positivos.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
     }//GEN-LAST:event_tblDetalleFacturaFocusGained
 
     /**
