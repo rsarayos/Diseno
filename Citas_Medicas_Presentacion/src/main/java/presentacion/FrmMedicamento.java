@@ -191,6 +191,9 @@ public class FrmMedicamento extends javax.swing.JFrame {
         if (recetaAgregada != null) {
             // Mostrar un mensaje de éxito
             JOptionPane.showMessageDialog(this, "Medicamento guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            // Actualizar la tabla en FrmReceta
+            FrmReceta frmReceta = new FrmReceta();
+            frmReceta.mostrarRecetas(fCrearReceta.obtenerRecetas());
             // Cerrar este formulario (FrmMedicamento)
             this.dispose();
         } else {
