@@ -123,6 +123,15 @@ public class MedicoDTO {
     }
 
     /**
+     * Metodo para establecer la cédula profesional del médico.
+     * 
+     * @param cedulaProfesional La cedula a establacer
+     */
+    public void setCedulaProfesional(String cedulaProfesional) {
+        this.cedulaProfesional = cedulaProfesional;
+    }
+
+    /**
      * Obtiene el nombre del médico.
      * 
      * @return El nombre del médico.

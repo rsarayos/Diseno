@@ -34,6 +34,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         btnRegistro = new javax.swing.JButton();
         btnIniciarSesion = new javax.swing.JButton();
         txtContrasenia = new javax.swing.JPasswordField();
+        btnAdmin = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -64,7 +65,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 btnRegistroActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 120, 35));
+        jPanel1.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 120, 35));
 
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnIniciarSesion.setText("Iniciar Sesion");
@@ -73,12 +74,21 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 btnIniciarSesionActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 120, 35));
+        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 120, 35));
 
         txtContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel1.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 220, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 440, 260));
+        btnAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAdmin.setText("Administrador");
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 140, 35));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 440, 290));
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -147,7 +157,14 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegistroActionPerformed
 
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+        FrmAdministradorLogin frmAdmin = new FrmAdministradorLogin();
+        frmAdmin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdminActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton btnRegistro;
     private javax.swing.JLabel jLabel1;
