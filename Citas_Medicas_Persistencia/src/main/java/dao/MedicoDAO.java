@@ -2,17 +2,24 @@ package dao;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Updates.set;
 import com.mongodb.client.result.UpdateResult;
 import convertidorMapeo.ConvertidorMedico;
 import entidades.Medico;
 import entidadesMapeo.MedicoMapeo;
 import excepcionesPersistencia.PersistenciaException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bson.Document;
 
 /**
  * Clase que implementa la interfaz IMedicoDAO para el acceso a datos de médicos.
@@ -60,7 +67,7 @@ public class MedicoDAO implements IMedicoDAO{
         calendar.set(Calendar.MONTH, Calendar.JANUARY);
         calendar.set(Calendar.DAY_OF_MONTH, 20);
         
-        Medico medico1 = new Medico("12345678", "Juan", "Lopez", "Gomez", calendar.getTime(), "Pediatría", "5551234567", "juan@example.com", "Contra");
+        MedicoMapeo medico1 = new MedicoMapeo("12345678", "Juan", "Lopez", "Gomez", calendar.getTime(), "Pediatría", "5551234567", "juan@example.com", "Contra");
                
         try {
             coleccionMedico.insertOne(medico1);
@@ -121,6 +128,84 @@ public class MedicoDAO implements IMedicoDAO{
         
         return medico;
         
+    }
+
+    @Override
+    public Medico registrarMedico(Medico medico) throws PersistenciaException {
+
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionMedico = conexion.obtenerColeccion(cliente);
+
+        MedicoMapeo m = conv.convertirEntidadAMapeo(medico);
+        try {
+            coleccionMedico.insertOne(m);
+            return medico;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al registrar al medico" + medico.getNombre());
+        }
+    }
+
+    @Override
+    public List<Medico> consultarMedicos() throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionMedico = conexion.obtenerColeccion(cliente);
+        
+        try {
+            List<MedicoMapeo> medicos = new ArrayList();
+            coleccionMedico.find().into(medicos);
+            
+            List<Medico> listaMedicos = new LinkedList<>();
+            for (MedicoMapeo medico : medicos) {
+                listaMedicos.add(conv.convertirMapeoAEntidad(medico));
+            }
+            
+            return listaMedicos;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar al medico");
+        }
+    }
+
+    @Override
+    public Medico eliminarMedico(Medico medico) throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionMedico = conexion.obtenerColeccion(cliente);
+        
+        try {
+            coleccionMedico.deleteOne(Filters.eq("cedula", medico.getCedulaProfesional()));
+            return medico;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al eliminar al medico");
+        }
+    }
+
+    @Override
+    public List<Medico> buscarMedico(String nombre, String cedula, String especialidad) throws PersistenciaException {
+        
+        MongoClient cliente = conexion.obtenerConexion();
+        MongoCollection coleccionMedico = conexion.obtenerColeccion(cliente);
+        
+        try {
+            List<MedicoMapeo> medicos = new ArrayList<>();
+
+            coleccionMedico.find(and(
+                    nombre != null ? regex("nombre", nombre, "i") : new Document(),
+                    cedula != null ? regex("cedula", cedula, "i") : new Document(),
+                    especialidad != null ? regex("especialidad", especialidad, "i") : new Document()
+            )).into(medicos);
+            
+            List<Medico> listaMedicos = new LinkedList<>();
+            for (MedicoMapeo medico : medicos) {
+                listaMedicos.add(conv.convertirMapeoAEntidad(medico));
+            }
+
+            return listaMedicos;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenciaException("Error al buscar al medico", e);
+        }
     }
 
 }
