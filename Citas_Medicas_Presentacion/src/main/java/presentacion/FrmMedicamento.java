@@ -182,14 +182,21 @@ public class FrmMedicamento extends javax.swing.JFrame {
         // Crear un objeto RecetaDTO con los datos del formulario
         RecetaDTO recetaDTO = new RecetaDTO(nombreMedicamento, dosis);
 
-        // Llamar al método actualizarTabla para agregar los datos a la tabla en FrmReceta
-        FrmReceta.actualizarTabla(recetaDTO);
+        // Crear una instancia de FCrearReceta
+        FCrearReceta fCrearReceta = new FCrearReceta();
 
-        // Mostrar un mensaje de éxito
-        JOptionPane.showMessageDialog(this, "Medicamento guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        // Agregar la receta a la base de datos
+        RecetaDTO recetaAgregada = fCrearReceta.agregarReceta(recetaDTO);
 
-        // Cerrar este formulario (FrmMedicamento)
-        this.dispose();
+        if (recetaAgregada != null) {
+            // Mostrar un mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Medicamento guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            // Cerrar este formulario (FrmMedicamento)
+            this.dispose();
+        } else {
+            // Mostrar un mensaje de error si la receta no se pudo agregar
+            JOptionPane.showMessageDialog(this, "Error al guardar el medicamento.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAceptarActionPerformed
     /**
      * Método que se llama cuando se hace clic en el botón "Regresar". Cierra el
