@@ -21,7 +21,7 @@ public class Cita implements Serializable {
     /**
      * Identificador único de la cita.
      */
-    private ObjectId _id;
+    private String _id;
     
     /**
      * Fecha y hora de la cita.
@@ -36,7 +36,7 @@ public class Cita implements Serializable {
     /**
      * Paciente asociado a la cita.
      */
-    private ObjectId idPaciente;
+    private String idPaciente;
     
     /**
      * Observación adicional sobre la cita (opcional).
@@ -62,7 +62,25 @@ public class Cita implements Serializable {
      * @param observacion observaciones de la citas
      * @param estado estado de la cita
      */
-    public Cita(Date fechaHora, String cedulaProfesional, ObjectId idPaciente, String observacion, Boolean estado) {
+    public Cita(Date fechaHora, String cedulaProfesional, String idPaciente, String observacion, Boolean estado) {
+        this.fechaHora = fechaHora;
+        this.cedulaProfesional = cedulaProfesional;
+        this.idPaciente = idPaciente;
+        this.observacion = observacion;
+        this.estado = estado;
+    }
+
+    /**
+     * Constructor para inicializar los atributos de la clase
+     * @param _id id del objeto
+     * @param fechaHora fecha y hora de la cita
+     * @param cedulaProfesional cedula del medico
+     * @param idPaciente id del paciente
+     * @param observacion observaciones de la citas
+     * @param estado estado de la cita
+     */
+    public Cita(String _id, Date fechaHora, String cedulaProfesional, String idPaciente, String observacion, Boolean estado) {
+        this._id = _id;
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
         this.idPaciente = idPaciente;
@@ -75,7 +93,7 @@ public class Cita implements Serializable {
      * 
      * @return el id de la cita.
      */
-    public ObjectId getId() {
+    public String getId() {
         return _id;
     }
 
@@ -84,7 +102,7 @@ public class Cita implements Serializable {
      * 
      * @param _id El nuevo id de la cita.
      */
-    public void setId(ObjectId _id) {
+    public void setId(String _id) {
         this._id = _id;
     }
 
@@ -129,7 +147,7 @@ public class Cita implements Serializable {
      * 
      * @return El id del paciente relacionado.
      */
-    public ObjectId getIdPaciente() {
+    public String getIdPaciente() {
         return idPaciente;
     }
 
@@ -138,7 +156,7 @@ public class Cita implements Serializable {
      * 
      * @param idPaciente id del paciente a establecer en la cita
      */
-    public void setIdPaciente(ObjectId idPaciente) {
+    public void setIdPaciente(String idPaciente) {
         this.idPaciente = idPaciente;
     }
 

@@ -7,6 +7,7 @@ import dao.IPacienteDAO;
 import dao.PacienteDAO;
 import entidades.DatosFiscales;
 import entidades.Paciente;
+import entidadesMapeo.PacienteMapeo;
 import excepcionesPersistencia.PersistenciaException;
 import java.util.Date;
 import java.util.LinkedList;
@@ -26,15 +27,24 @@ public class PruebasPersisPacientes {
      */
     public static void main(String[] args) {
         
-        IConexion conexion = new Conexion(ConstantesPersistencia.colecciones.PACIENTES, Paciente.class);
+        IConexion conexion = new Conexion(ConstantesPersistencia.colecciones.PACIENTES, PacienteMapeo.class);
         
         IPacienteDAO pacienteDAO = new PacienteDAO(conexion);
         
         Date fechaActual = new Date();
+        
+        
                 
         try {
-            Paciente pacientes = pacienteDAO.obtenerPacienteRFC("GOST200506MEO");
-            System.out.println(pacientes);
+            Paciente pacientes = pacienteDAO.obtenerPacienteTelefono("6422352010");
+            List<DatosFiscales> df = new LinkedList<>();
+            DatosFiscales f = new DatosFiscales();
+            f.setRazonSocial("dfsadfasf");
+            f.setEstado("sadfasg");
+            df.add(f);
+            pacientes.setDatosFiscales(df);
+            Paciente pacienteNuevo = pacienteDAO.agregarDatosFiscales(pacientes);
+            System.out.println(pacienteNuevo);
         } catch (PersistenciaException ex) {
             Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }

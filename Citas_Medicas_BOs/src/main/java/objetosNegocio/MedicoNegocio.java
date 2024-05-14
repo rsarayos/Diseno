@@ -8,6 +8,7 @@ import excepcionesPersistencia.PersistenciaException;
 import convertidores.ConvertidorMedico;
 import dao.ConstantesPersistencia;
 import dtos.MedicoDTO;
+import entidadesMapeo.MedicoMapeo;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,7 +35,7 @@ public class MedicoNegocio implements IMedicoNegocio {
      * Inicializa los atributos de conexión, objeto de acceso a datos de médico (DAO) y convertidor de médico.
      */
     public MedicoNegocio() {
-        this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, Medico.class));
+        this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, MedicoMapeo.class));
         this.convMedico = new ConvertidorMedico();
     }
 

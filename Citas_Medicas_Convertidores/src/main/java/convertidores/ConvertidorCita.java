@@ -31,12 +31,10 @@ public class ConvertidorCita {
      */
     public Cita DTOAEntidad(CitaDTO c) {
         
-        ObjectId idPac = new ObjectId(c.getIdPaciente());
-        
         return new Cita(
                 c.getFechaHora(), 
                 c.getCedulaMedico(), 
-                idPac, 
+                c.getIdPaciente(), 
                 c.getObservaciones(), 
                 c.getEstado()
         );
@@ -52,13 +50,11 @@ public class ConvertidorCita {
     public CitaDTO EntidadaADTO(Cita c) {
 
         if (c != null) {
-
-             String id = c.getIdPaciente().toHexString();
             
             return new CitaDTO(
                     c.getFechaHora(),
                     c.getCedulaProfesional(),
-                    id,
+                    c.getId(),
                     c.getObservacion(),
                     c.getEstado()
             );

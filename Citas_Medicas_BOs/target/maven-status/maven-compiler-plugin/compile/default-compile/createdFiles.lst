@@ -1,0 +1,10 @@
+objetosNegocio\IRecetaNegocio.class
+objetosNegocio\MedicoNegocio.class
+objetosNegocio\IFacturacionNegocio.class
+objetosNegocio\RecetaNegocio.class
+objetosNegocio\CitaNegocio.class
+objetosNegocio\PacienteNegocio.class
+objetosNegocio\IPacienteNegocio.class
+objetosNegocio\ICitaNegocio.class
+objetosNegocio\FacturacionNegocio.class
+objetosNegocio\IMedicoNegocio.class

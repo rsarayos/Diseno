@@ -15,6 +15,9 @@ import excepcionesPersistencia.PersistenciaException;
 import convertidores.ConvertidorCita;
 import dao.ConstantesPersistencia;
 import dtos.CitaDTO;
+import entidadesMapeo.CitaMapeo;
+import entidadesMapeo.MedicoMapeo;
+import entidadesMapeo.PacienteMapeo;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import excepcionesNegocio.NegocioException;
@@ -51,9 +54,9 @@ public class CitaNegocio implements ICitaNegocio{
      * Crea una instancia de CitaNegocio y inicializa las instancias de conexión y los DAO necesarios para interactuar con la capa de persistencia.
      */
     public CitaNegocio() {
-        this.citaDAO = new CitaDAO(new Conexion(ConstantesPersistencia.colecciones.CITAS, Cita.class));
-        this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, Paciente.class));
-        this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, Medico.class));
+        this.citaDAO = new CitaDAO(new Conexion(ConstantesPersistencia.colecciones.CITAS, CitaMapeo.class));
+        this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, PacienteMapeo.class));
+        this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, MedicoMapeo.class));
         this.convCita = new ConvertidorCita();
     }
 
