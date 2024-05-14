@@ -93,4 +93,34 @@ public class Validadores {
 
     }
     
+        /**
+     * Valida un nombre de medicamento.
+     *
+     * @param medicamento El nombre del medicamento a validar.
+     * @return true si el nombre del medicamento es válido, false en caso
+     * contrario.
+     */
+    public boolean validaMedicamento(String medicamento) {
+        // Se permiten letras, números, espacios y algunos caracteres especiales comunes en nombres de medicamentos
+        Pattern patron = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ\\s.,()-]{1,100}$");
+        Matcher matcher = patron.matcher(medicamento);
+
+        return matcher.matches();
+    }
+
+    /**
+     * Valida una dosis de medicamento en formato "cantidad unidad".
+     *
+     * @param dosis La dosis del medicamento a validar.
+     * @return true si la dosis del medicamento es válida, false en caso
+     * contrario.
+     */
+    public boolean validaDosis(String dosis) {
+        // Se permiten números seguidos de una unidad de medida
+        Pattern patron = Pattern.compile("^\\d+\\s+(hora|horas|día|días|semana|semanas|mes|meses|año|años)$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = patron.matcher(dosis);
+
+        return matcher.matches();
+    }
+
 }
