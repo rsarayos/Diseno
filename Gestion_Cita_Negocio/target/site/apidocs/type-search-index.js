@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"excepciones","l":"NegocioException"},{"p":"excepciones","l":"ValidacionException"}];updateSearchResults();

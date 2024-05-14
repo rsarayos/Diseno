@@ -1,0 +1,43 @@
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'18'
+-sourcepath
+'C:/Users/JESUS/OneDrive/Documentos/NetBeansProjects/Gestion_Citas_DTOs/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/JESUS/OneDrive/Documentos/NetBeansProjects/Gestion_Citas_DTOs/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Gestion_Citas_DTOs 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'Gestion_Citas_DTOs 1.0-SNAPSHOT API'
+dtos
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\src\main\java = 1715061599257
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\allclasses-index.html = 1715595011473
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\allpackages-index.html = 1715595011476
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\copy.svg = 1715595011517
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\element-list = 1715595011428
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\help-doc.html = 1715595011506
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\index-all.html = 1715595011497
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\index.html = 1715595011500
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\jquery-ui.overrides.css = 1715595011546
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\member-search-index.js = 1715595011480
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\module-search-index.js = 1715595011477
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\overview-tree.html = 1715595011461
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\package-search-index.js = 1715595011478
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\script.js = 1715595011516
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\search.js = 1715595011520
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\stylesheet.css = 1715595011515
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\tag-search-index.js = 1715595011481
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_DTOs\target\site\apidocs\type-search-index.js = 1715595011479

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Entidades","l":"Cita"},{"p":"DAOs","l":"CitaDAO"},{"p":"conexion","l":"ConexionBD"},{"p":"interfaces","l":"ICitaDAO"},{"p":"Entidades","l":"Paciente"},{"p":"DAOs","l":"PacienteDAO"},{"p":"excepciones","l":"PersistenciaException"}];updateSearchResults();
