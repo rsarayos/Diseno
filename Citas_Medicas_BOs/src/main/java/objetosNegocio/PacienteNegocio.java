@@ -9,6 +9,7 @@ import excepcionesPersistencia.PersistenciaException;
 import convertidores.ConvertidorPaciente;
 import dao.ConstantesPersistencia;
 import dtos.PacienteDTO;
+import entidadesMapeo.PacienteMapeo;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,7 +40,7 @@ public class PacienteNegocio implements IPacienteNegocio {
      * Inicializa los objetos necesarios para la lógica de negocio de los pacientes.
      */
     public PacienteNegocio() {
-        this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, Paciente.class));
+        this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, PacienteMapeo.class));
         this.convPaciente = new ConvertidorPaciente();
     }
     

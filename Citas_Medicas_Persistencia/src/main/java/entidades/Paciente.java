@@ -22,7 +22,7 @@ public class Paciente implements Serializable {
     /**
      * Identificador del paciente.
      */
-    private ObjectId _id;
+    private String _id;
     
     /**
      * Nombres del paciente.
@@ -69,6 +69,29 @@ public class Paciente implements Serializable {
      */
     public Paciente() {
     }
+
+    /**
+     * Constructor que inicializa la mayoria de los atributos de la clase
+     * Paciente.
+     *
+     * @param _id Id del paciente
+     * @param nombre Nombre del paciente
+     * @param apellidoPaterno Apellido paterno del paciente
+     * @param apellidoMaterno Apellido materno del paciente
+     * @param fechaNacimiento Fecha de nacimiento del paciente
+     * @param telefono Telefono del paciente
+     * @param correo Correo del paciente
+     */
+    public Paciente(String _id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
+        this._id = _id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.edad = edad;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
     
     /**
      * Constructor que inicializa la mayoria de los atributos de la clase
@@ -83,7 +106,7 @@ public class Paciente implements Serializable {
      * @param correo Correo del paciente
      * @param datosFiscales Datos fiscales del paciente
      */
-    public Paciente(ObjectId _id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo, List<DatosFiscales> datosFiscales) {
+    public Paciente(String _id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String correo, List<DatosFiscales> datosFiscales) {
         this._id = _id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -151,7 +174,7 @@ public class Paciente implements Serializable {
      * 
      * @return El id del paciente.
      */
-    public ObjectId getId() {
+    public String getId() {
         return _id;
     }
 
@@ -160,7 +183,7 @@ public class Paciente implements Serializable {
      * 
      * @param _id El id del paciente a establecer.
      */
-    public void setId(ObjectId _id) {
+    public void setId(String _id) {
         this._id = _id;
     }
 

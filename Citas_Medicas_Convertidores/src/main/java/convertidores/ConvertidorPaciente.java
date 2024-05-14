@@ -53,8 +53,6 @@ public class ConvertidorPaciente {
      */
     public Paciente DTOAEntidadCompleto(PacienteDTO p) {
 
-        ObjectId id = new ObjectId(p.getID());
-
         List<DatosFiscales> datosFiscales = new LinkedList<>();
 
         DatosFiscales datos = new DatosFiscales(
@@ -73,7 +71,7 @@ public class ConvertidorPaciente {
         datosFiscales.add(datos);
 
         return new Paciente(
-                id,
+                p.getID(),
                 p.getNombres(),
                 p.getApellidoPaterno(),
                 p.getApellidoMaterno(),
@@ -131,8 +129,6 @@ public class ConvertidorPaciente {
     public PacienteDTO EntidadaADTO(Paciente p) {
         if (p != null) {
 
-            String id = p.getId().toHexString();
-
             List<DatosFiscalesDTO> datosFiscales = null;
             if (p.getDatosFiscales() != null) {
 
@@ -154,7 +150,7 @@ public class ConvertidorPaciente {
             }
 
             return new PacienteDTO(
-                    id,
+                    p.getId(),
                     p.getNombre(),
                     p.getApellidoPaterno(),
                     p.getApellidoMaterno(),

@@ -7,7 +7,9 @@ import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
 import com.mongodb.client.result.UpdateResult;
+import convertidorMapeo.ConvertidorPaciente;
 import entidades.Paciente;
+import entidadesMapeo.PacienteMapeo;
 import excepcionesPersistencia.PersistenciaException;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +35,11 @@ public class PacienteDAO implements IPacienteDAO{
     private final IConexion conexion;
     
     /**
+     * Objeto para convertir los objetos Paciente y PacienteMapeo.
+     */
+    private ConvertidorPaciente conv;
+    
+    /**
      * Logger para registrar información y errores.
      */
     static final Logger logger = Logger.getLogger(PacienteDAO.class.getName());   
@@ -44,6 +51,7 @@ public class PacienteDAO implements IPacienteDAO{
      */
     public PacienteDAO(IConexion conexion) {
         this.conexion = conexion;
+        this.conv = new ConvertidorPaciente();
     }
 
     @Override
@@ -53,7 +61,7 @@ public class PacienteDAO implements IPacienteDAO{
         MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
 
         try {
-            coleccionPacientes.insertOne(paciente);
+            coleccionPacientes.insertOne(conv.convertirEntidadAMapeo(paciente));
             logger.log(Level.INFO, "Se agrego al paciente");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error al agregar al paciente");
@@ -75,11 +83,11 @@ public class PacienteDAO implements IPacienteDAO{
         List<Paciente> pacientes = new LinkedList<>();
         
         try {
-            FindIterable<Paciente> cursor = coleccionPacientes.find();
+            FindIterable<PacienteMapeo> cursor = coleccionPacientes.find();
 
-            MongoCursor<Paciente> iterator = cursor.iterator();
+            MongoCursor<PacienteMapeo> iterator = cursor.iterator();
             while (iterator.hasNext()) {
-                pacientes.add(iterator.next());
+                pacientes.add(conv.convertirMapeoAEntidad(iterator.next()));
             }
             logger.log(Level.INFO, "Se obtuvieron los pacientes");
         } catch (Exception e) {
@@ -94,14 +102,14 @@ public class PacienteDAO implements IPacienteDAO{
     }
 
     @Override
-    public Paciente obtenerPaciente(ObjectId id) throws PersistenciaException {
+    public Paciente obtenerPaciente(String id) throws PersistenciaException {
         
         MongoClient cliente = conexion.obtenerConexion();
         MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
-        Paciente paciente;
+        PacienteMapeo paciente;
         
         try {
-            paciente = (Paciente) coleccionPacientes.find(eq("_id", id)).first();
+            paciente = (PacienteMapeo) coleccionPacientes.find(eq("_id", id)).first();
             if (paciente != null) {
                 logger.log(Level.INFO, "Se encontro al paciente");
             } else {
@@ -114,7 +122,7 @@ public class PacienteDAO implements IPacienteDAO{
             cliente.close();
         }
         
-        return paciente;
+        return conv.convertirMapeoAEntidad(paciente);
     }
     
     @Override
@@ -122,10 +130,10 @@ public class PacienteDAO implements IPacienteDAO{
         
         MongoClient cliente = conexion.obtenerConexion();
         MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
-        Paciente paciente;
+        PacienteMapeo paciente;
         
         try {
-            paciente = (Paciente) coleccionPacientes.find(eq("telefono", telefono)).first();
+            paciente = (PacienteMapeo) coleccionPacientes.find(eq("telefono", telefono)).first();
             if (paciente != null) {
                 logger.log(Level.INFO, "Se encontro al paciente");
             } else {
@@ -138,7 +146,7 @@ public class PacienteDAO implements IPacienteDAO{
             cliente.close();
         }
         
-        return paciente;
+        return conv.convertirMapeoAEntidad(paciente);
     }
     
     @Override
@@ -146,10 +154,10 @@ public class PacienteDAO implements IPacienteDAO{
         
         MongoClient cliente = conexion.obtenerConexion();
         MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
-        Paciente paciente;
+        PacienteMapeo paciente;
         
         try {
-            paciente = (Paciente) coleccionPacientes.find(eq("datosFiscales.rfc", rfc)).first();
+            paciente = (PacienteMapeo) coleccionPacientes.find(eq("datosFiscales.rfc", rfc)).first();
             if (paciente != null) {
                 logger.log(Level.INFO, "Se encontro al paciente");
             } else {
@@ -162,7 +170,7 @@ public class PacienteDAO implements IPacienteDAO{
             cliente.close();
         }
         
-        return paciente;
+        return conv.convertirMapeoAEntidad(paciente);
     }
 
     @Override
@@ -171,8 +179,10 @@ public class PacienteDAO implements IPacienteDAO{
         MongoClient cliente = conexion.obtenerConexion();
         MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
         
+        PacienteMapeo pm = conv.convertirEntidadAMapeo(paciente);
+        
         try {
-            UpdateResult updateResult = coleccionPacientes.updateOne(eq("_id", paciente.getId()), 
+            UpdateResult updateResult = coleccionPacientes.updateOne(eq("_id", pm.getId()), 
                     set("datosFiscales", paciente.getDatosFiscales()));
             if (updateResult.getModifiedCount() > 0) {
                 logger.log(Level.INFO, "Se modifico al paciente");

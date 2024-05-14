@@ -17,6 +17,8 @@ import dtos.PacienteDTO;
 import entidades.Factura;
 import entidades.Medico;
 import entidades.Paciente;
+import entidadesMapeo.MedicoMapeo;
+import entidadesMapeo.PacienteMapeo;
 import excepcionesNegocio.NegocioException;
 import excepcionesPersistencia.PersistenciaException;
 import java.util.logging.Level;
@@ -49,8 +51,8 @@ public class FacturacionNegocio implements IFacturacionNegocio{
      * Constructor de la clase FacturacionNegocio que inicializa las instancias de los DAOs y convertidores necesarios.
      */
     public FacturacionNegocio() {
-        this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, Paciente.class));
-        this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, Medico.class));
+        this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, PacienteMapeo.class));
+        this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, MedicoMapeo.class));
         this.facturaDAO = new FacturaDAO(new Conexion(ConstantesPersistencia.colecciones.FACTURAS, Factura.class));
         this.convMedico = new ConvertidorMedico();
         this.convPaciente = new ConvertidorPaciente();
