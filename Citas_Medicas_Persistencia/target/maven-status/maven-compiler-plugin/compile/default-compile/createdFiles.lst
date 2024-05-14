@@ -1,6 +1,7 @@
 dao\CitaDAO.class
 dao\IFacturaDAO.class
 entidades\Paciente.class
+entidadesMapeo\PacienteMapeo.class
 excepcionesPersistencia\PersistenciaException.class
 dao\FacturaDAO.class
 dao\IConexion.class
@@ -9,6 +10,8 @@ dao\IRecetaDAO.class
 entidades\Receta.class
 dao\ICitaDAO.class
 entidades\DatosFiscales.class
+convertidorMapeo\ConvertidorPaciente.class
+entidadesMapeo\MedicoMapeo.class
 entidades\Cita.class
 dao\IMedicoDAO.class
 entidades\Factura.class
@@ -18,7 +21,10 @@ dao\ConstantesPersistencia$conexiones.class
 dao\IPacienteDAO.class
 dao\ConstantesPersistencia.class
 dao\MedicoDAO.class
+convertidorMapeo\ConvertidorCita.class
 dao\Conexion.class
 dao\ConstantesPersistencia$bases.class
 entidades\DetalleFactura.class
+convertidorMapeo\ConvertidorMedico.class
 dao\PacienteDAO.class
+entidadesMapeo\CitaMapeo.class
