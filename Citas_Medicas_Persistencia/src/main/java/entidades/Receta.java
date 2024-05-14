@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import java.io.Serializable;
+import org.bson.types.ObjectId;
 
 /**
  * Clase que representa una receta médica. Esta clase se utiliza para mapear
@@ -12,7 +9,7 @@ import java.io.Serializable;
  */
 public class Receta implements Serializable {
 
-    private Object id; // El identificador de la receta (generado automáticamente por MongoDB).
+    private ObjectId id; // El identificador de la receta (generado automáticamente por MongoDB).
 
     private String medicamento; // El nombre del medicamento prescrito en la receta.
 
@@ -50,7 +47,7 @@ public class Receta implements Serializable {
      *
      * @param id El nuevo identificador de la receta.
      */
-    public void setId(Object id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
