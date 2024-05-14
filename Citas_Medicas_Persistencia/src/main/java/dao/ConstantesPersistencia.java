@@ -42,6 +42,11 @@ public class ConstantesPersistencia {
          */
         public static final String FACTURAS = "facturas";
         
+        /**
+         * Nombre de la coleccion para Recetas
+         */
+        public static final String RECETAS = "recetas";
+        
     }
     
     /**
