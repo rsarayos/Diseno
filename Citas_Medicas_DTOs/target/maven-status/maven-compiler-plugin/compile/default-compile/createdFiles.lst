@@ -1,0 +1,7 @@
+dtos\MedicoDTO.class
+dtos\CitaDTO.class
+dtos\DetalleFacturaDTO.class
+dtos\RecetaDTO.class
+dtos\FacturaDTO.class
+dtos\DatosFiscalesDTO.class
+dtos\PacienteDTO.class
