@@ -1,6 +1,7 @@
 package registroMedico;
 
 import dtos.MedicoDTO;
+import excepcionesNegocio.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetosNegocio.IMedicoNegocio;
@@ -50,5 +51,23 @@ public class CRegistroMedico {
         return medicoBo.obtenerMedico(numCedula);
         
     }
+    
+    /**
+     * Registra un nuevo médico en el sistema utilizando el objeto de negocio y registra el evento en el Logger.
+     * @param medico el medico a registrar
+     * @return el medico registrado.
+     */
+    protected MedicoDTO registrarMedicoNuevo(MedicoDTO medico) {
+
+        try {
+            return medicoBo.registrarNuevoMedico(medico);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CRegistroMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+
+    }
+    
     
 }

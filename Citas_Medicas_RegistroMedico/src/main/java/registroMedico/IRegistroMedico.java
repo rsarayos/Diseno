@@ -24,4 +24,12 @@ public interface IRegistroMedico {
      */
     public MedicoDTO obtenerMedico(String numCedula);
     
+    /**
+     * Registra un nuevo médico en el sistema.
+     * 
+     * @param medico envia un MedicoDTO
+     * @return 
+     */
+    public MedicoDTO RegistrarMedicoNuevo(MedicoDTO medico);
+    
 }

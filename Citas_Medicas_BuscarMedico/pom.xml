@@ -2,13 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.itson.diseno</groupId>
-    <artifactId>Citas_Medicas_Convertidores</artifactId>
+    <artifactId>Citas_Medicas_BuscarMedico</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>Citas_Medicas_BOs</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>Citas_Medicas_DTOs</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Citas_Medicas_Convertidores</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -24,8 +34,8 @@
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <exec.mainClass>org.itson.diseno.citas_medicas_convertidores.Citas_Medicas_Convertidores</exec.mainClass>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <exec.mainClass>org.itson.diseno.citas_medicas_buscarmedico.Citas_Medicas_BuscarMedico</exec.mainClass>
     </properties>
 </project>

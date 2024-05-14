@@ -34,5 +34,12 @@ public class FRegistroMedico implements IRegistroMedico {
         return control.obtenerMedico(numCedula);
         
     }
+
+    @Override
+    public MedicoDTO RegistrarMedicoNuevo(MedicoDTO medico) {
+        
+        return control.registrarMedicoNuevo(medico);
+        
+    }
     
 }
