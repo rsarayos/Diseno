@@ -31,11 +31,25 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnRecetas = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnFacturacion = new javax.swing.JButton();
         AgendarCitaBtn = new javax.swing.JButton();
+        btnRecetas1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+
+        btnRecetas.setBackground(new java.awt.Color(204, 204, 204));
+        btnRecetas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnRecetas.setText("Recetas");
+        btnRecetas.setMaximumSize(new java.awt.Dimension(148, 33));
+        btnRecetas.setMinimumSize(new java.awt.Dimension(148, 33));
+        btnRecetas.setPreferredSize(new java.awt.Dimension(148, 33));
+        btnRecetas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecetasActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -51,7 +65,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 btnFacturacionActionPerformed(evt);
             }
         });
-        jPanel1.add(btnFacturacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 177, 58));
+        jPanel1.add(btnFacturacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 177, 58));
 
         AgendarCitaBtn.setText("Agendar Cita");
         AgendarCitaBtn.setBackground(new java.awt.Color(204, 204, 204));
@@ -62,6 +76,19 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(AgendarCitaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 177, 58));
+
+        btnRecetas1.setBackground(new java.awt.Color(204, 204, 204));
+        btnRecetas1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnRecetas1.setText("Recetas");
+        btnRecetas1.setMaximumSize(new java.awt.Dimension(148, 33));
+        btnRecetas1.setMinimumSize(new java.awt.Dimension(148, 33));
+        btnRecetas1.setPreferredSize(new java.awt.Dimension(148, 33));
+        btnRecetas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecetas1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRecetas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 177, 58));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 710, 350));
 
@@ -108,9 +135,33 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnFacturacionActionPerformed
 
+    private void btnRecetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecetasActionPerformed
+        // Cierra el formulario actual
+        this.setVisible(false);
+
+        // Crea una instancia de FrmReceta y pásale el médico activo
+        FrmReceta recetas = new FrmReceta();
+
+        // Muestra el formulario de recetas
+        recetas.setVisible(true);
+    }//GEN-LAST:event_btnRecetasActionPerformed
+
+    private void btnRecetas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecetas1ActionPerformed
+        // Cierra el formulario actual
+        this.setVisible(false);
+
+        // Crea una instancia de FrmReceta y pásale el médico activo
+        FrmReceta recetas = new FrmReceta();
+
+        // Muestra el formulario de recetas
+        recetas.setVisible(true);
+    }//GEN-LAST:event_btnRecetas1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgendarCitaBtn;
     private javax.swing.JButton btnFacturacion;
+    private javax.swing.JButton btnRecetas;
+    private javax.swing.JButton btnRecetas1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
