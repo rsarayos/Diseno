@@ -14,6 +14,8 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.kernel.colors.DeviceCmyk;
+import crearRecetas.FCrearReceta;
+import crearRecetas.ICrearReceta;
 import java.awt.Desktop;
 import java.io.File;
 import dtos.RecetaDTO;
@@ -25,13 +27,18 @@ import javax.swing.table.DefaultTableModel;
  * @author Serva
  */
 public class FrmReceta extends javax.swing.JFrame {
+    
+    private ICrearReceta sistema;
 
     /**
      * Creates new form FrmReceta
      */
     public FrmReceta() {
         initComponents();
-        tabla();
+        this.sistema = new FCrearReceta();
+        this.tabla();
+        this.mostrarRecetas(sistema.obtenerRecetas());
+        
     }
 
     public static void actualizarTabla(RecetaDTO receta) {
