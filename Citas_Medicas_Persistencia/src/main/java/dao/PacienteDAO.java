@@ -107,9 +107,10 @@ public class PacienteDAO implements IPacienteDAO{
         MongoClient cliente = conexion.obtenerConexion();
         MongoCollection coleccionPacientes = conexion.obtenerColeccion(cliente);
         PacienteMapeo paciente;
+        ObjectId idPaciente = new ObjectId(id);
         
         try {
-            paciente = (PacienteMapeo) coleccionPacientes.find(eq("_id", id)).first();
+            paciente = (PacienteMapeo) coleccionPacientes.find(eq("_id", idPaciente)).first();
             if (paciente != null) {
                 logger.log(Level.INFO, "Se encontro al paciente");
             } else {
