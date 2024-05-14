@@ -138,8 +138,6 @@ public class PacienteMapeo {
         this.datosFiscales = datosFiscales;
     }
     
-    
-    
     /**
      * Obtiene el id del paciente.
      * 

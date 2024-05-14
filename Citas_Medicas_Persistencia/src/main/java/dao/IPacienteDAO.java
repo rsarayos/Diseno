@@ -38,7 +38,7 @@ public interface IPacienteDAO {
      * @return El paciente encontrado, o null si no se encontró ningún paciente con el ID especificado.
      * @throws PersistenciaException Si ocurre un error durante la operación de persistencia.
      */
-    public Paciente obtenerPaciente(String id) throws PersistenciaException;
+    public Paciente obtenerPaciente(ObjectId id) throws PersistenciaException;
     
     /**
      * Obtiene un paciente por su ID.

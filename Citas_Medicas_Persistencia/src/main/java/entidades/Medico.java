@@ -21,7 +21,7 @@ public class Medico implements Serializable {
     /**
      * Object id correspondiente al registro en la base de datos del médico.
      */
-    private String _id;
+    private ObjectId _id;
     
     /**
      * Cédula profesional del médico.
@@ -105,33 +105,6 @@ public class Medico implements Serializable {
     }
 
     /**
-     * Constructor que inicializa la mayoria de los atributos del médico.
-     * 
-     * @param _id id
-     * @param cedulaProfesional Cédula profesional del médico.
-     * @param nombre Nombres del médico.
-     * @param apellidoPaterno Apellido paterno del médico.
-     * @param apellidoMaterno Apellido materno del médico.
-     * @param fechaNacimiento Fecha de nacimiento del médico.
-     * @param especialidad Especialidad del médico.
-     * @param telefono Teléfono del médico.
-     * @param correo Correo electrónico del médico.
-     * @param contrasenia Contraseña del médico.
-     */
-    public Medico(String _id, String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String telefono, String correo, String contrasenia) {
-        this._id = _id;
-        this.cedulaProfesional = cedulaProfesional;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.fechaNacimiento = fechaNacimiento;
-        this.especialidad = especialidad;
-        this.telefono = telefono;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-    }
-    
-    /**
      * Constructor que inicializa todos los atributos del médico.
      * 
      * @param cedulaProfesional Cédula profesional del médico.
@@ -159,40 +132,11 @@ public class Medico implements Serializable {
     }
 
     /**
-     * Constructor que inicializa todos los atributos del médico.
-     * 
-     * @param _id id
-     * @param cedulaProfesional Cédula profesional del médico.
-     * @param nombre Nombres del médico.
-     * @param apellidoPaterno Apellido paterno del médico.
-     * @param apellidoMaterno Apellido materno del médico.
-     * @param fechaNacimiento Fecha de nacimiento del médico.
-     * @param especialidad Especialidad del médico.
-     * @param telefono Teléfono del médico.
-     * @param correo Correo electrónico del médico.
-     * @param contrasenia Contraseña del médico.
-     * @param datosFiscales Datos fiscales del médico.
-     */
-    public Medico(String _id, String cedulaProfesional, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String especialidad, String telefono, String correo, String contrasenia, List<DatosFiscales> datosFiscales) {
-        this._id = _id;
-        this.cedulaProfesional = cedulaProfesional;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.fechaNacimiento = fechaNacimiento;
-        this.especialidad = especialidad;
-        this.telefono = telefono;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-        this.datosFiscales = datosFiscales;
-    }
-
-    /**
      * Obtiene el id del médico.
      * 
      * @return El id del médico.
      */
-    public String getId() {
+    public ObjectId getId() {
         return _id;
     }
 
@@ -201,7 +145,7 @@ public class Medico implements Serializable {
      * 
      * @param id el id del médico a establecer.
      */
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this._id = id;
     }
     

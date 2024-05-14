@@ -5,9 +5,7 @@ import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
 import com.mongodb.client.result.UpdateResult;
-import convertidorMapeo.ConvertidorMedico;
 import entidades.Medico;
-import entidadesMapeo.MedicoMapeo;
 import excepcionesPersistencia.PersistenciaException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -31,8 +29,6 @@ public class MedicoDAO implements IMedicoDAO{
      */
     private final IConexion conexion;
     
-    private ConvertidorMedico conv;
-    
     /**
      * Logger para registrar información y errores.
      */
@@ -45,7 +41,6 @@ public class MedicoDAO implements IMedicoDAO{
      */
     public MedicoDAO(IConexion conexion) {
         this.conexion = conexion;
-        this.conv = new ConvertidorMedico();
     }
 
     @Override
@@ -79,10 +74,10 @@ public class MedicoDAO implements IMedicoDAO{
         
         MongoClient cliente = conexion.obtenerConexion();
         MongoCollection coleccionMedico = conexion.obtenerColeccion(cliente);
-        MedicoMapeo medicoObt;
+        Medico medicoObt;
         
         try {       
-            medicoObt = (MedicoMapeo) coleccionMedico.find(eq("cedulaProfesional", cedula)).first();
+            medicoObt = (Medico) coleccionMedico.find(eq("cedulaProfesional", cedula)).first();
             if (medicoObt != null) {
                 logger.log(Level.INFO, "Se encontro un medico");
             } else {
@@ -95,7 +90,7 @@ public class MedicoDAO implements IMedicoDAO{
             cliente.close();
         }
 
-        return conv.convertirMapeoAEntidad(medicoObt);
+        return medicoObt;
     }
 
     @Override

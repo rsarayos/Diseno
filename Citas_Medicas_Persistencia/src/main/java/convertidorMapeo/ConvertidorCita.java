@@ -2,7 +2,6 @@ package convertidorMapeo;
 
 import entidades.Cita;
 import entidadesMapeo.CitaMapeo;
-import org.bson.types.ObjectId;
 
 /**
  * Clase auxiliar para convertir objetos de tipo Cita y CitaMapeo
@@ -14,14 +13,12 @@ public class ConvertidorCita {
      * @param cita entidad a convertir
      * @return un objeto de tipo CitaMapeo
      */
-    public CitaMapeo convertirEntidadAMapeo(Cita cita){
-        
-        ObjectId idPac = new ObjectId(cita.getIdPaciente());
+    protected CitaMapeo convertirEntidadAMapeo(Cita cita){
         
         return new CitaMapeo(
                 cita.getFechaHora(),
                 cita.getCedulaProfesional(),
-                idPac,
+                cita.getIdPaciente(),
                 cita.getObservacion(),
                 cita.getEstado());
     }
@@ -31,21 +28,14 @@ public class ConvertidorCita {
      * @param cita entidad a convertir
      * @return un objeto de tipo Paciente
      */
-    public Cita convertirMapeoAEntidad(CitaMapeo cita) {
-        if (cita != null) {
-            String idCit = cita.getId().toHexString();
-            String idPac = cita.getIdPaciente().toHexString();
-
-            return new Cita(
-                    idCit,
-                    cita.getFechaHora(),
-                    cita.getCedulaProfesional(),
-                    idPac,
-                    cita.getObservacion(),
-                    cita.getEstado());
-        } else {
-            return null;
-        }
+    protected Cita convertirEntidadAMapeo(CitaMapeo cita){
+        
+        return new Cita(
+                cita.getFechaHora(),
+                cita.getCedulaProfesional(),
+                cita.getIdPaciente(),
+                cita.getObservacion(),
+                cita.getEstado());
     }
-
+    
 }
