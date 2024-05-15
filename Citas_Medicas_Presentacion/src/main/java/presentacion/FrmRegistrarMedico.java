@@ -283,8 +283,6 @@ public class FrmRegistrarMedico extends javax.swing.JDialog {
                 MedicoDTO medicoRegistrado = this.registrar.RegistrarMedicoNuevo(medico);
                 if (medicoRegistrado != null) {
                     JOptionPane.showMessageDialog(this, "Medico registrado.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-                    FrmAdministradorMenu administradorMenu = new FrmAdministradorMenu();
-                    administradorMenu.setVisible(true);
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "El medico ya se encuentra registrado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
