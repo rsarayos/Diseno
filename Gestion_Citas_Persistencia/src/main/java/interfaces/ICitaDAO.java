@@ -5,6 +5,11 @@
 package interfaces;
 
 import Entidades.Cita;
+import Entidades.CitasConPaciente;
+import Entidades.Paciente;
+import EntidadesDTO.citasConPacienteDTOs;
+import EntidadesDTO.citaDTOs;
+import EntidadesDTO.pacienteDTOs;
 import excepciones.PersistenciaException;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +29,7 @@ public interface ICitaDAO {
      * @return Lista de objetos Cita que cumplen con los criterios.
      * @throws PersistenciaException Si ocurre un error en la capa de persistencia.
      */
-    public List<Cita> obtenerCitas(Cita citas) throws PersistenciaException;
+    public List<citasConPacienteDTOs> obtenerCitas(citaDTOs citas) throws PersistenciaException;
 
     /**
      * Consulta las citas por el nombre del paciente.
@@ -33,7 +38,7 @@ public interface ICitaDAO {
      * @return Lista de citas que coinciden con el nombre proporcionado.
      * @throws PersistenciaException Si ocurre un error en la capa de persistencia.
      */
-    public List<Cita> consultarPorNombre(Cita citaNombre) throws PersistenciaException;
+    public List<citasConPacienteDTOs> consultarPorNombre(citaDTOs citaNombre,pacienteDTOs pacienteNombre) throws PersistenciaException;
 
     /**
      * Consulta las citas por fecha.
@@ -42,7 +47,7 @@ public interface ICitaDAO {
      * @return Lista de citas programadas para esa fecha.
      * @throws PersistenciaException Si ocurre un error en la capa de persistencia.
      */
-    public List<Cita> consularPorFecha(Cita citaFecha) throws PersistenciaException;
+    public List<citasConPacienteDTOs> consularPorFecha(citaDTOs citaFecha) throws PersistenciaException;
 
     /**
      * Consulta las citas por hora específica.
@@ -51,7 +56,7 @@ public interface ICitaDAO {
      * @return Lista de citas programadas para esa hora.
      * @throws PersistenciaException Si ocurre un error en la capa de persistencia.
      */
-    public List<Cita> consultaPorHora(Cita citaHora) throws PersistenciaException;
+    public List<citasConPacienteDTOs> consultaPorHora(citaDTOs citaHora) throws PersistenciaException;
 
     /**
      * Cancela una cita existente.
@@ -60,7 +65,7 @@ public interface ICitaDAO {
      * @return Cita cancelada.
      * @throws PersistenciaException Si ocurre un error durante la cancelación.
      */
-    public Cita cancelarCita(Cita citaCancelar) throws PersistenciaException;
+    public citaDTOs cancelarCita(citaDTOs citaCancelar) throws PersistenciaException;
 
     /**
      * Reasigna una cita a una nueva fecha u hora.
@@ -70,7 +75,7 @@ public interface ICitaDAO {
      * @return Cita reasignada.
      * @throws PersistenciaException Si ocurre un error durante la reasignación.
      */
-    public Cita ReasignarCita(Cita citaReasignar, Cita nueva) throws PersistenciaException;
+    public citaDTOs ReasignarCita(citaDTOs citaReasignar, citaDTOs nueva) throws PersistenciaException;
 
     /**
      * Verifica la disponibilidad de una fecha para programar una cita.
@@ -79,7 +84,7 @@ public interface ICitaDAO {
      * @return Cita confirmada si la fecha está disponible.
      * @throws PersistenciaException Si ocurre un error en la verificación.
      */
-    public Cita verificaFecha(Cita citaVerifica) throws PersistenciaException;
+    public citaDTOs verificaFecha(citaDTOs citaVerifica) throws PersistenciaException;
 
     /**
      * Obtiene el inicio del día para una fecha dada.

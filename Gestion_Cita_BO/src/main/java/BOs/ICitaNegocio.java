@@ -5,6 +5,8 @@
 package BOs;
 import excepciones.NegocioException;
 import dtos.CitaDTO;
+import dtos.CitasConPacienteDTO;
+import dtos.PacienteDTO;
 import java.util.List;
 
 /**
@@ -20,7 +22,7 @@ public interface ICitaNegocio {
      * @return Lista de CitaDTO que cumplen con los criterios.
      * @throws NegocioException Si ocurre un error durante la operación.
      */
-    public List<CitaDTO> obtenerCitas(CitaDTO cita) throws NegocioException;
+    public List<CitasConPacienteDTO> obtenerCitas(CitaDTO cita) throws NegocioException;
 
     /**
      * Consulta las citas por fecha específica.
@@ -29,7 +31,7 @@ public interface ICitaNegocio {
      * @return Lista de CitaDTO programadas para esa fecha.
      * @throws NegocioException Si ocurre un error durante la operación.
      */
-    public List<CitaDTO> consultarPorFecha(CitaDTO cita) throws NegocioException;
+    public List<CitasConPacienteDTO> consultarPorFecha(CitaDTO cita) throws NegocioException;
 
     /**
      * Consulta las citas por nombre del paciente.
@@ -38,7 +40,7 @@ public interface ICitaNegocio {
      * @return Lista de CitaDTO asociadas al nombre del paciente especificado.
      * @throws NegocioException Si ocurre un error durante la operación.
      */
-    public List<CitaDTO> consultarPorNombre(CitaDTO cita) throws NegocioException;
+    public List<CitasConPacienteDTO> consultarPorNombre(CitaDTO cita,PacienteDTO nombre) throws NegocioException;
 
     /**
      * Consulta las citas por hora específica.
@@ -47,7 +49,7 @@ public interface ICitaNegocio {
      * @return Lista de CitaDTO programadas para esa hora específica.
      * @throws NegocioException Si ocurre un error durante la operación.
      */
-    public List<CitaDTO> consultarPorHora(CitaDTO cita) throws NegocioException;
+    public List<CitasConPacienteDTO> consultarPorHora(CitaDTO cita) throws NegocioException;
 
     /**
      * Cancela una cita específica.

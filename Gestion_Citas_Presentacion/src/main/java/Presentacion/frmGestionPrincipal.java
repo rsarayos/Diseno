@@ -6,13 +6,16 @@ package Presentacion;
 import GestionCitas.IGestionCita;
 import GestionCitas.FGestionCita;
 import dtos.CitaDTO;
+import dtos.CitasConPacienteDTO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 import javax.swing.JFrame;
@@ -99,7 +102,7 @@ public class frmGestionPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(JtableCitas);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("CITAS MAS PROXIMAS DEL DIA");
+        jLabel2.setText("CITAS MAS PROXIMAS");
 
         btnConsultar.setBackground(new java.awt.Color(204, 204, 204));
         btnConsultar.setText("Consultar citas");
@@ -183,40 +186,46 @@ public class frmGestionPrincipal extends javax.swing.JFrame {
      * Metodo que se encarga de llenar la tabla ademas de configuraciones como el doble click y evitar ediciones a la tabla
      * @param citas listas de citasDTO
      */
-    public void accionesTabla(List<CitaDTO> citas){
+    public void accionesTabla(List<CitasConPacienteDTO> citas){
         
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        // Formateador para la fecha y la hora de la cita
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        dateTimeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        // Formateador para obtener solo la fecha en UTC
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String [] columnas = {"Hora de la cita","Nombre","Observacion"};
+
+        // Obtener la fecha actual en UTC a medianoche para filtrar desde el comienzo del día
+        Calendar todayUTC = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        todayUTC.set(Calendar.HOUR_OF_DAY, 0);
+        todayUTC.set(Calendar.MINUTE, 0);
+        todayUTC.set(Calendar.SECOND, 0);
+        todayUTC.set(Calendar.MILLISECOND, 0);
+        Date startOfToday = todayUTC.getTime();
+
+        String[] columnas = {"Fecha y Hora de la cita", "Nombre", "Observacion"};
         DefaultTableModel model = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;  // Esto hará que ninguna celda sea editable
             }
         };
-        
-        // Ordenar las citas por fecha y hora
-        Collections.sort(citas, new Comparator<CitaDTO>() {
-            @Override
-            public int compare(CitaDTO o1, CitaDTO o2) {
-                return o1.getFechaHora().compareTo(o2.getFechaHora());
-            }
-        });
 
-        // Añadir hasta cinco citas al modelo de la tabla
-         int count = 0;
-        for (CitaDTO citaDTO : citas) {
-            if (citaDTO.isEstado()) {  // Verificar si el estado de la cita es true
-                if (count >= 5) break; // Detener después de añadir cinco citas
+        // Filtrar y ordenar las citas para incluir solo las desde el inicio del día actual en adelante y limitar a 5 las más próximas
+        citas.stream()
+            .filter(cita -> !cita.getFechaHora().before(startOfToday) && cita.getEstado()) // Filtrar citas desde la medianoche de hoy en adelante
+            .sorted(Comparator.comparing(CitasConPacienteDTO::getFechaHora)) // Ordenar por fecha y hora
+            .limit(5) // Limitar a 5 citas
+            .forEach(citaDTO -> {
                 Object[] fila = {
-                    dateFormat.format(citaDTO.getFechaHora()),
+                    dateTimeFormat.format(citaDTO.getFechaHora()),
                     citaDTO.getPaciente().getNombre() + " " + citaDTO.getPaciente().getApellidoPaterno() + " " + citaDTO.getPaciente().getApellidoMaterno(),
                     citaDTO.getObservacion()
                 };
                 model.addRow(fila);
-                count++;
-            }
-        }
+            });
+
         
         JtableCitas.addMouseListener(new MouseAdapter() {
             @Override
@@ -226,7 +235,7 @@ public class frmGestionPrincipal extends javax.swing.JFrame {
                     // Obtener el índice de la fila seleccionada
                     int row = JtableCitas.rowAtPoint(e.getPoint());
                     if (row >= 0) {
-                        CitaDTO citaSeleccionada = citas.get(row); 
+                        CitasConPacienteDTO citaSeleccionada = citas.get(row); 
                         frmInfoPaciente info=new frmInfoPaciente(null,true,citaSeleccionada);
                         info.setVisible(true);
                     }

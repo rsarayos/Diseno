@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 /**
@@ -167,41 +168,37 @@ public class frmReasignar extends javax.swing.JDialog {
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         //Variable para poder confirma la fecha si esta 
         //Dispobible
-        confirmacion=false;
-        if (dateTimeR.getDateTimePermissive() != null && dateTimeR.getDateTimePermissive().getHour()>0) {
-            LocalDateTime fechaNueva = dateTimeR.getDateTimePermissive();
-             
-            Date fechaHoraAnterior = this.citaAnterior.getFechaHora();
-            LocalDateTime fechaAnterior = LocalDateTime.ofInstant(fechaHoraAnterior.toInstant(), ZoneId.systemDefault());
-            
+        confirmacion = false;
+        LocalDateTime fechaNueva = dateTimeR.getDateTimePermissive();
+        if (fechaNueva != null && fechaNueva.getHour() > 0) {
+            LocalDateTime fechaAnterior = LocalDateTime.ofInstant(this.citaAnterior.getFechaHora().toInstant(), ZoneId.systemDefault());
+            System.out.println(citaAnterior.getFechaHora());
+            System.out.println(citaAnterior.getCedulaProfesional());
+            System.out.println(citaAnterior.isEstado());
             if (fechaNueva.isAfter(fechaAnterior)) {
+                
+                GregorianCalendar fecha = new GregorianCalendar(dateTimeR.getDateTimePermissive().getYear(), dateTimeR.getDateTimePermissive().getMonthValue()-1, dateTimeR.getDateTimePermissive().getDayOfMonth(), dateTimeR.getDateTimePermissive().getHour(), dateTimeR.getDateTimePermissive().getMinute());
                 try {
-                    //Realiza la convercion por zona horaria
-                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                    inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                    String fechaStr = fechaNueva.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-                    Date date = inputFormat.parse(fechaStr);
-       
+                    Date date= fecha.getTime();
                     citaNueva.setCedulaProfesional(this.citaAnterior.getCedulaProfesional());
                     citaNueva.setFechaHora(date);
                     citaNueva.setEstado(true);
 
-                    // Verificar disponibilidad de la nueva fecha antes de proceder
                     CitaDTO citaExistente = gestion.verificarFecha(citaNueva);
                     if (citaExistente == null) {
-                        JOptionPane.showMessageDialog(null, "Esta disponible");
-                        confirmacion=true;
+                        JOptionPane.showMessageDialog(null, "Fecha disponible.");
+                        confirmacion = true;
                     } else {
-                        JOptionPane.showMessageDialog(null, "La fecha y hora seleccionadas ya están ocupadas.");
+                        JOptionPane.showMessageDialog(null, "Fecha y hora seleccionadas ya están ocupadas.");
                     }
-                } catch (ParseException e) {
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Error al parsear la fecha: " + e.getMessage());
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "La fecha o hora seleccionada son de dias anteriores");
-            }     
-        }else{
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fecha y hora");
+            } else {
+                JOptionPane.showMessageDialog(null, "La fecha o hora seleccionada son de días anteriores.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fecha y hora.");
         }
     }//GEN-LAST:event_btnVerificarActionPerformed
 

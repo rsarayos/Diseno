@@ -5,6 +5,8 @@
 package GestionCitas;
 
 import dtos.CitaDTO;
+import dtos.PacienteDTO;
+import dtos.CitasConPacienteDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public interface IGestionCita {
      * @param cita Objeto CitaDTO con criterios de búsqueda.
      * @return Lista de CitaDTO que cumplen con los criterios.
      */
-    public List<CitaDTO> obtenerCitas(CitaDTO cita);
+    public List<CitasConPacienteDTO> obtenerCitas(CitaDTO cita);
 
     /**
      * Consulta las citas por fecha específica.
@@ -28,7 +30,7 @@ public interface IGestionCita {
      * @param cita Objeto CitaDTO que contiene la fecha de interés.
      * @return Lista de CitaDTO programadas para esa fecha.
      */
-    public List<CitaDTO> consultarPorFecha(CitaDTO cita);
+    public List<CitasConPacienteDTO> consultarPorFecha(CitaDTO cita);
 
     /**
      * Consulta las citas por nombre del paciente.
@@ -36,7 +38,7 @@ public interface IGestionCita {
      * @param cita Objeto CitaDTO que contiene el nombre del paciente como criterio de búsqueda.
      * @return Lista de CitaDTO asociadas al nombre del paciente especificado.
      */
-    public List<CitaDTO> consultarPorNombre(CitaDTO cita);
+    public List<CitasConPacienteDTO> consultarPorNombre(CitaDTO cita,PacienteDTO paciente);
 
     /**
      * Consulta las citas por hora específica.
@@ -44,7 +46,7 @@ public interface IGestionCita {
      * @param cita Objeto CitaDTO que contiene la hora de interés.
      * @return Lista de CitaDTO programadas para esa hora específica.
      */
-    public List<CitaDTO> consultarPorHora(CitaDTO cita);
+    public List<CitasConPacienteDTO> consultarPorHora(CitaDTO cita);
 
     /**
      * Cancela una cita específica.

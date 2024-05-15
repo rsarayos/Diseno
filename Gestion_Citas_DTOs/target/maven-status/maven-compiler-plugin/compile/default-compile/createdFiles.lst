@@ -1,2 +1,3 @@
 dtos\CitaDTO.class
 dtos\PacienteDTO.class
+dtos\CitasConPacienteDTO.class

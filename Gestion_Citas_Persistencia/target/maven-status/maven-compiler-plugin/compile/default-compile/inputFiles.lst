@@ -1,7 +1,15 @@
 C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\DAOs\PacienteDAO.java
 C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\DAOs\CitaDAO.java
-C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\excepciones\PersistenciaException.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\Convetidores\CitaConvertidor.java
 C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\Entidades\Cita.java
-C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\conexion\ConexionBD.java
 C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\Entidades\Paciente.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\Convetidores\CitasConPacienteConvertidor.java
 C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\interfaces\ICitaDAO.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\EntidadesDTO\pacienteDTOs.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\EntidadesDTO\citaDTOs.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\EntidadesDTO\citasConPacienteDTOs.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\Convetidores\PacienteConvertidor.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\DAOs\NewMain.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\excepciones\PersistenciaException.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\conexion\ConexionBD.java
+C:\Users\JESUS\OneDrive\Documentos\NetBeansProjects\Gestion_Citas_Persistencia\src\main\java\Entidades\CitasConPaciente.java

@@ -19,7 +19,7 @@ public class Cita {
     private ObjectId id;
     private Date fechaHora;
     private String cedulaProfesional;
-    private Paciente paciente;
+    private ObjectId paciente;
     private String observacion;
     private Boolean estado;
     
@@ -40,7 +40,7 @@ public class Cita {
      * @param observacion Observaciones relevantes sobre la cita.
      * @param estado Estado actual de la cita (por ejemplo, activo o cancelado).
      */
-    public Cita(ObjectId id, Date fechaHora, String cedulaProfesional, Paciente paciente, String observacion, Boolean estado) {
+    public Cita(ObjectId id, Date fechaHora, String cedulaProfesional, ObjectId paciente, String observacion, Boolean estado) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
@@ -59,7 +59,7 @@ public class Cita {
      * @param observacion Observaciones relevantes sobre la cita.
      * @param estado Estado actual de la cita (por ejemplo, activo o cancelado).
      */
-    public Cita(Date fechaHora, String cedulaProfesional, Paciente paciente, String observacion, Boolean estado) {
+    public Cita(Date fechaHora, String cedulaProfesional, ObjectId paciente, String observacion, Boolean estado) {
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
         this.paciente = paciente;
@@ -126,7 +126,7 @@ public class Cita {
      * 
      * @return El objeto Paciente de la cita.
      */
-    public Paciente getPaciente() {
+    public ObjectId getPaciente() {
         return paciente;
     }
 
@@ -135,7 +135,7 @@ public class Cita {
      * 
      * @param paciente El nuevo objeto Paciente a asignar.
      */
-    public void setPaciente(Paciente paciente) {
+    public void setPaciente(ObjectId paciente) {
         this.paciente = paciente;
     }
 

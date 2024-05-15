@@ -11,16 +11,17 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import dtos.CitasConPacienteDTO;
 /**
  * JDialog para mostrar informacion del paciente
  * @author JESUS
  */
 public class frmInfoPaciente extends javax.swing.JDialog {
-    private CitaDTO cita;
+    private CitasConPacienteDTO cita;
     /**
      * Creates new form frmInfoPaciente
      */
-    public frmInfoPaciente(java.awt.Frame parent, boolean modal,CitaDTO cita) {
+    public frmInfoPaciente(java.awt.Frame parent, boolean modal,CitasConPacienteDTO cita) {
         super(parent, modal);
         initComponents();
         this.cita=cita;

@@ -5,8 +5,8 @@
 package convertidores;
 import dtos.CitaDTO;
 import dtos.PacienteDTO;
-import Entidades.Cita;
-import Entidades.Paciente;
+import EntidadesDTO.citaDTOs;
+import EntidadesDTO.pacienteDTOs;
 /**
  * Clase para converti entidades a DTOs y viceverssa
  * @author JESUS
@@ -26,19 +26,14 @@ public class convertidorCita {
      * @param cita citaDTO que se quiere convertir
      * @return la cita
      */
-    public Cita convertidorDTOAEntidad(CitaDTO cita){
-        Paciente paciente=new Paciente();
-        if (cita.getPaciente()!=null) {
-            paciente.setNombre(cita.getPaciente().getNombre());
-            paciente.setApellidoPaterno(cita.getPaciente().getApellidoPaterno());
-            paciente.setApellidoMaterno(cita.getPaciente().getApellidoMaterno());
-            paciente.setCorreo(cita.getPaciente().getCorreo());
-            paciente.setTelefono(cita.getPaciente().getTelefono());
-            paciente.setFechaNacimiento(cita.getPaciente().getFechaNacimiento());
-        }
-       
-        
-        return new Cita(cita.getFechaHora(), cita.getCedulaProfesional(), paciente, cita.getObservacion(), cita.isEstado());
+    public citaDTOs convertidorDTOAEntidad(CitaDTO cita){
+        return new citaDTOs(
+                cita.getFechaHora(), 
+                cita.getCedulaProfesional(), 
+                cita.getPaciente(), 
+                cita.getObservacion(), 
+                cita.isEstado()
+        );
         
     }
     
@@ -47,16 +42,12 @@ public class convertidorCita {
      * @param cita cita que quiere convetir
      * @return la cita
      */
-    public CitaDTO convertidorEntidadADTO(Cita cita){
-        PacienteDTO paciente=new PacienteDTO();
-        paciente.setNombre(cita.getPaciente().getNombre());
-        paciente.setApellidoPaterno(cita.getPaciente().getApellidoPaterno());
-        paciente.setApellidoMaterno(cita.getPaciente().getApellidoMaterno());
-        paciente.setCorreo(cita.getPaciente().getCorreo());
-        paciente.setTelefono(cita.getPaciente().getTelefono());
-        paciente.setFechaNacimiento(cita.getPaciente().getFechaNacimiento());
-        
-        return new CitaDTO(cita.getFechaHora(), cita.getCedulaProfesional(), paciente, cita.getObservacion(),cita.isEstado());
+    public CitaDTO convertidorEntidadADTO(citaDTOs cita){
+        if (cita != null) {
+            return new CitaDTO(cita.getFechaHora(), cita.getCedulaProfesional(), cita.getPaciente(), cita.getObservacion(),cita.getEstado());
+        }else{
+            return null;
+        }    
     }
     
 }

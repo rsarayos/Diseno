@@ -5,10 +5,15 @@
 package BOs;
 
 import convertidores.convertidorCita;
+import convertidores.convertidorCitasConPaciente;
+import convertidores.convertidorPaciente;
 import interfaces.ICitaDAO;
 import DAOs.CitaDAO;
 import dtos.CitaDTO;
-import Entidades.Cita;
+import dtos.CitasConPacienteDTO;
+import EntidadesDTO.citasConPacienteDTOs;
+import EntidadesDTO.citaDTOs;
+import dtos.PacienteDTO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
@@ -25,6 +30,8 @@ public class CitaNegocio implements ICitaNegocio{
     //Variables de la clase
     private final ICitaDAO citaDAO;
     private convertidorCita convi;
+    private convertidorCitasConPaciente conviLis;
+    private convertidorPaciente conviP;
     static final Logger logger = Logger.getLogger(CitaNegocio.class.getName());
     
     /**
@@ -33,6 +40,8 @@ public class CitaNegocio implements ICitaNegocio{
     public CitaNegocio(){
         this.citaDAO=new CitaDAO();
         this.convi=new convertidorCita();
+        this.conviLis= new convertidorCitasConPaciente();
+        this.conviP = new convertidorPaciente();
     }
 
     /**
@@ -43,9 +52,9 @@ public class CitaNegocio implements ICitaNegocio{
      * @throws NegocioException Si ocurre un error durante la operación.
      */
     @Override
-    public List<CitaDTO> obtenerCitas(CitaDTO cita) throws NegocioException {
-        List<CitaDTO> citas=new ArrayList<>();
-        List<Cita> citasC=null;
+    public List<CitasConPacienteDTO> obtenerCitas(CitaDTO cita) throws NegocioException {
+        List<CitasConPacienteDTO> citas=new ArrayList<>();
+        List<citasConPacienteDTOs> citasC=null;
         try {
             citasC=citaDAO.obtenerCitas(convi.convertidorDTOAEntidad(cita));
         } catch (PersistenciaException e) {
@@ -53,8 +62,8 @@ public class CitaNegocio implements ICitaNegocio{
             throw new NegocioException("Error al obtener las citas", e);
         }
         if (citasC!=null) {
-            for (Cita listaCita:citasC) {
-                citas.add(convi.convertidorEntidadADTO(listaCita));
+            for (citasConPacienteDTOs listaCita:citasC) {
+                citas.add(conviLis.convertidorEntidadADTO(listaCita));
             }
         }
         return citas;
@@ -68,9 +77,9 @@ public class CitaNegocio implements ICitaNegocio{
      * @throws NegocioException Si ocurre un error durante la operación.
      */
     @Override
-    public List<CitaDTO> consultarPorFecha(CitaDTO cita) throws NegocioException {
-        List<CitaDTO> citas=new ArrayList<>();
-        List<Cita> citasC=null;
+    public List<CitasConPacienteDTO> consultarPorFecha(CitaDTO cita) throws NegocioException {
+        List<CitasConPacienteDTO> citas=new ArrayList<>();
+        List<citasConPacienteDTOs> citasC=null;
         try {
             citasC=citaDAO.consularPorFecha(convi.convertidorDTOAEntidad(cita));
         } catch (PersistenciaException e) {
@@ -78,8 +87,8 @@ public class CitaNegocio implements ICitaNegocio{
             throw new NegocioException("Error al obtener las citas por fecha", e);
         }
         if (citasC!=null) {
-            for (Cita listaCita: citasC) {
-                citas.add(convi.convertidorEntidadADTO(listaCita));
+            for (citasConPacienteDTOs listaCita: citasC) {
+                citas.add(conviLis.convertidorEntidadADTO(listaCita));
             }
         }
         return citas;
@@ -93,18 +102,18 @@ public class CitaNegocio implements ICitaNegocio{
      * @throws NegocioException Si ocurre un error durante la operación.
      */
     @Override
-    public List<CitaDTO> consultarPorNombre(CitaDTO cita) throws NegocioException {
-        List<CitaDTO> citas=new ArrayList<>();
-        List<Cita> citasC=null;
+    public List<CitasConPacienteDTO> consultarPorNombre(CitaDTO cita,PacienteDTO paciente) throws NegocioException {
+        List<CitasConPacienteDTO> citas=new ArrayList<>();
+        List<citasConPacienteDTOs> citasC=null;
         try {
-            citasC=citaDAO.consultarPorNombre(convi.convertidorDTOAEntidad(cita));
+            citasC=citaDAO.consultarPorNombre(convi.convertidorDTOAEntidad(cita),conviP.convertirDTOAEntidad(paciente));
         } catch (PersistenciaException e) {
             logger.log(Level.SEVERE, "Error al obtener citas por nombre");
             throw new NegocioException("Error al obtener las citas por nombre", e);
         }
         if (citasC!=null) {
-            for (Cita listaCita: citasC) {
-                citas.add(convi.convertidorEntidadADTO(listaCita));
+            for (citasConPacienteDTOs listaCita: citasC) {
+                citas.add(conviLis.convertidorEntidadADTO(listaCita));
             }
         }
         return citas;
@@ -118,9 +127,9 @@ public class CitaNegocio implements ICitaNegocio{
      * @throws NegocioException Si ocurre un error durante la operación.
      */
     @Override
-    public List<CitaDTO> consultarPorHora(CitaDTO cita) throws NegocioException {
-        List<CitaDTO> citas=new ArrayList<>();
-        List<Cita> citasC=null;
+    public List<CitasConPacienteDTO> consultarPorHora(CitaDTO cita) throws NegocioException {
+        List<CitasConPacienteDTO> citas=new ArrayList<>();
+        List<citasConPacienteDTOs> citasC=null;
         try {
             citasC=citaDAO.consultaPorHora(convi.convertidorDTOAEntidad(cita));
         } catch (PersistenciaException e) {
@@ -128,8 +137,8 @@ public class CitaNegocio implements ICitaNegocio{
             throw new NegocioException("Error al obtener las citas por hora", e);
         }
         if (citasC!=null) {
-            for (Cita listaCita:citasC) {
-                citas.add(convi.convertidorEntidadADTO(listaCita));
+            for (citasConPacienteDTOs listaCita:citasC) {
+                citas.add(conviLis.convertidorEntidadADTO(listaCita));
             }
         }
         return citas;
@@ -144,7 +153,7 @@ public class CitaNegocio implements ICitaNegocio{
      */
     @Override
     public CitaDTO cancelarCita(CitaDTO cita) throws NegocioException {
-        Cita persistencia=null;
+        citaDTOs persistencia=null;
         try {
             persistencia=citaDAO.cancelarCita(convi.convertidorDTOAEntidad(cita));
         } catch (PersistenciaException e) {
@@ -164,7 +173,7 @@ public class CitaNegocio implements ICitaNegocio{
      */
     @Override
     public CitaDTO reasginarCita(CitaDTO citaReasigna,CitaDTO nueva) throws NegocioException {
-       Cita persistencia=null;
+       citaDTOs persistencia=null;
         try {
             persistencia=citaDAO.ReasignarCita(convi.convertidorDTOAEntidad(citaReasigna), convi.convertidorDTOAEntidad(nueva));
         } catch (PersistenciaException e) {
@@ -183,7 +192,7 @@ public class CitaNegocio implements ICitaNegocio{
      */
     @Override
     public CitaDTO verificarFecha(CitaDTO cita) throws NegocioException {
-        Cita persistencia=null;
+        citaDTOs persistencia=null;
         try {
             persistencia=citaDAO.verificaFecha(convi.convertidorDTOAEntidad(cita));
         } catch (PersistenciaException e) {

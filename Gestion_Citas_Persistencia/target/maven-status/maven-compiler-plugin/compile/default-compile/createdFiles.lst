@@ -1,7 +1,15 @@
-Entidades\Paciente.class
-interfaces\ICitaDAO.class
+EntidadesDTO\citasConPacienteDTOs.class
+Convetidores\CitaConvertidor.class
+DAOs\NewMain.class
+EntidadesDTO\pacienteDTOs.class
 excepciones\PersistenciaException.class
 DAOs\PacienteDAO.class
+Convetidores\PacienteConvertidor.class
+Entidades\Paciente.class
+interfaces\ICitaDAO.class
+Convetidores\CitasConPacienteConvertidor.class
 Entidades\Cita.class
+Entidades\CitasConPaciente.class
+EntidadesDTO\citaDTOs.class
 conexion\ConexionBD.class
 DAOs\CitaDAO.class

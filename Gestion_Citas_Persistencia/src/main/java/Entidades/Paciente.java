@@ -24,7 +24,7 @@ public class Paciente {
     private int edad;
     private String telefono;
     private String correo;
-    private List<ObjectId> citas;
+   
     
     /**
      * Constructor vacio
@@ -45,9 +45,8 @@ public class Paciente {
      * @param edad Edad del paciente.
      * @param telefono Número de teléfono del paciente.
      * @param correo Correo electrónico del paciente.
-     * @param citas Lista de identificadores de citas asociadas al paciente.
      */
-    public Paciente(ObjectId id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo, List<ObjectId> citas) {
+    public Paciente(ObjectId id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -56,7 +55,7 @@ public class Paciente {
         this.edad = edad;
         this.telefono = telefono;
         this.correo = correo;
-        this.citas = citas;
+        
     }
 
     /**
@@ -70,9 +69,8 @@ public class Paciente {
      * @param edad Edad del paciente.
      * @param telefono Número de teléfono del paciente.
      * @param correo Correo electrónico del paciente.
-     * @param citas Lista de identificadores de citas asociadas al paciente.
      */
-    public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo, List<ObjectId> citas) {
+    public Paciente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -80,7 +78,7 @@ public class Paciente {
         this.edad = edad;
         this.telefono = telefono;
         this.correo = correo;
-        this.citas = citas;
+     
     }
 
     /**
@@ -225,24 +223,6 @@ public class Paciente {
      */
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    /**
-     * Devuelve la lista de identificadores de citas asociadas al paciente.
-     * 
-     * @return Lista de ObjectId representando las citas programadas para el paciente.
-     */
-    public List<ObjectId> getCitas() {
-        return citas;
-    }
-
-    /**
-     * Establece la lista de identificadores de citas para el paciente.
-     * 
-     * @param citas La nueva lista de ObjectId de citas a asignar al paciente.
-     */
-    public void setCitas(List<ObjectId> citas) {
-        this.citas = citas;
     }
 
     /**

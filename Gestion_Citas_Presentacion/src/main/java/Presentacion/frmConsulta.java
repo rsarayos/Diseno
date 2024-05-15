@@ -8,6 +8,7 @@ import GestionCitas.FGestionCita;
 import GestionCitas.IGestionCita;
 import dtos.CitaDTO;
 import dtos.PacienteDTO;
+import dtos.CitasConPacienteDTO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -449,9 +451,17 @@ public class frmConsulta extends javax.swing.JDialog {
                     cita.setCedulaProfesional(cedula);
                     cita.setFechaHora(date);
                     cita.setEstado(true);
-                    
+                    System.out.println(cita.getCedulaProfesional());
+                    System.out.println(cita.getFechaHora());
+                    System.out.println(cita.isEstado());
                     frmReasignar reasig=new frmReasignar(null, true,cita);
                     reasig.setVisible(true);
+                    reasig.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                        accionesTabla(gestion.obtenerCitas(cita));
+                    }
+                });
                 } catch (ParseException e) {
                     System.out.println("Error al parsear la fecha: " + e.getMessage());
                 }
@@ -465,27 +475,25 @@ public class frmConsulta extends javax.swing.JDialog {
     }//GEN-LAST:event_btnReasignarActionPerformed
 
     private void rbtnAscendeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAscendeteActionPerformed
-        ordenarDatos(getFiltroSeleccionado(), getOrdenSeleccionado());
+        ordenarDatos(getFiltroSeleccionado(), true);
     }//GEN-LAST:event_rbtnAscendeteActionPerformed
 
     private void rbtnDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDescActionPerformed
-        ordenarDatos(getFiltroSeleccionado(),getOrdenSeleccionado());
+        ordenarDatos(getFiltroSeleccionado(), false);
     }//GEN-LAST:event_rbtnDescActionPerformed
 
     private void rbtnTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTodoActionPerformed
         accionesTabla(gestion.obtenerCitas(this.cita));
-        if (rbtnTodo.isSelected()) {
-            txtNombre.setEditable(false);
-            datePicker1.setEnabled(false);
-            timePicker1.setEnabled(false);
-        }
+        txtNombre.setEditable(false);
+        datePicker1.setEnabled(false);
+        timePicker1.setEnabled(false);
     }//GEN-LAST:event_rbtnTodoActionPerformed
     
     /**
      * Metodo que se encarga de llenar la tabla ademas de configuraciones como evitar ediciones a la tabla
      * @param citas lista de citasDTO
      */
-    public void accionesTabla(List<CitaDTO> citas){
+    public void accionesTabla(List<CitasConPacienteDTO> citas){
         
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd-MM-yyyy");
@@ -499,8 +507,8 @@ public class frmConsulta extends javax.swing.JDialog {
             }
         };
          
-        for (CitaDTO citaDTO : citas) {   
-            String estadoTexto = citaDTO.isEstado() ? "Activo" : "Cancelada"; 
+        for (CitasConPacienteDTO citaDTO : citas) {   
+            String estadoTexto = citaDTO.getEstado() ? "Activo" : "Cancelada"; 
             Object[] fila = {
                 dateFormat.format(citaDTO.getFechaHora()),
                 dateFormat2.format(citaDTO.getFechaHora()),
@@ -546,14 +554,25 @@ public class frmConsulta extends javax.swing.JDialog {
      * @param ascendente el tipo de orden
      */
     private void ordenarDatos(String columna, boolean ascendente) {
-        // Primero, obtenemos el índice de la columna que se va a ordenar
+        if (columna == null) {
+            // Si no se selecciona ninguna columna, elegir una por defecto
+            columna = "Fecha";  // O elige "Hora", "Nombre", o cualquier otra columna que prefieras como predeterminada
+        }
+
+        // Obtener el índice de la columna que se va a ordenar
         int columnIndex = getColumnIndex(columna);
-        // Obtenemos el sorter de la tabla actual
-        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) JtableCitas.getRowSorter();
-        // Establecemos la clave de ordenación usando el índice de columna y la dirección de ordenación
-        sorter.setSortKeys(Collections.singletonList(new RowSorter.SortKey(columnIndex, ascendente ? SortOrder.ASCENDING : SortOrder.DESCENDING)));
-        // Ordenamos la tabla basándonos en las claves de ordenación establecidas
-        sorter.sort();
+
+        if (columnIndex != -1) {
+            // Obtenemos el sorter de la tabla actual
+            TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) JtableCitas.getRowSorter();
+            // Establecemos la clave de ordenación usando el índice de columna y la dirección de ordenación
+            sorter.setSortKeys(Collections.singletonList(new RowSorter.SortKey(columnIndex, ascendente ? SortOrder.ASCENDING : SortOrder.DESCENDING)));
+            // Ordenamos la tabla basándonos en las claves de ordenación establecidas
+            sorter.sort();
+        } else {
+            // Manejar el caso donde no se encuentra la columna, por ejemplo, mostrando un mensaje de error o ignorándolo
+            System.out.println("Columna no encontrada para ordenación.");
+        }
     }
 
     
@@ -577,20 +596,20 @@ public class frmConsulta extends javax.swing.JDialog {
      * Metodo que obtiene todas las citas por un nombre en especifico
      * @return la lista de citas con ese nombre
      */
-    private List<CitaDTO> nombres(){
+    private List<CitasConPacienteDTO> nombres(){
         CitaDTO cit=new CitaDTO();
         cit.setCedulaProfesional(cedula);
         PacienteDTO paciente=new PacienteDTO();
         paciente.setNombre(txtNombre.getText());
-        cit.setPaciente(paciente);
-        return gestion.consultarPorNombre(cit);
+        
+        return gestion.consultarPorNombre(cit,paciente);
     }
     
     /**
      * Metodo que obtiene todas las citas por una fecha
      * @return las lita de fechas
      */
-    private List<CitaDTO> fechas(){
+    private List<CitasConPacienteDTO> fechas(){
         CitaDTO cit=new CitaDTO();
         cit.setCedulaProfesional(cedula);
         LocalDate fechaNueva = datePicker1.getDate();  
@@ -609,25 +628,21 @@ public class frmConsulta extends javax.swing.JDialog {
      * Metodo que obtiene la lista de citas por una hora
      * @return la lista de citas
      */
-    private List<CitaDTO> horas(){
+    private List<CitasConPacienteDTO> horas(){
         CitaDTO cit=new CitaDTO();
         cit.setCedulaProfesional(cedula);
         LocalTime horaNueva = timePicker1.getTime();
-        List<CitaDTO> horitas=new ArrayList<>();
+        List<CitasConPacienteDTO> horitas=new ArrayList<>();
         try {
             LocalDate fechaPredeterminada = LocalDate.now(); // Utiliza la fecha actual
             LocalDateTime fechaHoraCompleta = LocalDateTime.of(fechaPredeterminada, horaNueva);
 
-            // Formatear la fecha y hora en formato ISODate
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            String fechaHoraFormateada = fechaHoraCompleta.format(formatter);
-
-            // Crear un objeto Date a partir de la fecha y hora formateada
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-            Date date = sdf.parse(fechaHoraFormateada);
+            // Asegúrate de que el manejo de la zona horaria sea el correcto
+            ZonedDateTime zdt = fechaHoraCompleta.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC"));
+            Date date = Date.from(zdt.toInstant());
 
             cit.setFechaHora(date);
-            horitas= gestion.consultarPorHora(cit);
+            horitas = gestion.consultarPorHora(cit);
         } catch (Exception e) {
             System.out.println(e);
         }

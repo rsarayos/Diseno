@@ -5,6 +5,8 @@
 package GestionCitas;
 
 import dtos.CitaDTO;
+import dtos.CitasConPacienteDTO;
+import dtos.PacienteDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class FGestionCita implements IGestionCita{
      * @return Lista de CitaDTO que cumplen con los criterios.
      */
     @Override
-    public List<CitaDTO> obtenerCitas(CitaDTO cita) {
+    public List<CitasConPacienteDTO> obtenerCitas(CitaDTO cita) {
         return control.obtenerCitas(cita);
     }
 
@@ -41,7 +43,7 @@ public class FGestionCita implements IGestionCita{
      * @return Lista de CitaDTO programadas para esa fecha.
      */
     @Override
-    public List<CitaDTO> consultarPorFecha(CitaDTO cita){
+    public List<CitasConPacienteDTO> consultarPorFecha(CitaDTO cita){
         return control.obtenerCitaFecha(cita);
     }
 
@@ -52,8 +54,8 @@ public class FGestionCita implements IGestionCita{
      * @return Lista de CitaDTO asociadas al nombre del paciente especificado.
      */
     @Override
-    public List<CitaDTO> consultarPorNombre(CitaDTO cita) {
-        return control.obtenerCitaNombre(cita);
+    public List<CitasConPacienteDTO> consultarPorNombre(CitaDTO cita,PacienteDTO paciente) {
+        return control.obtenerCitaNombre(cita,paciente);
     }
 
     /**
@@ -63,7 +65,7 @@ public class FGestionCita implements IGestionCita{
      * @return Lista de CitaDTO programadas para esa hora específica.
      */
     @Override
-    public List<CitaDTO> consultarPorHora(CitaDTO cita)  {
+    public List<CitasConPacienteDTO> consultarPorHora(CitaDTO cita)  {
         return control.obtenerCitaHora(cita);
     }
 

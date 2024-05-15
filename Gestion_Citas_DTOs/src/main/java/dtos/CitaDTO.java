@@ -14,10 +14,11 @@ import java.util.Objects;
  */
 public class CitaDTO {
     
-    //Atributos de la clase    
+    //Atributos de la clase
+    private String id;
     private Date fechaHora;
     private String cedulaProfesional;
-    private PacienteDTO paciente;
+    private String paciente;
     private String observacion;
     private boolean estado;
     
@@ -38,7 +39,7 @@ public class CitaDTO {
      * @param observacion Observaciones adicionales acerca de la cita.
      * @param estado Estado actual de la cita (activo o inactivo).
      */
-    public CitaDTO(Date fechaHora, String cedulaProfesional, PacienteDTO paciente, String observacion, boolean estado) {
+    public CitaDTO(Date fechaHora, String cedulaProfesional, String paciente, String observacion, boolean estado) {
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
         this.paciente = paciente;
@@ -87,7 +88,7 @@ public class CitaDTO {
      * 
      * @return Objeto PacienteDTO del paciente.
      */
-    public PacienteDTO getPaciente() {
+    public String getPaciente() {
         return paciente;
     }
 
@@ -96,7 +97,7 @@ public class CitaDTO {
      * 
      * @param paciente El nuevo objeto PacienteDTO a asignar.
      */
-    public void setPaciente(PacienteDTO paciente) {
+    public void setPaciente(String paciente) {
         this.paciente = paciente;
     }
 

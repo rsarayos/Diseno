@@ -6,6 +6,8 @@ package GestionCitas;
 import BOs.ICitaNegocio;
 import BOs.CitaNegocio;
 import dtos.CitaDTO;
+import dtos.CitasConPacienteDTO;
+import dtos.PacienteDTO;
 import excepciones.NegocioException;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,8 +38,8 @@ public class CGestionCIta {
      * @param cita Objeto CitaDTO con criterios de búsqueda.
      * @return Lista de CitaDTO que cumplen con los criterios, o null en caso de error.
      */
-    protected List<CitaDTO> obtenerCitas(CitaDTO cita){
-        List<CitaDTO> citas = null;
+    protected List<CitasConPacienteDTO> obtenerCitas(CitaDTO cita){
+        List<CitasConPacienteDTO> citas = null;
         try {
             citas = citaBO.obtenerCitas(cita);
         } catch (NegocioException e) {
@@ -53,8 +55,8 @@ public class CGestionCIta {
      * @param cita Objeto CitaDTO que contiene la fecha de interés.
      * @return Lista de CitaDTO para la fecha especificada, o null en caso de error.
      */
-    protected List<CitaDTO> obtenerCitaFecha(CitaDTO cita){
-        List<CitaDTO> citas = null;
+    protected List<CitasConPacienteDTO> obtenerCitaFecha(CitaDTO cita){
+        List<CitasConPacienteDTO> citas = null;
         try {
             citas = citaBO.consultarPorFecha(cita);
         } catch (NegocioException e) {
@@ -70,10 +72,10 @@ public class CGestionCIta {
      * @param cita Objeto CitaDTO que contiene el nombre del paciente como criterio de búsqueda.
      * @return Lista de CitaDTO que coinciden con el nombre especificado, o null en caso de error.
      */
-    protected List<CitaDTO> obtenerCitaNombre(CitaDTO cita){
-        List<CitaDTO> citas = null;
+    protected List<CitasConPacienteDTO> obtenerCitaNombre(CitaDTO cita,PacienteDTO paciente){
+        List<CitasConPacienteDTO> citas = null;
         try {
-            citas = citaBO.consultarPorNombre(cita);
+            citas = citaBO.consultarPorNombre(cita,paciente);
         } catch (NegocioException e) {
             logger.log(Level.SEVERE, "Error al obtener citas por nombre");
         }
@@ -87,8 +89,8 @@ public class CGestionCIta {
      * @param cita Objeto CitaDTO que contiene la hora específica de interés.
      * @return Lista de CitaDTO programadas para esa hora, o null en caso de error.
      */
-    protected List<CitaDTO> obtenerCitaHora(CitaDTO cita){
-        List<CitaDTO> citas = null;
+    protected List<CitasConPacienteDTO> obtenerCitaHora(CitaDTO cita){
+        List<CitasConPacienteDTO> citas = null;
         try {
             citas = citaBO.consultarPorHora(cita);
         } catch (NegocioException e) {
@@ -109,7 +111,7 @@ public class CGestionCIta {
         try {
             citaC = citaBO.cancelarCita(cita);
         } catch (NegocioException e) {
-            logger.log(Level.SEVERE, "Error al cancelar cita");
+            logger.log(Level.SEVERE, "Error al cancelar cita" + e);
         }
         return citaC;
     }
@@ -127,7 +129,7 @@ public class CGestionCIta {
         try {
             citaR = citaBO.reasginarCita(citaReasigna, nueva);
         } catch (NegocioException e) {
-            logger.log(Level.SEVERE, "Error al reasignar cita");
+            logger.log(Level.SEVERE, "Error al reasignar cita" + e);
         }
         return citaR;
     }
@@ -144,7 +146,7 @@ public class CGestionCIta {
         try {
             citaV = citaBO.verificarFecha(cita);
         } catch (NegocioException e) {
-            logger.log(Level.SEVERE, "Error al verificar");
+            logger.log(Level.SEVERE, "Error al verificar" + e);
         }
         return citaV;
     }

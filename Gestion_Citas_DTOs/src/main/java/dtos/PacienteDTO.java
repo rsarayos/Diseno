@@ -16,6 +16,7 @@ import java.util.Objects;
 public class PacienteDTO {
     
     //Atributos de la clase
+    private String id;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -23,7 +24,7 @@ public class PacienteDTO {
     private int edad;
     private String telefono;
     private String correo;
-    private List<String> citas;
+    
 
     /**
      * Constructor vacío.
@@ -43,9 +44,8 @@ public class PacienteDTO {
      * @param edad Edad del paciente.
      * @param telefono Número de teléfono del paciente.
      * @param correo Correo electrónico del paciente.
-     * @param citas Lista de identificadores de citas asociadas al paciente.
      */
-    public PacienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo, List<String> citas) {
+    public PacienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, int edad, String telefono, String correo) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -53,7 +53,6 @@ public class PacienteDTO {
         this.edad = edad;
         this.telefono = telefono;
         this.correo = correo;
-        this.citas = citas;
     }
 
     /**
@@ -182,23 +181,7 @@ public class PacienteDTO {
         this.correo = correo;
     }
 
-    /**
-     * Devuelve la lista de identificadores de citas asociadas al paciente.
-     * 
-     * @return Lista de identificadores de citas.
-     */
-    public List<String> getCitas() {
-        return citas;
-    }
-
-    /**
-     * Establece la lista de identificadores de citas para el paciente.
-     * 
-     * @param citas La nueva lista de identificadores de citas a asignar.
-     */
-    public void setCitas(List<String> citas) {
-        this.citas = citas;
-    }
+    
 
     /**
      * Comprueba si este objeto PacienteDTO es igual a otro objeto.
