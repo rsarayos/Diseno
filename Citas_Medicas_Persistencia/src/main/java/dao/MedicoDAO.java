@@ -7,6 +7,7 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Updates.set;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import convertidorMapeo.ConvertidorMedico;
 import entidades.Medico;
@@ -172,8 +173,15 @@ public class MedicoDAO implements IMedicoDAO{
         MongoClient cliente = conexion.obtenerConexion();
         MongoCollection coleccionMedico = conexion.obtenerColeccion(cliente);
         
+        String cedula = medico.getCedulaProfesional();
+        
         try {
-            coleccionMedico.deleteOne(Filters.eq("cedula", medico.getCedulaProfesional()));
+            DeleteResult rs = coleccionMedico.deleteOne(Filters.eq("cedulaProfesional", cedula));
+            if (rs.getDeletedCount() > 0) {
+                logger.log(Level.INFO,"Se elimino al medico");
+            } else {
+                logger.log(Level.INFO,"No se elimino al medico");
+            }
             return medico;
         } catch (Exception e) {
             throw new PersistenciaException("Error al eliminar al medico");
