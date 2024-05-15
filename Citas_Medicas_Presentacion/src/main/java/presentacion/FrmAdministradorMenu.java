@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package presentacion;
 
 /**
@@ -105,7 +101,6 @@ public class FrmAdministradorMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmRegistrarMedico frmRegistrarMedico = new FrmRegistrarMedico(this, true);
         frmRegistrarMedico.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btnRegistroMedicoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

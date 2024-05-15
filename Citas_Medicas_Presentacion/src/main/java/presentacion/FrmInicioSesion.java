@@ -1,6 +1,10 @@
 package presentacion;
 
+import consultarMedico.FConsultarMedico;
+import consultarMedico.IConsultarMedico;
 import dtos.MedicoDTO;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import registroMedico.IRegistroMedico;
 import registroMedico.FRegistroMedico;
@@ -117,25 +121,27 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             String cedula = txtCedula.getText();
             String contra = txtContrasenia.getText();
 
-            IRegistroMedico reg = new FRegistroMedico();
-            MedicoDTO medico = reg.obtenerMedico(cedula);
+            IConsultarMedico conMed = new FConsultarMedico();
+            List<MedicoDTO> medicos = new LinkedList<>();
+            medicos = conMed.consultarMedicos();
 
-            if (medico != null) {
-                if (medico.getContrasenia().equals(contra)) {
-                    FrmMenuPrincipal frmPrincipal = new FrmMenuPrincipal(medico);
-                    frmPrincipal.setVisible(true);
-                    this.setVisible(false);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            if (!medicos.isEmpty()) {
+                for (MedicoDTO medico : medicos) {
+                    if (medico.getCedulaProfesional().equals(cedula)) {
+                        if (medico.getContrasenia().equals(contra)) {
+                            FrmMenuPrincipal frmPrincipal = new FrmMenuPrincipal(medico);
+                            frmPrincipal.setVisible(true);
+                            this.setVisible(false);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Contraseña incorrecta",
+                                    "Información", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontro al medico",
+                                "Información", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontro al medico",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Introducir informacion a los campos.",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
@@ -145,16 +151,8 @@ public class FrmInicioSesion extends javax.swing.JFrame {
      * @param evt Evento de acción generado al hacer clic en el botón "Registro".
      */
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        IRegistroMedico reg = new FRegistroMedico();
-        MedicoDTO medico = reg.obtenerMedico("12345678");
-        if (medico == null) {
-            reg.registrarMedico();
-            JOptionPane.showMessageDialog(this, "Registro exitoso: Usuario: 12345678 Contraseña: Contra",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Ya se registro al usuario previamente.",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
-        }
+        FrmRegistrarMedico frm = new FrmRegistrarMedico(this, true);
+        frm.setVisible(true);
     }//GEN-LAST:event_btnRegistroActionPerformed
 
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed

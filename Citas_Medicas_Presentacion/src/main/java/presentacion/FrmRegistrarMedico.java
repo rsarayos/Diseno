@@ -243,8 +243,6 @@ public class FrmRegistrarMedico extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        FrmAdministradorMenu administradorMenu = new FrmAdministradorMenu();
-        administradorMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
