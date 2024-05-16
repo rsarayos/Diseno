@@ -53,22 +53,26 @@ public class ConvertidorPaciente {
      */
     public Paciente DTOAEntidadCompleto(PacienteDTO p) {
 
-        List<DatosFiscales> datosFiscales = new LinkedList<>();
+        List<DatosFiscales> datosFiscales = null;
+        
+        if (p.getDatosFiscales() != null) {
+            datosFiscales = new LinkedList<>();
 
-        DatosFiscales datos = new DatosFiscales(
-                p.getDatosFiscales().get(0).getRazonSocial(),
-                p.getDatosFiscales().get(0).getRegimenFiscal(),
-                p.getDatosFiscales().get(0).getRFC(),
-                p.getDatosFiscales().get(0).getCalle(),
-                p.getDatosFiscales().get(0).getColonia(),
-                p.getDatosFiscales().get(0).getNumExterior(),
-                p.getDatosFiscales().get(0).getNumInterior(),
-                p.getDatosFiscales().get(0).getCodigoPostal(),
-                p.getDatosFiscales().get(0).getCiudad(),
-                p.getDatosFiscales().get(0).getMunicipio(),
-                p.getDatosFiscales().get(0).getEstado());
+            DatosFiscales datos = new DatosFiscales(
+                    p.getDatosFiscales().get(0).getRazonSocial(),
+                    p.getDatosFiscales().get(0).getRegimenFiscal(),
+                    p.getDatosFiscales().get(0).getRFC(),
+                    p.getDatosFiscales().get(0).getCalle(),
+                    p.getDatosFiscales().get(0).getColonia(),
+                    p.getDatosFiscales().get(0).getNumExterior(),
+                    p.getDatosFiscales().get(0).getNumInterior(),
+                    p.getDatosFiscales().get(0).getCodigoPostal(),
+                    p.getDatosFiscales().get(0).getCiudad(),
+                    p.getDatosFiscales().get(0).getMunicipio(),
+                    p.getDatosFiscales().get(0).getEstado());
 
-        datosFiscales.add(datos);
+            datosFiscales.add(datos);
+        }
 
         return new Paciente(
                 p.getID(),

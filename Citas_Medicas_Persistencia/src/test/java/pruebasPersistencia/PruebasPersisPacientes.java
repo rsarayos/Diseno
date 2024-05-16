@@ -36,15 +36,8 @@ public class PruebasPersisPacientes {
         
                 
         try {
-            Paciente pacientes = pacienteDAO.obtenerPacienteTelefono("6422352010");
-            List<DatosFiscales> df = new LinkedList<>();
-            DatosFiscales f = new DatosFiscales();
-            f.setRazonSocial("dfsadfasf");
-            f.setEstado("sadfasg");
-            df.add(f);
-            pacientes.setDatosFiscales(df);
-            Paciente pacienteNuevo = pacienteDAO.agregarDatosFiscales(pacientes);
-            System.out.println(pacienteNuevo);
+            Paciente paciente = pacienteDAO.obtenerPaciente("6642f2b2c3d9ac7e9f6fda20");
+            System.out.println(paciente);
         } catch (PersistenciaException ex) {
             Logger.getLogger(PruebasPersisPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }

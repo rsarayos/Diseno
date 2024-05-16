@@ -33,4 +33,23 @@ public interface ICitaDAO {
      */
     public Cita consultarConFecha(Calendar fecha, Medico medico) throws PersistenciaException;
     
+    /**
+     * Cancela una cita existente.
+     * 
+     * @param citaCancelar Cita a cancelar.
+     * @return Cita cancelada.
+     * @throws PersistenciaException Si ocurre un error durante la cancelación.
+     */
+    public Cita cancelarCita(Cita citaCancelar) throws PersistenciaException;
+
+    /**
+     * Reasigna una cita a una nueva fecha u hora.
+     * 
+     * @param citaReasignar Cita original a reasignar.
+     * @param nueva Nueva cita con los detalles de reasignación.
+     * @return Cita reasignada.
+     * @throws PersistenciaException Si ocurre un error durante la reasignación.
+     */
+    public Cita ReasignarCita(Cita citaReasignar, Cita nueva) throws PersistenciaException;
+    
 }

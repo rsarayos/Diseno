@@ -13,8 +13,14 @@ import entidades.Medico;
 import entidades.Paciente;
 import excepcionesPersistencia.PersistenciaException;
 import convertidores.ConvertidorCita;
+import convertidores.ConvertidorCitaConPaciente;
+import dao.CitaConPacienteDAO;
 import dao.ConstantesPersistencia;
+import dao.ICitaConPacienteDAO;
+import dtos.CitaConPacienteDTO;
 import dtos.CitaDTO;
+import entidades.CitaConPaciente;
+import entidadesMapeo.CitaConPacienteMapeo;
 import entidadesMapeo.CitaMapeo;
 import entidadesMapeo.MedicoMapeo;
 import entidadesMapeo.PacienteMapeo;
@@ -22,7 +28,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import excepcionesNegocio.NegocioException;
 import excepcionesNegocio.ValidacionException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Clase que implementa la lógica de negocio relacionada con las citas médicas.
@@ -31,33 +39,59 @@ import java.util.Calendar;
  * Utiliza instancias de ICitaDAO, IPacienteDAO y IMedicoDAO para interactuar con la capa de persistencia.
  * 
  */
-public class CitaNegocio implements ICitaNegocio{
-    
-    /** Instancia para interactuar con la capa de persistencia para las citas médicas. */
+public class CitaNegocio implements ICitaNegocio {
+
+    /**
+     * Instancia para interactuar con la capa de persistencia para las citas
+     * médicas.
+     */
     private final ICitaDAO citaDAO;
-    
-    /** Instancia para interactuar con la capa de persistencia para los pacientes. */
+
+    /**
+     * Instancia para interactuar con la capa de persistencia para los
+     * pacientes.
+     */
     private final IPacienteDAO pacienteDAO;
-    
-    /** Instancia para interactuar con la capa de persistencia para los médicos. */
+
+    /**
+     * Instancia para interactuar con la capa de persistencia para los médicos.
+     */
     private final IMedicoDAO medicoDAO;
-    
-    /** Instancia del convertidor de citas para convertir entre entidades y DTO. */
+
+    /**
+     * Instancia para interactuar con la capa de persistencia.
+     */
+    private final ICitaConPacienteDAO citaPacienteDAO;
+
+    /**
+     * Instancia del convertidor de citas para convertir entre entidades y DTO.
+     */
     private ConvertidorCita convCita;
-    
-    /** Logger para registrar mensajes de error y depuración. */
+
+    /**
+     * Instancia del convertidor de citas con pacientes, para convertir entre
+     * entidades y DTO.
+     */
+    private ConvertidorCitaConPaciente convCitaPac;
+
+    /**
+     * Logger para registrar mensajes de error y depuración.
+     */
     static final Logger logger = Logger.getLogger(CitaNegocio.class.getName());
 
     /**
      * Constructor de la clase CitaNegocio.
-     * 
-     * Crea una instancia de CitaNegocio y inicializa las instancias de conexión y los DAO necesarios para interactuar con la capa de persistencia.
+     *
+     * Crea una instancia de CitaNegocio y inicializa las instancias de conexión
+     * y los DAO necesarios para interactuar con la capa de persistencia.
      */
     public CitaNegocio() {
         this.citaDAO = new CitaDAO(new Conexion(ConstantesPersistencia.colecciones.CITAS, CitaMapeo.class));
         this.pacienteDAO = new PacienteDAO(new Conexion(ConstantesPersistencia.colecciones.PACIENTES, PacienteMapeo.class));
         this.medicoDAO = new MedicoDAO(new Conexion(ConstantesPersistencia.colecciones.MEDICOS, MedicoMapeo.class));
+        this.citaPacienteDAO = new CitaConPacienteDAO(new Conexion(ConstantesPersistencia.colecciones.CITAS, CitaConPacienteMapeo.class));
         this.convCita = new ConvertidorCita();
+        this.convCitaPac = new ConvertidorCitaConPaciente();
     }
 
     @Override
@@ -120,5 +154,105 @@ public class CitaNegocio implements ICitaNegocio{
             throw new NegocioException("Error al buscar la cita", ex);
         }
     }
-    
+
+    @Override
+    public List<CitaConPacienteDTO> obtenerCitas(CitaDTO cita) throws NegocioException {
+        List<CitaConPacienteDTO> citas = new ArrayList<>();
+        List<CitaConPaciente> citasC;
+        try {
+            citasC = citaPacienteDAO.obtenerCitas(convCita.DTOAEntidad(cita));
+        } catch (PersistenciaException e) {
+            logger.log(Level.SEVERE, "Error al obtener citas");
+            throw new NegocioException("Error al obtener las citas", e);
+        }
+        if (!citasC.isEmpty()) {
+            for (CitaConPaciente c : citasC) {
+                citas.add(convCitaPac.EntidadaADTO(c));
+            }
+        }
+        return citas;
+    }
+
+    @Override
+    public List<CitaConPacienteDTO> consultarPorFecha(CitaDTO cita) throws NegocioException {
+        List<CitaConPacienteDTO> citas = new ArrayList<>();
+        List<CitaConPaciente> citasC;
+        try {
+            citasC = citaPacienteDAO.consultarPorFecha(convCita.DTOAEntidad(cita));
+        } catch (PersistenciaException e) {
+            logger.log(Level.SEVERE, "Error al obtener citas por fecha");
+            throw new NegocioException("Error al obtener las citas por fecha", e);
+        }
+        if (!citasC.isEmpty()) {
+            for (CitaConPaciente c : citasC) {
+                citas.add(convCitaPac.EntidadaADTO(c));
+            }
+        }
+        return citas;
+    }
+
+    @Override
+    public List<CitaConPacienteDTO> consultarPorNombre(String cedula, String nombrePaciente) throws NegocioException {
+        List<CitaConPacienteDTO> citas = new ArrayList<>();
+        List<CitaConPaciente> citasC;
+        try {
+            citasC = citaPacienteDAO.consultarPorNombre(cedula, nombrePaciente);
+        } catch (PersistenciaException e) {
+            logger.log(Level.SEVERE, "Error al obtener citas por nombre");
+            throw new NegocioException("Error al obtener las citas por nombre", e);
+        }
+        if (!citasC.isEmpty()) {
+            for (CitaConPaciente c : citasC) {
+                citas.add(convCitaPac.EntidadaADTO(c));
+            }
+        }
+        return citas;
+    }
+
+    @Override
+    public List<CitaConPacienteDTO> consultarPorHora(CitaDTO cita) throws NegocioException {
+        List<CitaConPacienteDTO> citas = new ArrayList<>();
+        List<CitaConPaciente> citasC;
+        try {
+            citasC = citaPacienteDAO.consultaPorHora(convCita.DTOAEntidad(cita));
+        } catch (PersistenciaException e) {
+            logger.log(Level.SEVERE, "Error al obtener citas por hora");
+            throw new NegocioException("Error al obtener las citas por hora", e);
+        }
+        if (!citasC.isEmpty()) {
+            for (CitaConPaciente c : citasC) {
+                citas.add(convCitaPac.EntidadaADTO(c));
+            }
+        }
+        return citas;
+    }
+
+    @Override
+    public CitaDTO cancelarCita(CitaDTO cita) throws NegocioException {
+        CitaDTO persistencia = null;
+        Cita resultado;
+        try {
+            resultado = citaDAO.cancelarCita(convCita.DTOAEntidad(cita));
+            persistencia = convCita.EntidadaADTO(resultado);
+        } catch (PersistenciaException e) {
+            logger.log(Level.SEVERE, "Error al cancelar cita");
+            throw new NegocioException("Error al obtener las citas por hora", e);
+        }
+        return persistencia;
+    }
+
+    @Override
+    public CitaDTO reasginarCita(CitaDTO citaReasigna, CitaDTO nueva) throws NegocioException {
+        CitaDTO persistencia = null;
+        Cita resultado;
+        try {
+            resultado = citaDAO.ReasignarCita(convCita.DTOAEntidad(citaReasigna), convCita.DTOAEntidad(nueva));
+            persistencia = convCita.EntidadaADTO(resultado);
+        } catch (PersistenciaException e) {
+            logger.log(Level.SEVERE, "Error al cancelar cita");
+            throw new NegocioException("Error al obtener las citas por hora", e);
+        }
+        return persistencia;
+    }
+
 }

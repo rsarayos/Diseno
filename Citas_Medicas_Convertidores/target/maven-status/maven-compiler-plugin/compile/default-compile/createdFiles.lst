@@ -3,3 +3,4 @@ convertidores\ConvertidorPaciente.class
 convertidores\ConvertidorCita.class
 convertidores\ConvertidorFactura.class
 convertidores\ConvertidorReceta.class
+convertidores\ConvertidorCitaConPaciente.class

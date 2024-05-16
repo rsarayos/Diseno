@@ -1,11 +1,10 @@
 package dtos;
 
-import java.util.Calendar;
 import excepcionesNegocio.ValidacionException;
 import java.util.Date;
 
 /**
- * Clase que representa un objeto de transferencia de datos (DTO) para una cita médica.
+ * Clase que representa un objeto de transferencia de datos (DTO) para una cita médica con un PacienteDTO.
  * 
  * Un objeto CitaDTO contiene información sobre la fecha y hora de la cita,
  * el médico asociado, el paciente asociado, las observaciones y el estado de la cita.
@@ -14,7 +13,7 @@ import java.util.Date;
  * así como para validar si la cita es válida.
  * 
  */
-public class CitaDTO {
+public class CitaConPacienteDTO {
     
     /**
      * Fecha y hora de la cita.
@@ -29,7 +28,7 @@ public class CitaDTO {
     /**
      * Paciente asociado a la cita.
      */
-    private String idPaciente;
+    private PacienteDTO paciente;
     
     /**
      * Observaciones de la cita.
@@ -41,7 +40,10 @@ public class CitaDTO {
      */
     private Boolean estado;
 
-    public CitaDTO() {
+    /**
+     * Constructor por defecto
+     */
+    public CitaConPacienteDTO() {
     }
 
     /**
@@ -49,7 +51,7 @@ public class CitaDTO {
      * @param fechaHora Fecha y hora de la cita
      * @param cedulaProfesional Cedula del medico relacionado a la cita
      */
-    public CitaDTO(Date fechaHora, String cedulaProfesional) {
+    public CitaConPacienteDTO(Date fechaHora, String cedulaProfesional) {
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
     }
@@ -58,14 +60,14 @@ public class CitaDTO {
      * Constructor para inicializar la clase con todos sus atributos.
      * @param fechaHora Fecha y hora de la cita
      * @param cedulaProfesional Cedula del medico relacionado a la cita
-     * @param idPaciente Id del paciente relacionado a la cita
+     * @param paciente Paciente relacionado a la cita
      * @param observaciones Observaciones de la cita
      * @param estado Estado de la cita
      */
-    public CitaDTO(Date fechaHora, String cedulaProfesional, String idPaciente, String observaciones, Boolean estado) {
+    public CitaConPacienteDTO(Date fechaHora, String cedulaProfesional, PacienteDTO paciente, String observaciones, Boolean estado) {
         this.fechaHora = fechaHora;
         this.cedulaProfesional = cedulaProfesional;
-        this.idPaciente = idPaciente;
+        this.paciente = paciente;
         this.observaciones = observaciones;
         this.estado = estado;
     }
@@ -77,22 +79,6 @@ public class CitaDTO {
      */
     public Date getFechaHora() {
         return fechaHora;
-    }
-
-    public void setCedulaProfesional(String cedulaProfesional) {
-        this.cedulaProfesional = cedulaProfesional;
-    }
-
-    public void setFechaHora(Date fechaHora) {
-        this.fechaHora = fechaHora;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
     }
 
     /**
@@ -109,8 +95,8 @@ public class CitaDTO {
      * 
      * @return El paciente asociado a la cita.
      */
-    public String getIdPaciente() {
-        return idPaciente;
+    public PacienteDTO getPaciente() {
+        return paciente;
     }
 
     /**

@@ -35,7 +35,6 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
-        btnRegistro = new javax.swing.JButton();
         btnIniciarSesion = new javax.swing.JButton();
         txtContrasenia = new javax.swing.JPasswordField();
         btnAdmin = new javax.swing.JButton();
@@ -62,15 +61,6 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         txtCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 50, 220, 25));
 
-        btnRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnRegistro.setText("Registro");
-        btnRegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistroActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 120, 35));
-
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnIniciarSesion.setText("Iniciar Sesion");
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -90,9 +80,9 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 btnAdminActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 140, 35));
+        jPanel1.add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 140, 35));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 440, 290));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 440, 230));
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -145,26 +135,14 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    /**
-     * Método que se ejecuta al hacer clic en el botón "Registro".
-     * Intenta registrar un nuevo médico y muestra un mensaje de éxito o error.
-     * @param evt Evento de acción generado al hacer clic en el botón "Registro".
-     */
-    private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        FrmRegistrarMedico frm = new FrmRegistrarMedico(this, true);
-        frm.setVisible(true);
-    }//GEN-LAST:event_btnRegistroActionPerformed
-
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         FrmAdministradorLogin frmAdmin = new FrmAdministradorLogin();
         frmAdmin.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btnAdminActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnIniciarSesion;
-    private javax.swing.JButton btnRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
