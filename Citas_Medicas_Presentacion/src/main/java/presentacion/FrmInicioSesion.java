@@ -122,13 +122,12 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                             FrmMenuPrincipal frmPrincipal = new FrmMenuPrincipal(medico);
                             frmPrincipal.setVisible(true);
                             this.setVisible(false);
+                            break;
                         } else {
                             JOptionPane.showMessageDialog(this, "Contraseña incorrecta",
                                     "Información", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(this, "No se encontro al medico",
-                                "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
