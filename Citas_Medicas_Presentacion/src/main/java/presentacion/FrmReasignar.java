@@ -178,6 +178,7 @@ public class FrmReasignar extends javax.swing.JDialog {
                     citaNueva.setCedulaProfesional(this.citaAnterior.getCedulaMedico());
                     citaNueva.setFechaHora(date);
                     citaNueva.setEstado(true);
+                    citaNueva.setIdPaciente(this.citaAnterior.getIdPaciente());
 
                     CitaDTO citaExistente = agendar.consultarDisponibilidadCita(citaNueva);
                     if (citaExistente == null) {
@@ -203,6 +204,9 @@ public class FrmReasignar extends javax.swing.JDialog {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         if (confirmacion) {
+            System.out.println(citaAnterior.getId());
+            System.out.println(citaAnterior.getIdPaciente());
+            System.out.println(citaNueva.getIdPaciente());
             CitaDTO actualizada=gestion.reasignarCita(citaAnterior, citaNueva);
             if (actualizada!=null) {
                 JOptionPane.showMessageDialog(null, "Se ha reasignado la cita");

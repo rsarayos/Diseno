@@ -44,6 +44,15 @@ public class CitaMapeo {
     public CitaMapeo() {
     }
 
+    public CitaMapeo(ObjectId _id, Date fechaHora, String cedulaProfesional, ObjectId idPaciente, String observacion, Boolean estado) {
+        this._id = _id;
+        this.fechaHora = fechaHora;
+        this.cedulaProfesional = cedulaProfesional;
+        this.idPaciente = idPaciente;
+        this.observacion = observacion;
+        this.estado = estado;
+    }
+
     /**
      * Constructor para inicializar los atributos de la clase
      * @param fechaHora fecha y hora de la cita

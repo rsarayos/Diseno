@@ -63,10 +63,10 @@ public class FrmGestionPrincipal extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GESTION CITAS");
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("GESTION CITAS");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -92,19 +92,19 @@ public class FrmGestionPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(JtableCitas);
 
-        jLabel2.setText("CITAS MAS PROXIMAS");
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("CITAS MAS PROXIMAS");
 
-        btnConsultar.setText("Consultar citas");
         btnConsultar.setBackground(new java.awt.Color(204, 204, 204));
+        btnConsultar.setText("Consultar citas");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
             }
         });
 
-        btnRegresar.setText("Regresar");
         btnRegresar.setBackground(new java.awt.Color(204, 204, 204));
+        btnRegresar.setText("Regresar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -167,6 +167,7 @@ public class FrmGestionPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed

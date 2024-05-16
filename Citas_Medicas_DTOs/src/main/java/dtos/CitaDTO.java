@@ -16,6 +16,8 @@ import java.util.Date;
  */
 public class CitaDTO {
     
+    private String id;
+    
     /**
      * Fecha y hora de la cita.
      */
@@ -44,6 +46,15 @@ public class CitaDTO {
     public CitaDTO() {
     }
 
+    public CitaDTO(String id, Date fechaHora, String cedulaProfesional, String idPaciente, String observaciones, Boolean estado) {
+        this.id = id;
+        this.fechaHora = fechaHora;
+        this.cedulaProfesional = cedulaProfesional;
+        this.idPaciente = idPaciente;
+        this.observaciones = observaciones;
+        this.estado = estado;
+    }
+
     /**
      * Constructor para inicializar la clase con algunos atributos.
      * @param fechaHora Fecha y hora de la cita
@@ -68,6 +79,14 @@ public class CitaDTO {
         this.idPaciente = idPaciente;
         this.observaciones = observaciones;
         this.estado = estado;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -111,6 +130,10 @@ public class CitaDTO {
      */
     public String getIdPaciente() {
         return idPaciente;
+    }
+
+    public void setIdPaciente(String idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
     /**

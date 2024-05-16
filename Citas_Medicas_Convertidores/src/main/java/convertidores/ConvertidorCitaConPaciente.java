@@ -33,6 +33,20 @@ public class ConvertidorCitaConPaciente {
         
         Paciente paciente = conv.DTOAEntidadCompleto(c.getPaciente());
         
+        if (c.getId() != null) {
+            CitaConPaciente cita = new CitaConPaciente(
+                    c.getFechaHora(),
+                    c.getCedulaMedico(),
+                    paciente,
+                    c.getObservaciones(),
+                    c.getEstado()
+            );
+            cita.setId(c.getId());
+
+            return cita;
+
+        }
+        
         return new CitaConPaciente(
                 c.getFechaHora(), 
                 c.getCedulaMedico(), 
@@ -54,6 +68,7 @@ public class ConvertidorCitaConPaciente {
             PacienteDTO paciente = conv.EntidadaADTO(c.getPaciente());
             
             return new CitaConPacienteDTO(
+                    c.getId(),
                     c.getFechaHora(),
                     c.getCedulaProfesional(),
                     paciente,

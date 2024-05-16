@@ -1,5 +1,7 @@
 package presentacion;
 
+import agendarCita.FAgendarCita;
+import agendarCita.IAgendarCita;
 import dtos.CitaConPacienteDTO;
 import dtos.CitaDTO;
 import dtos.PacienteDTO;
@@ -37,6 +39,7 @@ public class FrmConsulta extends javax.swing.JDialog {
     private String cedula;
     private CitaDTO cita;
     private IGestionCita gestion;
+    private IAgendarCita agendar;
 
     /**
      * Creates new form FrmConsulta
@@ -48,6 +51,7 @@ public class FrmConsulta extends javax.swing.JDialog {
         cita = new CitaDTO();
         cita.setCedulaProfesional(cedula);
         gestion = new FGestionCita();
+        this.agendar = new FAgendarCita();
         accionesTabla(gestion.obtenerCitas(cita));
     }
 
@@ -391,7 +395,9 @@ public class FrmConsulta extends javax.swing.JDialog {
                     cita.setCedulaProfesional(cedula);
                     cita.setFechaHora(date);
                     cita.setEstado(true);
-                    FrmReasignar reasig = new FrmReasignar(null, true, cita);
+                    
+                    CitaDTO c = agendar.consultarDisponibilidadCita(cita);
+                    FrmReasignar reasig = new FrmReasignar(null, true, c);
                     reasig.setVisible(true);
                     reasig.addWindowListener(new java.awt.event.WindowAdapter() {
                         @Override
@@ -412,13 +418,13 @@ public class FrmConsulta extends javax.swing.JDialog {
     }//GEN-LAST:event_btnReasignarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        int filaSeleccionada=JtableCitas.getSelectedRow();
+        int filaSeleccionada = JtableCitas.getSelectedRow();
 
         if (filaSeleccionada != -1) {
             String horaStr = JtableCitas.getValueAt(filaSeleccionada, 0).toString();
             String fechaStr = JtableCitas.getValueAt(filaSeleccionada, 1).toString();
-            String estado= JtableCitas.getValueAt(filaSeleccionada, 4).toString();
-            String cedula=this.cedula;
+            String estado = JtableCitas.getValueAt(filaSeleccionada, 4).toString();
+            String cedula = this.cedula;
             if ("Activo".equals(estado)) {
                 int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea cancelar esta cita?", "Confirmar Cancelación", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
@@ -428,26 +434,28 @@ public class FrmConsulta extends javax.swing.JDialog {
                         inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));  // Configura la zona horaria a UTC para el parseo
 
                         Date date = inputFormat.parse(fechaStr + " " + horaStr);
-                        CitaDTO citaEliminar=new CitaDTO();
+                        CitaDTO citaEliminar = new CitaDTO();
                         citaEliminar.setCedulaProfesional(cedula);
                         citaEliminar.setFechaHora(date);
                         citaEliminar.setEstado(true);
 
-                        CitaDTO citaEliminada=gestion.cancelarCita(citaEliminar);
+                        CitaDTO c = agendar.consultarDisponibilidadCita(citaEliminar);
+
+                        CitaDTO citaEliminada = gestion.cancelarCita(c);
                         accionesTabla(gestion.obtenerCitas(this.cita));
-                        if (citaEliminada!=null) {
+                        if (citaEliminada != null) {
                             JOptionPane.showMessageDialog(null, "La cita seleccionada se ha cancelada");
-                        }else{
+                        } else {
                             JOptionPane.showMessageDialog(null, "La cita no se pudo cancelar");
                         }
                     } catch (ParseException e) {
                         System.out.println("Error al parsear la fecha: " + e.getMessage());
                     }
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "La cita seleccionada ya esta cancelada");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado una cita");
         }
     }//GEN-LAST:event_btnCancelarActionPerformed

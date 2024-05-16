@@ -30,15 +30,29 @@ public class ConvertidorCita {
      * @return Un objeto de tipo Cita resultante de la conversión.
      */
     public Cita DTOAEntidad(CitaDTO c) {
-        
+
+        if (c.getId() != null) {
+            Cita cita = new Cita(
+                    c.getFechaHora(),
+                    c.getCedulaMedico(),
+                    c.getIdPaciente(),
+                    c.getObservaciones(),
+                    c.getEstado()
+            );
+            cita.setId(c.getId());
+
+            return cita;
+
+        }
+
         return new Cita(
-                c.getFechaHora(), 
-                c.getCedulaMedico(), 
-                c.getIdPaciente(), 
-                c.getObservaciones(), 
+                c.getFechaHora(),
+                c.getCedulaMedico(),
+                c.getIdPaciente(),
+                c.getObservaciones(),
                 c.getEstado()
         );
-        
+
     }
     
     /**
@@ -52,9 +66,10 @@ public class ConvertidorCita {
         if (c != null) {
             
             return new CitaDTO(
+                    c.getId(),
                     c.getFechaHora(),
                     c.getCedulaProfesional(),
-                    c.getId(),
+                    c.getIdPaciente(),
                     c.getObservacion(),
                     c.getEstado()
             );

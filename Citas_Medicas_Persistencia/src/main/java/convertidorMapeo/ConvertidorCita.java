@@ -18,6 +18,18 @@ public class ConvertidorCita {
         
         ObjectId idPac = new ObjectId(cita.getIdPaciente());
         
+        if (cita.getId() != null) {
+            ObjectId idCit = new ObjectId(cita.getId());
+
+            return new CitaMapeo(
+                    idCit,
+                    cita.getFechaHora(),
+                    cita.getCedulaProfesional(),
+                    idPac,
+                    cita.getObservacion(),
+                    cita.getEstado());
+        }
+        
         return new CitaMapeo(
                 cita.getFechaHora(),
                 cita.getCedulaProfesional(),
