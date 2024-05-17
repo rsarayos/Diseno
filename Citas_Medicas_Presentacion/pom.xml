@@ -125,7 +125,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>${exec.mainClass}</mainClass>
+                            <mainClass>presentacion.Principal</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
